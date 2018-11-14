@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
@@ -26,7 +26,7 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(
       appRoutes,
-      {enableTracing: true} // <-- debugging purposes only
+      { enableTracing: true } // <-- debugging purposes only
     ),
     InternshipsModule
   ],
