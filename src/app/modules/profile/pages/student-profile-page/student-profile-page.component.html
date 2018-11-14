@@ -1,0 +1,29 @@
+<div class="container content" *ngIf="studentProfile">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Prenume: {{studentProfile.firstName}}</h3>
+    </div>
+    <div class="col-md-6">
+      <h3>Nume: {{studentProfile.lastName}}</h3>
+    </div>
+
+
+  </div>
+  <h3>Facultate: {{studentProfile.faculty}}</h3>
+  <h3>Telefon: {{studentProfile.phone}}</h3>
+  <h3>Email: {{studentProfile.email}}</h3>
+  <h3>Linkedin: <a href={{studentProfile.linkedinPage}}> {{studentProfile.linkedinPage}}</a></h3>
+  <h3>Facebook: <a href={{studentProfile.facebookPage}}> {{studentProfile.facebookPage}}</a></h3>
+  <p> {{studentProfile.description}}</p>
+
+  <button mat-raised-button (click)="openDialog()">Edit</button>
+
+  <!--<div><span>id: </span>{{hero.id}}</div>-->
+  <!--<div>-->
+    <!--<label>name:-->
+      <!--<input [(ngModel)]="hero.name" placeholder="name">-->
+    <!--</label>-->
+  <!--</div>-->
+  <!--<button (click)="save()">save</button>-->
+  <!--<button (click)="goBack()">go back</button>-->
+</div>

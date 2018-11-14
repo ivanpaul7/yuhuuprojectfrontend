@@ -8,7 +8,7 @@ import {environment} from '../environments/environment';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(@Inject(DOCUMENT) private _document:HTMLDocument){
+  constructor(@Inject(DOCUMENT) private _document: HTMLDocument ) {
     _document.getElementById('titleID').innerText = environment.titleEnvironment;
   }
 }
