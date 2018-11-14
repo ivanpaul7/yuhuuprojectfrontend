@@ -1,10 +1,12 @@
-import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
-import {AppComponent} from './app.component';
-import {RouterModule, Routes} from '@angular/router';
-import {LoginPageComponent} from './modules/login/pages/login-page/login-page.component';
-import {DashboardPageComponent} from './modules/dashboard/pages/dashboard-page/dashboard-page.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
+import { DashboardPageComponent } from './modules/dashboard/pages/dashboard-page/dashboard-page.component';
+import { InternshipListItemComponent } from './modules/internships/internship-list/internship-list-item/internship-list-item.component';
+import { InternshipListComponent } from './modules/internships/internship-list/internship-list.component';
+import { LoginPageComponent } from './modules/login/pages/login-page/login-page.component';
+import { InternshipsModule } from './modules/internships/internships.module';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginPageComponent},
@@ -16,14 +18,17 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginPageComponent,
-    DashboardPageComponent
+    DashboardPageComponent,
+    InternshipListComponent,
+    InternshipListItemComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true} // <-- debugging purposes only
-    )
+    ),
+    InternshipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
