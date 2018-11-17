@@ -5,6 +5,9 @@ import {AppComponent} from './app.component';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginPageComponent} from './modules/login/pages/login-page/login-page.component';
 import {DashboardPageComponent} from './modules/dashboard/pages/dashboard-page/dashboard-page.component';
+import {LoginModule} from './modules/login/login.module';
+import { ClarityModule } from '@clr/angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginPageComponent},
@@ -16,14 +19,15 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginPageComponent,
-    DashboardPageComponent
+    DashboardPageComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true} // <-- debugging purposes only
-    )
+    ),
+    LoginModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
