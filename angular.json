@@ -23,9 +23,14 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/@webcomponents/custom-elements/custom-elements.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -33,6 +38,23 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            },
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
                 }
               ],
               "optimization": true,
@@ -55,6 +77,9 @@
           "configurations": {
             "production": {
               "browserTarget": "YuHuuFrontEnd:build:production"
+            },
+            "development": {
+              "browserTarget": "YuHuuFrontEnd:build:development"
             }
           }
         },
@@ -108,6 +133,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "YuHuuFrontEnd:serve:production"
+            },
+            "development": {
+              "devServerTarget": "YuHuuFrontEnd:serve:development"
             }
           }
         },
