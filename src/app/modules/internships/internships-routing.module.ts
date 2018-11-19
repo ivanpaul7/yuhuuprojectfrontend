@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InternshipListComponent } from './internship-list/internship-list.component';
-import { InternshipListItemComponent } from './internship-list/internship-list-item/internship-list-item.component';
+import { InternshipListComponent } from './components/internship-list/internship-list.component';
+import { InternshipListItemComponent } from './components/internship-list-item/internship-list-item.component';
 
 const internshipsRoutes: Routes = [
   {
