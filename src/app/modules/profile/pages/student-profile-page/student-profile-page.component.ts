@@ -9,6 +9,7 @@ import { StudentProfile} from '../../services/StudentProfile';
 import { StudentProfileService} from '../../services/student-profile.service';
 import {MatDialog} from '@angular/material';
 import {StudentProfileEditComponentComponent} from '../../components/student-profile-edit-component/student-profile-edit-component.component';
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-student-profile-page',
