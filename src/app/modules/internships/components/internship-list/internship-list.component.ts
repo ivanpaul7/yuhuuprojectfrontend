@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Internship } from '../../services/internships.model';
-import { IntersnhipsService } from '../../services/internships.service';
+import { InternshipsService } from '../../services/internships.service';
 
 @Component({
   selector: 'app-internship-list',
@@ -10,7 +10,7 @@ import { IntersnhipsService } from '../../services/internships.service';
 export class InternshipListComponent implements OnInit {
   internships: Internship[];
 
-  constructor(private internshipsService: IntersnhipsService) { }
+  constructor(private internshipsService: InternshipsService) { }
 
   ngOnInit() {
     this.internships = this.internshipsService.getInternships();
