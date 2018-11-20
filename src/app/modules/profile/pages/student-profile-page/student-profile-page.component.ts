@@ -5,10 +5,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { StudentProfile} from '../../StudentProfile';
-import { StudentProfileService} from '../../student-profile.service';
+import { StudentProfile} from '../../services/StudentProfile';
+import { StudentProfileService} from '../../services/student-profile.service';
 import {MatDialog} from '@angular/material';
-import {StudentProfileEditPageComponent} from '../student-profile-edit-page/student-profile-edit-page.component';
+import {StudentProfileEditComponentComponent} from '../../components/student-profile-edit-component/student-profile-edit-component.component';
 
 @Component({
   selector: 'app-student-profile-page',
@@ -38,7 +38,7 @@ export class StudentProfilePageComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(StudentProfileEditPageComponent, {
+    const dialogRef = this.dialog.open(StudentProfileEditComponentComponent, {
       width: '90%',
       data: { studentProfile: this.studentProfile }
     });

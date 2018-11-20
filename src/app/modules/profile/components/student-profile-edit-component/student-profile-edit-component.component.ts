@@ -1,17 +1,17 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MatFormField} from '@angular/material';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {StudentProfile} from '../../StudentProfile';
+import {StudentProfile} from '../../services/StudentProfile';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FormControl, FormGroup } from '@angular/forms';
-import {StudentProfileService} from '../../student-profile.service';
+import {StudentProfileService} from '../../services/student-profile.service';
 @Component({
-  selector: 'app-student-profile-edit-page',
-  templateUrl: './student-profile-edit-page.component.html',
-  styleUrls: ['./student-profile-edit-page.component.scss']
+  selector: 'app-student-profile-edit-component',
+  templateUrl: './student-profile-edit-component.component.html',
+  styleUrls: ['./student-profile-edit-component.component.scss']
 })
-export class StudentProfileEditPageComponent implements OnInit {
+export class StudentProfileEditComponentComponent implements OnInit {
   studentProfileTemp: StudentProfile;
   studentProfile: StudentProfile;
   lastName = new FormControl('');
@@ -29,7 +29,7 @@ export class StudentProfileEditPageComponent implements OnInit {
 
   constructor(
     private studentProfileService: StudentProfileService,
-    public dialogRef: MatDialogRef<StudentProfileEditPageComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+    public dialogRef: MatDialogRef<StudentProfileEditComponentComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
       this.studentProfile = data.studentProfile;
       this.studentProfileTemp = Object.assign({}, data.studentProfile);
   }

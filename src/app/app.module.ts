@@ -7,12 +7,12 @@ import {LoginPageComponent} from './modules/login/pages/login-page/login-page.co
 import {DashboardPageComponent} from './modules/dashboard/pages/dashboard-page/dashboard-page.component';
 import {StudentProfilePageComponent} from './modules/profile/pages/student-profile-page/student-profile-page.component';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './modules/profile/in-memory-data.service';
+import { InMemoryDataService } from './modules/profile/services/in-memory-data.service';
 import {HttpClientModule} from '@angular/common/http';
 
 import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {StudentProfileEditPageComponent} from './modules/profile/pages/student-profile-edit-page/student-profile-edit-page.component';
+import {StudentProfileEditComponentComponent} from './modules/profile/components/student-profile-edit-component/student-profile-edit-component.component';
 import {
   MatButtonModule, MatCheckboxModule, MatFormField, MatFormFieldModule, MatInput, MatInputModule, MatSelect,
   MatSelectModule
@@ -20,7 +20,6 @@ import {
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LoginModule} from './modules/login/login.module';
 import { ClarityModule } from '@clr/angular';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginPageComponent},
@@ -35,12 +34,12 @@ const appRoutes: Routes = [
     LoginPageComponent,
     DashboardPageComponent,
     StudentProfilePageComponent,
-    StudentProfileEditPageComponent
-    DashboardPageComponent,
+    StudentProfileEditComponentComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    LoginModule,
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: true} // <-- debugging purposes only
@@ -63,9 +62,7 @@ const appRoutes: Routes = [
     )
   ],
   entryComponents: [
-    StudentProfileEditPageComponent
-    ),
-    LoginModule,
+    StudentProfileEditComponentComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
