@@ -26,7 +26,6 @@ export class StudentProfileService {
 
   /** PUT: update the StudentProfile on the server */
   updateStudentProfile (studentProfile: StudentProfile): Observable<any> {
-    console.log(studentProfile);
     return this.http.put(this.studentsProfilesUrl, studentProfile, httpOptions).pipe(
       tap(_ => this.log(`ssupdated Student's Profile id=${studentProfile.id}`)),
       catchError(this.handleError<any>('updateStudentProfile'))

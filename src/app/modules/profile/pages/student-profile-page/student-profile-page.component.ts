@@ -45,5 +45,9 @@ export class StudentProfilePageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
     });
+
+    const sub = dialogRef.componentInstance.onEditSubmit.subscribe(() => {
+      this.getStudentProfile();
+    });
   }
 }
