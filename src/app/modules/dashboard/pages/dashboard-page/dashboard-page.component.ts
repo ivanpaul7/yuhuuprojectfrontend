@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {environment} from '../../../../../environments/environment';
-import {IEnvironment} from '../../../../../environments/IEnvironment/IEnvironment';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -10,7 +9,7 @@ import {IEnvironment} from '../../../../../environments/IEnvironment/IEnvironmen
 
 export class DashboardPageComponent implements OnInit {
 
-  public environment: IEnvironment;
+  public environment: any;
 
   constructor() {
     this.environment = environment;

@@ -18,6 +18,9 @@ import {
   MatSelectModule
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {LoginModule} from './modules/login/login.module';
+import { ClarityModule } from '@clr/angular';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginPageComponent},
@@ -33,6 +36,7 @@ const appRoutes: Routes = [
     DashboardPageComponent,
     StudentProfilePageComponent,
     StudentProfileEditPageComponent
+    DashboardPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +64,8 @@ const appRoutes: Routes = [
   ],
   entryComponents: [
     StudentProfileEditPageComponent
+    ),
+    LoginModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
