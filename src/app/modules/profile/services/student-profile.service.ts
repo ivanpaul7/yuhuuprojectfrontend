@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {StudentProfile} from './StudentProfile';
-import { catchError, map, tap } from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 
 @Injectable({
@@ -13,7 +13,8 @@ const httpOptions = {
 })
 export class StudentProfileService {
   private studentsProfilesUrl = 'api/studentsProfiles';  // URL to web api
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   /** GET student profile by id. Will 404 if id not found */
   getStudentProfile(id: number): Observable<StudentProfile> {
@@ -25,7 +26,7 @@ export class StudentProfileService {
   }
 
   /** PUT: update the StudentProfile on the server */
-  updateStudentProfile (studentProfile: StudentProfile): Observable<any> {
+  updateStudentProfile(studentProfile: StudentProfile): Observable<any> {
     return this.http.put(this.studentsProfilesUrl, studentProfile, httpOptions).pipe(
       tap(_ => this.log(`ssupdated Student's Profile id=${studentProfile.id}`)),
       catchError(this.handleError<any>('updateStudentProfile'))
@@ -38,7 +39,7 @@ export class StudentProfileService {
    * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-  private handleError<T> (operation = 'operation', result?: T) {
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure

@@ -16,27 +16,12 @@ export class StudentProfileEditComponentComponent implements OnInit {
   @Output() onEditSubmit = new EventEmitter();
 
   studentProfileTemp: StudentProfile;
-  studentProfile: StudentProfile;
-  lastName = new FormControl('');
-
-  profileForm = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
-    faculty: new FormControl(''),
-    phone: new FormControl(''),
-    email: new FormControl(''),
-    linkedinPage: new FormControl(''),
-    facebookPage: new FormControl(''),
-    description: new FormControl('')
-  });
 
   constructor(
     private studentProfileService: StudentProfileService,
     public dialogRef: MatDialogRef<StudentProfileEditComponentComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
-      this.studentProfile = data.studentProfile;
       this.studentProfileTemp = Object.assign({}, data.studentProfile);
   }
-
 
   ngOnInit() {
   }
@@ -48,7 +33,6 @@ export class StudentProfileEditComponentComponent implements OnInit {
   onSaveClick() {
     this.studentProfileService.updateStudentProfile(this.studentProfileTemp)
       .subscribe(() => {
-        this.studentProfile = this.studentProfileTemp;
         this.onEditSubmit.emit();
         this.dialogRef.close();
       });

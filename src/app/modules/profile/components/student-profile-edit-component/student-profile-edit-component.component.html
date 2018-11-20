@@ -9,32 +9,31 @@
     </mat-form-field>
 
     <mat-form-field>
-      <textarea matInput placeholder="Descriere" value={{studentProfileTemp.description}}></textarea>
+      <textarea matInput [(ngModel)]="studentProfileTemp.description" placeholder="Descriere" value={{studentProfileTemp.description}}></textarea>
     </mat-form-field>
 
     <mat-form-field>
-      <mat-select placeholder="Facultate">
-        <mat-option value="option">Matematica si Informatica, UBB</mat-option>
-        <mat-option value="option">FSEGA, UBB</mat-option>
+      <mat-select [(ngModel)]="studentProfileTemp.faculty" placeholder="Facultate">
+        <mat-option value="Matematica si Informatica, UBB">Matematica si Informatica, UBB</mat-option>
+        <mat-option value="FSEGA, UBB">FSEGA, UBB</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Telefon" value={{studentProfileTemp.phone}}>
+      <input matInput [(ngModel)]="studentProfileTemp.phone" placeholder="Telefon" value={{studentProfileTemp.phone}}>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Email" value={{studentProfileTemp.email}}>
+      <input matInput [(ngModel)]="studentProfileTemp.email" placeholder="Email" value={{studentProfileTemp.email}}>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Linkedin" value={{studentProfileTemp.linkedinPage}}>
+      <input matInput [(ngModel)]="studentProfileTemp.linkedinPage" placeholder="Linkedin" value={{studentProfileTemp.linkedinPage}}>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Facebook" value={{studentProfileTemp.facebookPage}}>
+      <input matInput [(ngModel)]="studentProfileTemp.facebookPage" placeholder="Facebook" value={{studentProfileTemp.facebookPage}}>
     </mat-form-field>
   </div>
 </div>
-<div mat-dialog-actions>
+<div class="float-right" mat-dialog-actions>
   <button mat-button mat-dialog-close (click)="onNoClick()">Cancel</button>
   <button mat-raised-button (click)="onSaveClick()">Save</button>
-  <!--<button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>-->
 </div>
