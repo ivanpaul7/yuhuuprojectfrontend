@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-internships-page',
   templateUrl: './internships-page.component.html',
   styleUrls: ['./internships-page.component.scss']
 })
-export class InternshipsPageComponent implements OnInit {
+export class InternshipsPageComponent {
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }

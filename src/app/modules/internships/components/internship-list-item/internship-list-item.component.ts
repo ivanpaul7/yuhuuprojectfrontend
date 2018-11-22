@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Internship } from '../../services/internships.model';
 
 @Component({
@@ -6,13 +6,10 @@ import { Internship } from '../../services/internships.model';
   templateUrl: './internship-list-item.component.html',
   styleUrls: ['./internship-list-item.component.scss']
 })
-export class InternshipListItemComponent implements OnInit {
+export class InternshipListItemComponent {
   @Input() internship: Internship;
   @Input() index: number;
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }
