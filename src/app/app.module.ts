@@ -1,27 +1,24 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {RouterModule, Routes} from '@angular/router';
-import {HttpClientModule} from '@angular/common/http';
-import {MatDialogModule} from '@angular/material/dialog';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { AppComponent } from './app.component';
+import { DashboardPageComponent } from './modules/dashboard/pages/dashboard-page/dashboard-page.component';
+import { InternshipsModule } from './modules/internships/internships.module';
+import { InternshipsPageComponent } from './modules/internships/pages/internships-page/internships-page.component';
+import { LoginModule } from './modules/login/login.module';
+import { LoginPageComponent } from './modules/login/pages/login-page/login-page.component';
+import { StudentProfilePageComponent } from './modules/profile/pages/student-profile-page/student-profile-page.component';
+import { ProfileModule } from './modules/profile/profile.module';
 import { InMemoryDataService } from './modules/profile/services/in-memory-data.service';
 
-import {AppComponent} from './app.component';
-import {LoginPageComponent} from './modules/login/pages/login-page/login-page.component';
-import {LoginModule} from './modules/login/login.module';
-import {ProfileModule} from './modules/profile/profile.module';
-import {StudentProfilePageComponent} from './modules/profile/pages/student-profile-page/student-profile-page.component';
-import {DashboardPageComponent} from './modules/dashboard/pages/dashboard-page/dashboard-page.component';
-import {
-  MatButtonModule, MatCheckboxModule, MatFormField, MatFormFieldModule, MatInput, MatInputModule, MatSelect, MatSelectModule, MatCardModule
-} from '@angular/material';
-import { ClarityModule } from '@clr/angular';
-
-
 const appRoutes: Routes = [
+  {path: 'internships', component: InternshipsPageComponent},
   {path: 'login', component: LoginPageComponent},
   {path: 'dashboard', component: DashboardPageComponent},
   {path: 'profile/:id', component: StudentProfilePageComponent},
@@ -34,6 +31,7 @@ const appRoutes: Routes = [
     LoginPageComponent,
     DashboardPageComponent,
     StudentProfilePageComponent,
+    InternshipsPageComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +40,7 @@ const appRoutes: Routes = [
     ProfileModule,
     RouterModule.forRoot(
       appRoutes,
-      {enableTracing: true} // <-- debugging purposes only
+      { enableTracing: true } // <-- debugging purposes only
     ),
     FormsModule,
     MatCardModule,
@@ -66,6 +64,8 @@ const appRoutes: Routes = [
   ],
   exports: [
 
+    InternshipsModule,
+    LoginModule
   ],
   providers: [],
   bootstrap: [AppComponent]
