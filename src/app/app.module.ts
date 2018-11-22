@@ -8,10 +8,14 @@ import {DashboardPageComponent} from './modules/dashboard/pages/dashboard-page/d
 import {LoginModule} from './modules/login/login.module';
 import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { InternshipDetailsPageComponent } from './modules/internship-details/pages/internship-details-page/internship-details-page.component';
+import { InternshipDetailsModule } from './modules/internship-details/internship-details.module';
+import { importType } from '@angular/compiler/src/output/output_ast';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginPageComponent},
   {path: 'dashboard', component: DashboardPageComponent},
+  {path: 'internship/:id', component: InternshipDetailsPageComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];
 
@@ -20,6 +24,7 @@ const appRoutes: Routes = [
     AppComponent,
     LoginPageComponent,
     DashboardPageComponent,
+    InternshipDetailsPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,6 +33,7 @@ const appRoutes: Routes = [
       {enableTracing: true} // <-- debugging purposes only
     ),
     LoginModule,
+    InternshipDetailsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
