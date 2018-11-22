@@ -12,7 +12,7 @@ import {StudentProfileService} from '../../services/student-profile.service';
   templateUrl: './student-profile-edit-component.component.html',
   styleUrls: ['./student-profile-edit-component.component.scss']
 })
-export class StudentProfileEditComponentComponent implements OnInit {
+export class StudentProfileEditComponentComponent{
   @Output() onEditSubmit = new EventEmitter();
 
   studentProfileTemp: StudentProfile;
@@ -21,9 +21,6 @@ export class StudentProfileEditComponentComponent implements OnInit {
     private studentProfileService: StudentProfileService,
     public dialogRef: MatDialogRef<StudentProfileEditComponentComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
       this.studentProfileTemp = Object.assign({}, data.studentProfile);
-  }
-
-  ngOnInit() {
   }
 
   onNoClick() {
