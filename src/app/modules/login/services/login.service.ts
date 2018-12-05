@@ -28,7 +28,6 @@ export class MockLoginService implements AbstractLoginService {
   logout() {
   }
 
-
 }
 
 export class ServerLoginService implements AbstractLoginService {
