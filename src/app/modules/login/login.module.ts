@@ -4,9 +4,11 @@ import {LoginComponentComponent} from './components/login-component/login-compon
 import {RegisterComponentComponent} from './components/register-component/register-component.component';
 import {AbstractLoginService} from './services/login.service';
 import {environment} from '../../../environments/environment';
+import {AlertModule} from '../alert/alert.module';
 
 @NgModule({
   imports: [
+    AlertModule,
     CommonModule
   ],
   declarations: [LoginComponentComponent, RegisterComponentComponent],

@@ -16,6 +16,7 @@ import { LoginPageComponent } from './modules/login/pages/login-page/login-page.
 import { StudentProfilePageComponent } from './modules/profile/pages/student-profile-page/student-profile-page.component';
 import { ProfileModule } from './modules/profile/profile.module';
 import { InMemoryDataService } from './modules/profile/services/in-memory-data.service';
+import {AlertModule} from './modules/alert/alert.module';
 
 const appRoutes: Routes = [
   {path: 'internships', component: InternshipsPageComponent},
@@ -31,11 +32,12 @@ const appRoutes: Routes = [
     LoginPageComponent,
     DashboardPageComponent,
     StudentProfilePageComponent,
-    InternshipsPageComponent
+    InternshipsPageComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AlertModule,
     LoginModule,
     ProfileModule,
     RouterModule.forRoot(
@@ -53,21 +55,24 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
 
     HttpClientModule,
+
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    )
+
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false }
+    // )
   ],
   entryComponents: [
   ],
   exports: [
-
     InternshipsModule,
     LoginModule
   ],
-  providers: [],
+  providers: [
+    AlertModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

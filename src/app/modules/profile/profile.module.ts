@@ -12,6 +12,7 @@ import {
 } from '@angular/material';
 import { StudentProfileEditComponentComponent } from './components/student-profile-edit-component/student-profile-edit-component.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AlertModule} from '../alert/alert.module';
 
 @NgModule({
   imports: [
