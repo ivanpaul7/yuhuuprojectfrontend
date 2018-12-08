@@ -25,7 +25,7 @@ export class LoginComponentComponent implements OnInit {
   onLogin() {
     this.loginService.login(this.username, this.password).subscribe((isValid: boolean) => {
       if (isValid) {
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/dashboard/test1');
       } else {
 
       }

@@ -1,28 +1,33 @@
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
-import { MatDialogModule } from '@angular/material/dialog';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule, Routes } from '@angular/router';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { AppComponent } from './app.component';
-import { DashboardPageComponent } from './modules/dashboard/pages/dashboard-page/dashboard-page.component';
-import { InternshipsModule } from './modules/internships/internships.module';
-import { InternshipsPageComponent } from './modules/internships/pages/internships-page/internships-page.component';
-import { LoginModule } from './modules/login/login.module';
-import { LoginPageComponent } from './modules/login/pages/login-page/login-page.component';
-import { StudentProfilePageComponent } from './modules/profile/pages/student-profile-page/student-profile-page.component';
-import { ProfileModule } from './modules/profile/profile.module';
-import { InMemoryDataService } from './modules/profile/services/in-memory-data.service';
+import {HttpClientModule} from '@angular/common/http';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
+import {MatDialogModule} from '@angular/material/dialog';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterModule, Routes} from '@angular/router';
+import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
+import {AppComponent} from './app.component';
+import {DashboardPageComponent} from './modules/dashboard/pages/dashboard-page/dashboard-page.component';
+import {InternshipsModule} from './modules/internships/internships.module';
+import {InternshipsPageComponent} from './modules/internships/pages/internships-page/internships-page.component';
+import {LoginModule} from './modules/login/login.module';
+import {LoginPageComponent} from './modules/login/pages/login-page/login-page.component';
+import {StudentProfilePageComponent} from './modules/profile/pages/student-profile-page/student-profile-page.component';
+import {ProfileModule} from './modules/profile/profile.module';
+import {InMemoryDataService} from './modules/profile/services/in-memory-data.service';
+import {DashboardModule} from './modules/dashboard/dashboard.module';
 
 const appRoutes: Routes = [
-  {path: 'internships', component: InternshipsPageComponent},
-  {path: 'login', component: LoginPageComponent},
-  {path: 'dashboard', component: DashboardPageComponent},
-  {path: 'profile/:id', component: StudentProfilePageComponent},
-  {path: '', redirectTo: '/login', pathMatch: 'full'}
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: 'internships', component: InternshipsPageComponent, pathMatch: 'full'},
+  {path: 'login', component: LoginPageComponent, pathMatch: 'full'},
+  {
+    path: 'dashboard',
+    component:DashboardPageComponent,
+    loadChildren: './modules/dashboard/dashboard.module#DashboardModule'
+  },
+  {path: 'profile/:id', component: StudentProfilePageComponent, pathMatch: 'full'}
 ];
 
 @NgModule({
@@ -40,8 +45,9 @@ const appRoutes: Routes = [
     ProfileModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      {} // <-- debugging purposes only
     ),
+    DashboardModule,
     FormsModule,
     MatCardModule,
     MatButtonModule,
@@ -57,11 +63,10 @@ const appRoutes: Routes = [
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
+      InMemoryDataService, {dataEncapsulation: false}
     )
   ],
-  entryComponents: [
-  ],
+  entryComponents: [],
   exports: [
 
     InternshipsModule,

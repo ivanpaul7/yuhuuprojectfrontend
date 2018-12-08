@@ -1,5 +1,22 @@
-<p>
-  dashboard-page works + {{environment.environmentTestText}}
-</p>
+<!--<nav class="navbar navbar-fixed-top navbar-dark bg-inverse">-->
+<!--<div class="container">-->
+<!--<a class="navbar-brand">Angular Router</a>-->
+<!--<ul class="nav navbar-nav" routerLinkActive="active">-->
+<!--<li class="nav-item nav-link" routerLinkActive="active" *ngFor="let item of menuNavBar"-->
+<!--[routerLink]="['./' + item.path]">{{item.title}}</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</nav>-->
+<div class="col-md-12">
+  <div class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLinkActive="active" *ngFor="let item of menuNavBar;let i = index"
+           [ngClass]="{'active':i == 0}"
+           [routerLink]="['./' + item.path]">{{item.title}}</a>
+      </div>
+    </div>
+  </div>
+</div>
 
-<img src="{{environment.imageTestLink}}">
+<router-outlet></router-outlet>
