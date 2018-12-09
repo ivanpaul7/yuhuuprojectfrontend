@@ -13,14 +13,17 @@ import { InternshipsModule } from './modules/internships/internships.module';
 import { InternshipsPageComponent } from './modules/internships/pages/internships-page/internships-page.component';
 import { LoginModule } from './modules/login/login.module';
 import { LoginPageComponent } from './modules/login/pages/login-page/login-page.component';
+import {RegisterPageComponent} from './modules/login/pages/register-page/register-page.component';
 import { StudentProfilePageComponent } from './modules/profile/pages/student-profile-page/student-profile-page.component';
 import { ProfileModule } from './modules/profile/profile.module';
 import { InMemoryDataService } from './modules/profile/services/in-memory-data.service';
 import {AlertModule} from './modules/alert/alert.module';
 
+
 const appRoutes: Routes = [
   {path: 'internships', component: InternshipsPageComponent},
   {path: 'login', component: LoginPageComponent},
+  {path: 'register', component: RegisterPageComponent},
   {path: 'dashboard', component: DashboardPageComponent},
   {path: 'profile/:id', component: StudentProfilePageComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'}
@@ -30,6 +33,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginPageComponent,
+    RegisterPageComponent,
     DashboardPageComponent,
     StudentProfilePageComponent,
     InternshipsPageComponent,
@@ -68,7 +72,8 @@ const appRoutes: Routes = [
   ],
   exports: [
     InternshipsModule,
-    LoginModule
+    LoginModule,
+    ReactiveFormsModule
   ],
   providers: [
     AlertModule
