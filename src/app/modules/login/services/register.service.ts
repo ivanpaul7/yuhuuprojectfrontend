@@ -18,7 +18,7 @@ export class MockRegisterService implements AbstractRegisterService {
 
   register(username: String, password: String, email: String, firstName: String, lastNameString, age: number): Observable<boolean> {
     if (username!=="") {
-      return of(true);
+      return of(false);
     } else {
       return of(false);
     }
