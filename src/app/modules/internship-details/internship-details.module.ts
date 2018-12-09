@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InternshipDetailsService } from './services/internship-details.service';
+import { MockInternshipDetailsService } from './services/internship-details.service';
 import { InternshipDetailsComponent } from './components/internship-details.component';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -11,6 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   declarations: [InternshipDetailsComponent],
   exports: [InternshipDetailsComponent],
-  providers: [ InternshipDetailsService ]
+  providers: [ MockInternshipDetailsService ]
 })
 export class InternshipDetailsModule { }

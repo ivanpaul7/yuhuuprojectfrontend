@@ -1,21 +1,20 @@
 <div class="internship-details">
   <div class="grid-container">
-    <div class="internship-title">title</div>
-    <div class="internship-desc">descriere</div>
-    <div class="internship-skills">skills</div>
-    <div class="internship-attr">attributes</div>
-    <div class="internship-req">requirements</div>
+    <div class="internship-title">{{internshipDetails.title}}</div>
+    <div class="internship-desc">{{internshipDetails.description}}</div>
+    <div class="internship-skills">{{internshipDetails.skills}}</div>
+    <div class="internship-attr">{{internshipDetails.attributes}}</div>
+    <div class="internship-req">{{internshipDetails.requirements}}</div>
     <div class="internship-status"><ul>
-      <li>full-time/part-time</li>
-      <li>locuri</li>
-      <li>status</li>
+      <li>{{internshipDetails.type}}</li>
+      <li>{{internshipDetails.locuri}}</li>
+      <li>{{internshipDetails.status}}</li>
     </ul></div>
-    <div class="internship_date">date</div>
-    <div class="internship-logo">logo</div>
+    <div class="internship_date">{{internshipDetails.deadline | date: 'yyyy-MM-dd'}}</div>
+    <div class= "internship-logo"> <img src="{{internshipDetails.logo}}"> </div>
     <div class="internship-tags">
     <ul>
-      <li>#tag</li>
-      <li>#tag</li>
+      <li *ngFor = "let tag of internshipDetails.tags">{{tag}}</li>
     </ul>
     </div>
   </div>

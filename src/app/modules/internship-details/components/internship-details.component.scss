@@ -4,7 +4,15 @@
 .internship-attr { grid-area: i_attr;}
 .internship-req { grid-area: i_req; }
 .internship_date { grid-area: i_date; }
-.internship-logo { grid-area: i_logo;}
+.internship-logo { grid-area: i_logo; }
+.internship-logo > img {
+  object-fit: cover;
+  max-width: 100%;
+  height: 100%;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
 .internship-status { grid-area: i_status;}
 .internship-tags { grid-area: i_tags;}
 
