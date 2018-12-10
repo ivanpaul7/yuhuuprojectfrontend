@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractLoginService} from '../../services/login.service';
-import { Router } from '@angular/router';
-import { AlertService } from '../../../alert/services/alert.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Router} from '@angular/router';
+import {AlertService} from '../../../alert/services/alert.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login-component',
@@ -19,7 +19,7 @@ export class LoginComponentComponent implements OnInit {
 
   private loginService: AbstractLoginService;
 
-  constructor( loginService: AbstractLoginService,
+  constructor(loginService: AbstractLoginService,
               private router: Router,
               private alertService: AlertService,
               private formBuilder: FormBuilder) {
@@ -32,13 +32,16 @@ export class LoginComponentComponent implements OnInit {
       password: ['', Validators.required]
     });
 
+    //TODO
     // reset login status
     // this.loginService.logout();
 
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.loginForm.controls; }
+  get f() {
+    return this.loginForm.controls;
+  }
 
   onLogin() {
     this.submitted = true;
@@ -49,12 +52,12 @@ export class LoginComponentComponent implements OnInit {
     }
 
     this.loading = true;
-    // this.loginService.login(this.username, this.password).subscribe((isValid: boolean) => {
+
     this.loginService.login(this.f.username.value, this.f.password.value).subscribe((isValid: boolean) => {
       if (isValid) {
         this.router.navigateByUrl('/dashboard');
       } else {
-        this.alertService.error("Login error", true);
+        this.alertService.error('Login error', true);
         this.loading = false;
       }
     });

@@ -31,11 +31,6 @@ export class MockLoginService implements AbstractLoginService {
   }
 
 }
-// const httpOptions = {
-//   headers: new HttpHeaders({
-//     'Authorization': 'Basic dGVzdGp3dGNsaWVudGlkOlhZN2ttem9OemwxMDA'
-//   })
-// };
 
 export class ServerLoginService implements AbstractLoginService {
   authToken = ' ';
@@ -62,6 +57,7 @@ export class ServerLoginService implements AbstractLoginService {
         console.log("Error", error);
       }
     );
+    // TODO :)
     // .pipe(map(user => {
       //   // login successful if there's a jwt token in the response
       //   if (user && user.access_token) {
