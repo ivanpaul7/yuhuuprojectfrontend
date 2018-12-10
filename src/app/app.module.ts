@@ -13,13 +13,17 @@ import { InternshipsModule } from './modules/internships/internships.module';
 import { InternshipsPageComponent } from './modules/internships/pages/internships-page/internships-page.component';
 import { LoginModule } from './modules/login/login.module';
 import { LoginPageComponent } from './modules/login/pages/login-page/login-page.component';
+import {RegisterPageComponent} from './modules/login/pages/register-page/register-page.component';
 import { StudentProfilePageComponent } from './modules/profile/pages/student-profile-page/student-profile-page.component';
 import { ProfileModule } from './modules/profile/profile.module';
 import { InMemoryDataService } from './modules/profile/services/in-memory-data.service';
+import {AlertModule} from './modules/alert/alert.module';
+
 
 const appRoutes: Routes = [
   {path: 'internships', component: InternshipsPageComponent},
   {path: 'login', component: LoginPageComponent},
+  {path: 'register', component: RegisterPageComponent},
   {path: 'dashboard', component: DashboardPageComponent},
   {path: 'profile/:id', component: StudentProfilePageComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'}
@@ -29,13 +33,15 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginPageComponent,
+    RegisterPageComponent,
     DashboardPageComponent,
     StudentProfilePageComponent,
-    InternshipsPageComponent
+    InternshipsPageComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AlertModule,
     LoginModule,
     ProfileModule,
     RouterModule.forRoot(
@@ -52,22 +58,18 @@ const appRoutes: Routes = [
     MatSelectModule,
     ReactiveFormsModule,
 
-    HttpClientModule,
-    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
-    // and returns simulated server responses.
-    // Remove it when a real server is ready to receive requests.
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    )
+    HttpClientModule
   ],
   entryComponents: [
   ],
   exports: [
-
     InternshipsModule,
-    LoginModule
+    LoginModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    AlertModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
