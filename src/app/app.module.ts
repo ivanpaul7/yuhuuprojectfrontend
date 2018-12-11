@@ -34,13 +34,15 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginPageComponent,
+    RegisterPageComponent,
     DashboardPageComponent,
     StudentProfilePageComponent,
-    InternshipsPageComponent
+    InternshipsPageComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AlertModule,
     LoginModule,
     ProfileModule,
     RouterModule.forRoot(
@@ -58,21 +60,17 @@ const appRoutes: Routes = [
     MatSelectModule,
     ReactiveFormsModule,
 
-    HttpClientModule,
-    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
-    // and returns simulated server responses.
-    // Remove it when a real server is ready to receive requests.
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, {dataEncapsulation: false}
-    )
+    HttpClientModule
   ],
   entryComponents: [],
   exports: [
-
     InternshipsModule,
-    LoginModule
+    LoginModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    AlertModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -4,10 +4,18 @@ import {LoginComponentComponent} from './components/login-component/login-compon
 import {RegisterComponentComponent} from './components/register-component/register-component.component';
 import {AbstractLoginService} from './services/login.service';
 import {environment} from '../../../environments/environment';
+import {AlertModule} from '../alert/alert.module'
+import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import {RouterModule} from '@angular/router';
+import { FormsModule, ReactiveFormsModule }         from '@angular/forms';
+import {AbstractRegisterService} from './services/register.service';
 
 @NgModule({
   imports: [
-    CommonModule
+    AlertModule,
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule
   ],
   declarations: [LoginComponentComponent, RegisterComponentComponent],
   exports: [LoginComponentComponent, RegisterComponentComponent],
@@ -15,6 +23,10 @@ import {environment} from '../../../environments/environment';
     {
       provide: AbstractLoginService,
       useClass: environment.loginService
+    },
+    {
+      provide: AbstractRegisterService,
+      useClass: environment.registerService
     }
   ]
 })
