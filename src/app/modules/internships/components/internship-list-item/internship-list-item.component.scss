@@ -1,0 +1,33 @@
+a {
+  cursor: pointer;
+}
+
+a:hover {
+  background-color: lightblue;
+}
+
+mat-card{
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.mat-card-avatar{
+  width: unset;
+  height: unset;
+  border-radius: 0;
+}
+
+mat-card:hover {
+  background-color: lightblue;
+}
+
+.header-text{
+  align-self: flex-end;
+  margin:0 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .mat-card-header-text {
+  width: 70%;
+}

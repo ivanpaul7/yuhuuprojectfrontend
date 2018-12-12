@@ -1,21 +1,35 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
-
-import {AppComponent} from './app.component';
-import {RouterModule, Routes} from '@angular/router';
-import {LoginPageComponent} from './modules/login/pages/login-page/login-page.component';
-import {DashboardPageComponent} from './modules/dashboard/pages/dashboard-page/dashboard-page.component';
-import {LoginModule} from './modules/login/login.module';
-import { ClarityModule } from '@clr/angular';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InternshipDetailsPageComponent } from './modules/internship-details/pages/internship-details-page/internship-details-page.component';
 import { InternshipDetailsModule } from './modules/internship-details/internship-details.module';
 import { importType } from '@angular/compiler/src/output/output_ast';
+import { RouterModule, Routes } from '@angular/router';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { AppComponent } from './app.component';
+import { DashboardPageComponent } from './modules/dashboard/pages/dashboard-page/dashboard-page.component';
+import { InternshipsModule } from './modules/internships/internships.module';
+import { InternshipsPageComponent } from './modules/internships/pages/internships-page/internships-page.component';
+import { LoginModule } from './modules/login/login.module';
+import { LoginPageComponent } from './modules/login/pages/login-page/login-page.component';
+import { RegisterPageComponent } from './modules/login/pages/register-page/register-page.component';
+import { StudentProfilePageComponent } from './modules/profile/pages/student-profile-page/student-profile-page.component';
+import { ProfileModule } from './modules/profile/profile.module';
+import { InMemoryDataService } from './modules/profile/services/in-memory-data.service';
+import {AlertModule} from './modules/alert/alert.module';
+
 
 const appRoutes: Routes = [
+  {path: 'internships', component: InternshipsPageComponent},
   {path: 'login', component: LoginPageComponent},
+  {path: 'register', component: RegisterPageComponent},
   {path: 'dashboard', component: DashboardPageComponent},
   {path: 'internship/:id', component: InternshipDetailsPageComponent},
+  {path: 'profile/:id', component: StudentProfilePageComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];
 
@@ -23,19 +37,43 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginPageComponent,
+    RegisterPageComponent,
     DashboardPageComponent,
     InternshipDetailsPageComponent,
+    StudentProfilePageComponent,
+    InternshipsPageComponent,
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    AlertModule,
+    LoginModule,
+    ProfileModule,
+    InternshipsModule,
+    InternshipDetailsModule,
     RouterModule.forRoot(
       appRoutes,
-      {enableTracing: true} // <-- debugging purposes only
+      { enableTracing: true } // <-- debugging purposes only
     ),
-    LoginModule,
-    InternshipDetailsModule
+    FormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    ReactiveFormsModule
   ],
-  providers: [],
+  entryComponents: [
+  ],
+  exports: [
+    LoginModule,
+    ReactiveFormsModule
+  ],
+  providers: [
+    AlertModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
