@@ -1,10 +1,10 @@
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { InternshipsService } from '../../services/internships.service';
 import { Internship } from 'src/app/shared/model/internships.model';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { InternshipsService } from '../../services/internships.service';
 
 @Component({
   selector: 'app-filters',
@@ -45,29 +45,41 @@ export class FiltersComponent implements OnInit {
       'companyFilter': new FormControl(''),
       'skillFilter': new FormControl('')
     });
+
     this.companies = this.internshipsService.getCompanies();
     this.skills = this.internshipsService.getSkills();
     this.internships = this.internshipsService.getInternships();
   }
 
   public get filteredCompanies() {
+    const value = this.filterForm.get('companyFilter').value;
+    if (value !== null && value !== undefined && value !== '') {
+      return this.companies.filter(company => this.selectedCompanies.indexOf(company) < 0)
+        .filter((skill) => skill.toLowerCase().includes(value.toLowerCase()));
+    }
     return this.companies.filter(company => this.selectedCompanies.indexOf(company) < 0);
   }
 
   public get filteredSkills() {
+    const value = this.filterForm.get('skillFilter').value;
+    if (value !== null && value !== undefined && value !== '') {
+      return this.skills.filter(skill => this.selectedSkills.indexOf(skill) < 0)
+      .filter((skill) => skill.toLowerCase().includes(value.toLowerCase()));
+    }
     return this.skills.filter(skill => this.selectedSkills.indexOf(skill) < 0);
+
   }
 
-  removeCompany(filter: string): void {
-    const index = this.selectedCompanies.indexOf(filter);
+  removeCompany(value: string): void {
+    const index = this.selectedCompanies.indexOf(value);
     if (index >= 0) {
       this.selectedCompanies.splice(index, 1);
     }
     this.setFilters();
   }
 
-  removeSkill(filter: string): void {
-    const index = this.selectedSkills.indexOf(filter);
+  removeSkill(value: string): void {
+    const index = this.selectedSkills.indexOf(value);
     if (index >= 0) {
       this.selectedSkills.splice(index, 1);
     }
