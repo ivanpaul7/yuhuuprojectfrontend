@@ -9,11 +9,6 @@ const internshipsRoutes: Routes = [
     component: InternshipListComponent,
     children: [
       {
-        path: '',
-        redirectTo: '/internships',
-        pathMatch: 'full'
-      },
-      {
         path: ':id',
         component: InternshipListItemComponent,
         children: [

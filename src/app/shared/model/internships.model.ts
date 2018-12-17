@@ -9,10 +9,12 @@ export class Internship {
   public freeSpots: number;
   public status: string;
   public companyLogo: string;
+  public skills: string[];
+  public company: string;
 
   constructor(title: string, description: string, deadline: string,
     employmentType: string, companyLogo: string, startDate: string,
-     endDate: string, freeSpots?: number, status?: string, active?: boolean) {
+     endDate: string, company?: string, skills?: string[], freeSpots?: number, status?: string, active?: boolean) {
     this.title = title;
     this.deadline = deadline;
     this.description = description;
@@ -23,5 +25,7 @@ export class Internship {
     this.freeSpots = freeSpots;
     this.status = status;
     this.companyLogo = companyLogo;
+    this.company = company;
+    this.skills = skills;
   }
 }
