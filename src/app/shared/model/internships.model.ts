@@ -28,5 +28,7 @@ export class Internship {
     this.freeSpots = freeSpots;
     this.status = status;
     this.companyLogo = companyLogo;
+    this.company = company;
+    this.skills = skills;
   }
 }
