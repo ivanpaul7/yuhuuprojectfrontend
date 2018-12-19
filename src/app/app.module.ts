@@ -37,6 +37,7 @@ const appRoutes: Routes = [
     LoginPageComponent,
     RegisterPageComponent,
     DashboardPageComponent,
+    InternshipDetailsPageComponent,
     StudentProfilePageComponent,
     InternshipsPageComponent,
   ],
@@ -46,6 +47,8 @@ const appRoutes: Routes = [
     AlertModule,
     LoginModule,
     ProfileModule,
+    InternshipsModule,
+    InternshipDetailsModule,
     RouterModule.forRoot(
       appRoutes,
       {} // <-- debugging purposes only
@@ -59,13 +62,10 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    ReactiveFormsModule,
-
-    HttpClientModule
+    ReactiveFormsModule
   ],
   entryComponents: [],
   exports: [
-    InternshipsModule,
     LoginModule,
     ReactiveFormsModule
   ],
