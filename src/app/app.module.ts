@@ -17,6 +17,8 @@ import {ProfileModule} from './modules/profile/profile.module';
 import {DashboardModule} from './modules/dashboard/dashboard.module';
 import {RegisterPageComponent} from './modules/login/pages/register-page/register-page.component';
 import {AlertModule} from './modules/alert/alert.module';
+import {InternshipDetailsPageComponent} from './modules/internship-details/pages/internship-details-page/internship-details-page.component';
+import {InternshipDetailsModule} from './modules/internship-details/internship-details.module';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -49,6 +51,7 @@ const appRoutes: Routes = [
     ProfileModule,
     InternshipsModule,
     InternshipDetailsModule,
+    HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
       {} // <-- debugging purposes only

@@ -16,7 +16,11 @@ export class InMemoryDataService implements InMemoryDbService {
         email: 'rares@mail.com',
         linkedinPage: 'https://www.linkedin.com/in/beltechi-rares-9a6109103/',
         facebookPage: 'https://www.facebook.com/rareess',
-        description: 'Experienced Director of Marketing Operations with a demonstrated history of working in education software, telecom, semiconductor, and real estate industries. Skilled in Marketing Operations and Automation, Customer Relationship Management (CRM), Business Intelligence and Analytics'
+        description: 'Experienced Director of Marketing Operations with a ' +
+          'demonstrated history of working in education software, telecom, ' +
+          'semiconductor, and real estate industries. Skilled in Marketing ' +
+          'Operations and Automation, Customer Relationship Management (CRM), ' +
+          'Business Intelligence and Analytics'
       },
       {
         id: 2,
@@ -27,7 +31,14 @@ export class InMemoryDataService implements InMemoryDbService {
         email: 'ioana@mail.com',
         linkedinPage: 'https://www.linkedin.com/in/ioana/',
         facebookPage: 'https://www.facebook.com/ioana',
-        description: 'Experienced Product Manager conversant in enterprise, web and mobile technologies, information protection, biometrics and SAAS offerings in the collaboration space. Skilled at defining emerging product vision while taking pragmatic steps driven by present market needs and resource constraints. Experience in driving a compelling user experience, featuring beautiful interfaces and natural workflows. Good communicator, effective manager in multicultural organizations.'
+        description: 'Experienced Product Manager conversant in enterprise, ' +
+          'web and mobile technologies, information protection, ' +
+          'biometrics and SAAS offerings in the collaboration space. ' +
+          'Skilled at defining emerging product vision while taking ' +
+          'pragmatic steps driven by present market needs and resource ' +
+          'constraints. Experience in driving a compelling user experience, ' +
+          'featuring beautiful interfaces and natural workflows. Good communicator, ' +
+          'effective manager in multicultural organizations.'
       }
     ];
     return {studentsProfiles};

@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Internship } from 'src/app/shared/model/internships.model';
+import {Component, Input, OnInit} from '@angular/core';
+import {Internship} from 'src/app/shared/model/internships.model';
 
 @Component({
   selector: 'app-internship-details',
@@ -8,12 +8,13 @@ import { Internship } from 'src/app/shared/model/internships.model';
 })
 export class InternshipDetailsComponent implements OnInit {
 
-  @Input() internshipDetails: Internship
+  @Input() internshipDetails: Internship;
 
-  constructor(){}
+  constructor() {
+  }
 
   ngOnInit() {
   }
-  
+
 
 }

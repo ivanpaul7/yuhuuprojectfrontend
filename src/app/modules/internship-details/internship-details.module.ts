@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MockInternshipDetailsService } from './services/internship-details.service';
-import { InternshipDetailsComponent } from './components/internship-details.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MockInternshipDetailsService} from './services/internship-details.service';
+import {InternshipDetailsComponent} from './components/internship-details.component';
 
 @NgModule({
   imports: [
@@ -9,6 +9,7 @@ import { InternshipDetailsComponent } from './components/internship-details.comp
   ],
   declarations: [InternshipDetailsComponent],
   exports: [InternshipDetailsComponent],
-  providers: [ MockInternshipDetailsService ]
+  providers: [MockInternshipDetailsService]
 })
-export class InternshipDetailsModule { }
+export class InternshipDetailsModule {
+}

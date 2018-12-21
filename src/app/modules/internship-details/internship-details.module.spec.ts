@@ -1,4 +1,4 @@
-import { InternshipDetailsModule } from './internship-details.module';
+import {InternshipDetailsModule} from './internship-details.module';
 
 describe('InternshipDetailsModule', () => {
   let internshipDetailsModule: InternshipDetailsModule;

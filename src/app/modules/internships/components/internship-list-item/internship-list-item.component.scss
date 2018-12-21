@@ -6,12 +6,12 @@ a:hover {
   background-color: lightblue;
 }
 
-mat-card{
+mat-card {
   cursor: pointer;
   margin-bottom: 10px;
 }
 
-.mat-card-avatar{
+.mat-card-avatar {
   width: unset;
   height: unset;
   border-radius: 0;
@@ -21,9 +21,9 @@ mat-card:hover {
   background-color: lightblue;
 }
 
-.header-text{
+.header-text {
   align-self: flex-end;
-  margin:0 8px;
+  margin: 0 8px;
   display: flex;
   flex-direction: column;
 }

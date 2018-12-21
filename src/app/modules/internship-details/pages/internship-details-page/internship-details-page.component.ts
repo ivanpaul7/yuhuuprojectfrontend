@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { MockInternshipDetailsService } from '../../services/internship-details.service';
-import { ActivatedRoute } from '@angular/router';
-import { Internship } from 'src/app/shared/model/internships.model';
+import {Component, OnInit} from '@angular/core';
+import {MockInternshipDetailsService} from '../../services/internship-details.service';
+import {ActivatedRoute} from '@angular/router';
+import {Internship} from 'src/app/shared/model/internships.model';
 
 @Component({
   selector: 'app-internship-details-page',
@@ -16,10 +16,10 @@ export class InternshipDetailsPageComponent implements OnInit {
   constructor(private details: MockInternshipDetailsService, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
       this.internshipID = params.id;
-    })
+    });
   }
 
   ngOnInit() {
-    this.internshipDetails = this.details.getInternship(this.internshipID)
+    this.internshipDetails = this.details.getInternship(this.internshipID);
   }
 }

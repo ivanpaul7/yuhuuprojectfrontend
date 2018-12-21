@@ -32,7 +32,7 @@ export class LoginComponentComponent implements OnInit {
       password: ['', Validators.required]
     });
 
-    //TODO
+    // TODO
     // reset login status
     // this.loginService.logout();
 

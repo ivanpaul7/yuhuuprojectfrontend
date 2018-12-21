@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Internship } from '../../../../shared/model/internships.model';
+import {Component, Input} from '@angular/core';
+import {Internship} from '../../../../shared/model/internships.model';
 
 @Component({
   selector: 'app-internship-list-item',
@@ -10,6 +10,7 @@ export class InternshipListItemComponent {
   @Input() internship: Internship;
   @Input() index: number;
 
-  constructor() { }
+  constructor() {
+  }
 
 }

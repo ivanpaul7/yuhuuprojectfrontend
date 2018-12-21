@@ -1,4 +1,4 @@
-import { DashboardModule } from './dashboard.module';
+import {DashboardModule} from './dashboard.module';
 
 describe('DashboardModuleModule', () => {
   let dashboardModuleModule: DashboardModule;

@@ -1,6 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { StudentProfilePageComponent } from './pages/student-profile-page/student-profile-page.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {
   MatButtonModule,
   MatCardModule,
@@ -8,11 +7,10 @@ import {
   MatDialogModule,
   MatFormFieldModule,
   MatInputModule,
-  MatOption, MatSelectModule
+  MatSelectModule
 } from '@angular/material';
-import { StudentProfileEditComponentComponent } from './components/student-profile-edit-component/student-profile-edit-component.component';
+import {StudentProfileEditComponentComponent} from './components/student-profile-edit-component/student-profile-edit-component.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {AlertModule} from '../alert/alert.module';
 
 @NgModule({
   imports: [
@@ -35,4 +33,5 @@ import {AlertModule} from '../alert/alert.module';
   ],
 
 })
-export class ProfileModule { }
+export class ProfileModule {
+}

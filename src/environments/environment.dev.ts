@@ -1,4 +1,4 @@
-import {AbstractLoginService, MockLoginService} from '../app/modules/login/services/login.service';
+import {MockLoginService} from '../app/modules/login/services/login.service';
 import {MockRegisterService} from '../app/modules/login/services/register.service';
 
 export const environment = {

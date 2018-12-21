@@ -1,10 +1,10 @@
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material';
-import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Internship } from 'src/app/shared/model/internships.model';
-import { InternshipsService } from '../../services/internships.service';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {MatAutocompleteSelectedEvent, MatAutocompleteTrigger} from '@angular/material';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {Internship} from 'src/app/shared/model/internships.model';
+import {InternshipsService} from '../../services/internships.service';
 
 @Component({
   selector: 'app-filters',
@@ -20,12 +20,13 @@ export class FiltersComponent implements OnInit {
   selectedCompanies: string[] = [];
   selectedSkills: string[] = [];
   internships: Internship[] = [];
-  @ViewChild('triggerCompany', { read: MatAutocompleteTrigger }) triggerCompany: MatAutocompleteTrigger;
-  @ViewChild('triggerSkill', { read: MatAutocompleteTrigger }) triggerSkill: MatAutocompleteTrigger;
+  @ViewChild('triggerCompany', {read: MatAutocompleteTrigger}) triggerCompany: MatAutocompleteTrigger;
+  @ViewChild('triggerSkill', {read: MatAutocompleteTrigger}) triggerSkill: MatAutocompleteTrigger;
   timeout;
 
   constructor(private internshipsService: InternshipsService,
-    private route: ActivatedRoute, private router: Router) { }
+              private route: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit() {
     this.route.queryParams
@@ -64,7 +65,7 @@ export class FiltersComponent implements OnInit {
     const value = this.filterForm.get('skillFilter').value;
     if (value !== null && value !== undefined && value !== '') {
       return this.skills.filter(skill => this.selectedSkills.indexOf(skill) < 0)
-      .filter((skill) => skill.toLowerCase().includes(value.toLowerCase()));
+        .filter((skill) => skill.toLowerCase().includes(value.toLowerCase()));
     }
     return this.skills.filter(skill => this.selectedSkills.indexOf(skill) < 0);
 

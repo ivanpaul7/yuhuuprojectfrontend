@@ -1,4 +1,3 @@
-
 export class StudentProfile {
   id: number;
   firstName: string;
@@ -8,7 +7,7 @@ export class StudentProfile {
   email: string;
   linkedinPage: string;
   facebookPage: string;
-  description: string
+  description: string;
   // an de studiu -sau promotia: from-to
   //  CV
   //  skill-uri

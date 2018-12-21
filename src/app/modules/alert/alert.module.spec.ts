@@ -1,4 +1,4 @@
-import { AlertModule } from './alert.module';
+import {AlertModule} from './alert.module';
 
 describe('AlertModule', () => {
   let alertModule: AlertModule;

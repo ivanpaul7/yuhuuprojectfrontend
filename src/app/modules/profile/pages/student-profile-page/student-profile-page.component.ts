@@ -1,15 +1,12 @@
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {Component, Input, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
 
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-
-import { StudentProfile} from '../../services/StudentProfile';
-import { StudentProfileService} from '../../services/student-profile.service';
+import {StudentProfile} from '../../services/StudentProfile';
+import {StudentProfileService} from '../../services/student-profile.service';
 import {MatDialog} from '@angular/material';
+// tslint:disable-next-line:max-line-length
 import {StudentProfileEditComponentComponent} from '../../components/student-profile-edit-component/student-profile-edit-component.component';
-import {MatCardModule} from '@angular/material/card';
 
 @Component({
   selector: 'app-student-profile-page',
@@ -24,7 +21,8 @@ export class StudentProfilePageComponent implements OnInit {
     private studentProfileService: StudentProfileService,
     private location: Location,
     public dialog: MatDialog
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.getStudentProfile();
@@ -41,13 +39,13 @@ export class StudentProfilePageComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(StudentProfileEditComponentComponent, {
       width: '90%',
-      data: { studentProfile: this.studentProfile }
+      data: {studentProfile: this.studentProfile}
     });
 
     dialogRef.afterClosed().subscribe(result => {
     });
 
-    const sub = dialogRef.componentInstance.onEditSubmit.subscribe(() => {
+    const sub = dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
       this.getStudentProfile();
     });
   }
