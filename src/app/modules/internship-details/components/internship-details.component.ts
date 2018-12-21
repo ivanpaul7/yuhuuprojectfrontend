@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Internship } from 'src/app/shared/model/internships.model';
 
 @Component({
   selector: 'app-internship-details',
@@ -7,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class InternshipDetailsComponent implements OnInit {
 
-  @Input() internshipDetails: Object
+  @Input() internshipDetails: Internship
 
   constructor(){}
 

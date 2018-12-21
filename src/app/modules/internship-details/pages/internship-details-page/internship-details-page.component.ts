@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MockInternshipDetailsService } from '../../services/internship-details.service';
 import { ActivatedRoute } from '@angular/router';
+import { Internship } from 'src/app/shared/model/internships.model';
 
 @Component({
   selector: 'app-internship-details-page',
@@ -10,15 +11,15 @@ import { ActivatedRoute } from '@angular/router';
 export class InternshipDetailsPageComponent implements OnInit {
 
   public internshipID: string;
-  public internshipDetails: Object;
+  public internshipDetails: Internship;
 
   constructor(private details: MockInternshipDetailsService, private route: ActivatedRoute) {
-    this.route.params.subscribe( params => {
+    this.route.params.subscribe(params => {
       this.internshipID = params.id;
     })
   }
 
   ngOnInit() {
-   this.internshipDetails = JSON.parse(this.details.getInternship(this.internshipID))
-    }
+    this.internshipDetails = this.details.getInternship(this.internshipID)
+  }
 }
