@@ -1,36 +1,34 @@
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
-import { MatDialogModule } from '@angular/material/dialog';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { InternshipDetailsPageComponent } from './modules/internship-details/pages/internship-details-page/internship-details-page.component';
-import { InternshipDetailsModule } from './modules/internship-details/internship-details.module';
-import { importType } from '@angular/compiler/src/output/output_ast';
-import { RouterModule, Routes } from '@angular/router';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { AppComponent } from './app.component';
-import { DashboardPageComponent } from './modules/dashboard/pages/dashboard-page/dashboard-page.component';
-import { InternshipsModule } from './modules/internships/internships.module';
-import { InternshipsPageComponent } from './modules/internships/pages/internships-page/internships-page.component';
-import { LoginModule } from './modules/login/login.module';
-import { LoginPageComponent } from './modules/login/pages/login-page/login-page.component';
-import { RegisterPageComponent } from './modules/login/pages/register-page/register-page.component';
-import { StudentProfilePageComponent } from './modules/profile/pages/student-profile-page/student-profile-page.component';
-import { ProfileModule } from './modules/profile/profile.module';
-import { InMemoryDataService } from './modules/profile/services/in-memory-data.service';
+import {HttpClientModule} from '@angular/common/http';
+import {NgModule} from '@angular/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
+import {MatDialogModule} from '@angular/material/dialog';
+import {BrowserModule} from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {RouterModule, Routes} from '@angular/router';
+import {AppComponent} from './app.component';
+import {DashboardPageComponent} from './modules/dashboard/pages/dashboard-page/dashboard-page.component';
+import {InternshipsModule} from './modules/internships/internships.module';
+import {InternshipsPageComponent} from './modules/internships/pages/internships-page/internships-page.component';
+import {LoginModule} from './modules/login/login.module';
+import {LoginPageComponent} from './modules/login/pages/login-page/login-page.component';
+import {StudentProfilePageComponent} from './modules/profile/pages/student-profile-page/student-profile-page.component';
+import {ProfileModule} from './modules/profile/profile.module';
+import {DashboardModule} from './modules/dashboard/dashboard.module';
+import {RegisterPageComponent} from './modules/login/pages/register-page/register-page.component';
 import {AlertModule} from './modules/alert/alert.module';
 
-
 const appRoutes: Routes = [
-  {path: 'internships', component: InternshipsPageComponent},
-  {path: 'login', component: LoginPageComponent},
-  {path: 'register', component: RegisterPageComponent},
-  {path: 'dashboard', component: DashboardPageComponent},
-  {path: 'internship/:id', component: InternshipDetailsPageComponent},
-  {path: 'profile/:id', component: StudentProfilePageComponent},
-  {path: '', redirectTo: '/login', pathMatch: 'full'}
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: 'internships', component: InternshipsPageComponent, pathMatch: 'full'},
+  {path: 'login', component: LoginPageComponent, pathMatch: 'full'},
+  {
+    path: 'dashboard',
+    component: DashboardPageComponent,
+    loadChildren: './modules/dashboard/dashboard.module#DashboardModule'
+  },
+  {path: 'profile/:id', component: StudentProfilePageComponent, pathMatch: 'full'},
+  {path: 'register', component: RegisterPageComponent, pathMatch: 'full'},
 ];
 
 @NgModule({
@@ -53,8 +51,9 @@ const appRoutes: Routes = [
     InternshipDetailsModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      {} // <-- debugging purposes only
     ),
+    DashboardModule,
     FormsModule,
     MatCardModule,
     MatButtonModule,
@@ -65,8 +64,7 @@ const appRoutes: Routes = [
     MatSelectModule,
     ReactiveFormsModule
   ],
-  entryComponents: [
-  ],
+  entryComponents: [],
   exports: [
     LoginModule,
     ReactiveFormsModule
