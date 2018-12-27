@@ -27,7 +27,6 @@ export class StudentProfilePageComponent implements OnInit {
   }
 
   getStudentProfile(): void {
-    console.log( "axxxxxxxxxxxxxx");
     const id = +this.route.snapshot.paramMap.get('id');
     this.studentProfileService.getStudentProfile(id)
       .subscribe(profile => {

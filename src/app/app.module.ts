@@ -20,6 +20,7 @@ import {AlertModule} from './modules/alert/alert.module';
 import {InternshipDetailsPageComponent} from './modules/internship-details/pages/internship-details-page/internship-details-page.component';
 import {InternshipDetailsModule} from './modules/internship-details/internship-details.module';
 import {CompanyProfilePageComponent} from './modules/profile/pages/company-profile-page/company-profile-page.component';
+import {AgmCoreModule} from '@agm/core';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -70,7 +71,11 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    //TODO update key with a real value (because it cost Paul'll update this later)
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYMs'
+    })
   ],
   entryComponents: [],
   exports: [

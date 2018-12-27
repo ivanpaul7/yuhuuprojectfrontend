@@ -18,6 +18,8 @@ import {AbstractStudentProfileService} from './services/student-profile.service'
 import {AbstractCompanyProfileService} from './services/company-profile.service';
 import {profileRoutes} from './profile.routing';
 import {RouterModule} from '@angular/router';
+import {MapComponent} from './components/map/map.component';
+import {AgmCoreModule} from '@agm/core';
 
 @NgModule({
   imports: [
@@ -31,12 +33,14 @@ import {RouterModule} from '@angular/router';
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
-    RouterModule.forChild(profileRoutes)
+    RouterModule.forChild(profileRoutes),
+    AgmCoreModule
   ],
   declarations: [
     StudentProfileEditComponentComponent,
     CompanyProfilePageComponent,
-    CompanyProfileEditComponentComponent
+    CompanyProfileEditComponentComponent,
+    MapComponent
   ],
   entryComponents: [
     StudentProfileEditComponentComponent,
