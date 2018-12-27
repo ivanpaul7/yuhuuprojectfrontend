@@ -19,6 +19,7 @@ import {RegisterPageComponent} from './modules/login/pages/register-page/registe
 import {AlertModule} from './modules/alert/alert.module';
 import {InternshipDetailsPageComponent} from './modules/internship-details/pages/internship-details-page/internship-details-page.component';
 import {InternshipDetailsModule} from './modules/internship-details/internship-details.module';
+import {CompanyProfilePageComponent} from './modules/profile/pages/company-profile-page/company-profile-page.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -29,7 +30,11 @@ const appRoutes: Routes = [
     component: DashboardPageComponent,
     loadChildren: './modules/dashboard/dashboard.module#DashboardModule'
   },
-  {path: 'profile/:id', component: StudentProfilePageComponent, pathMatch: 'full'},
+  {
+    path: 'profile',
+    component: CompanyProfilePageComponent,
+    loadChildren: './modules/profile/profile.module#ProfileModule'
+  },
   {path: 'register', component: RegisterPageComponent, pathMatch: 'full'},
 ];
 

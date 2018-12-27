@@ -4,14 +4,42 @@ import {Observable, of} from 'rxjs';
 import {StudentProfile} from './StudentProfile';
 import {catchError, tap} from 'rxjs/operators';
 
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
-};
+export abstract class AbstractStudentProfileService {
+  public abstract getStudentProfile(id: number): Observable<StudentProfile> ;
+
+  public abstract updateStudentProfile(studentProfile: StudentProfile): Observable<any>
+}
+
+export class MockStudentProfileService implements AbstractStudentProfileService {
+  getStudentProfile(id: number): Observable<StudentProfile> {
+    return of({
+      id: 1,
+      firstName: 'Rares',
+      lastName: 'Beltechi',
+      faculty: 'UBB Matematica si Informatica',
+      phone: '0740111222',
+      email: 'rares@mail.com',
+      linkedinPage: 'https://www.linkedin.com/in/beltechi-rares-9a6109103/',
+      facebookPage: 'https://www.facebook.com/rareess',
+      description: 'Experienced Director of Marketing Operations with a ' +
+        'demonstrated history of working in education software, telecom, ' +
+        'semiconductor, and real estate industries. Skilled in Marketing ' +
+        'Operations and Automation, Customer Relationship Management (CRM), ' +
+        'Business Intelligence and Analytics'
+    });
+  }
+
+  updateStudentProfile(studentProfile: StudentProfile): Observable<any> {
+    return of(true);
+  }
+
+}
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentProfileService {
+export class ServerStudentProfileService implements AbstractStudentProfileService {
   private studentsProfilesUrl = 'api/studentsProfiles';  // URL to web api
   constructor(private http: HttpClient) {
   }
@@ -58,3 +86,8 @@ export class StudentProfileService {
     console.log(`StudentProfileService: ${message}`);
   }
 }
+
+
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Inject, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {StudentProfile} from '../../services/StudentProfile';
-import {StudentProfileService} from '../../services/student-profile.service';
+import {AbstractStudentProfileService} from '../../services/student-profile.service';
 
 @Component({
   selector: 'app-student-profile-edit-component',
@@ -14,7 +14,7 @@ export class StudentProfileEditComponentComponent {
   studentProfileTemp: StudentProfile;
 
   constructor(
-    private studentProfileService: StudentProfileService,
+    private studentProfileService: AbstractStudentProfileService,
     public dialogRef: MatDialogRef<StudentProfileEditComponentComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.studentProfileTemp = Object.assign({}, data.studentProfile);
   }

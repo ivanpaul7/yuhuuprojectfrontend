@@ -11,6 +11,13 @@ import {
 } from '@angular/material';
 import {StudentProfileEditComponentComponent} from './components/student-profile-edit-component/student-profile-edit-component.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CompanyProfilePageComponent} from './pages/company-profile-page/company-profile-page.component';
+import {CompanyProfileEditComponentComponent} from './components/company-profile-edit-component/company-profile-edit-component.component';
+import {environment} from '../../../environments/environment';
+import {AbstractStudentProfileService} from './services/student-profile.service';
+import {AbstractCompanyProfileService} from './services/company-profile.service';
+import {profileRoutes} from './profile.routing';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
   imports: [
@@ -24,14 +31,30 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatInputModule,
     MatSelectModule,
     ReactiveFormsModule,
+    RouterModule.forChild(profileRoutes)
   ],
   declarations: [
-    StudentProfileEditComponentComponent
+    StudentProfileEditComponentComponent,
+    CompanyProfilePageComponent,
+    CompanyProfileEditComponentComponent
   ],
   entryComponents: [
-    StudentProfileEditComponentComponent
+    StudentProfileEditComponentComponent,
+    CompanyProfileEditComponentComponent
   ],
-
+  providers: [
+    {
+      provide: AbstractStudentProfileService,
+      useClass: environment.studentProfileService
+    },
+    {
+      provide: AbstractCompanyProfileService,
+      useClass: environment.companyProfileService
+    },
+  ],
+  exports: [
+    RouterModule
+  ]
 })
 export class ProfileModule {
 }

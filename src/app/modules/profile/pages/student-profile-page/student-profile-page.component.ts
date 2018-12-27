@@ -1,11 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
-
 import {StudentProfile} from '../../services/StudentProfile';
-import {StudentProfileService} from '../../services/student-profile.service';
+import {AbstractStudentProfileService} from '../../services/student-profile.service';
 import {MatDialog} from '@angular/material';
-// tslint:disable-next-line:max-line-length
 import {StudentProfileEditComponentComponent} from '../../components/student-profile-edit-component/student-profile-edit-component.component';
 
 @Component({
@@ -18,7 +16,7 @@ export class StudentProfilePageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private studentProfileService: StudentProfileService,
+    private studentProfileService: AbstractStudentProfileService,
     private location: Location,
     public dialog: MatDialog
   ) {
@@ -29,6 +27,7 @@ export class StudentProfilePageComponent implements OnInit {
   }
 
   getStudentProfile(): void {
+    console.log( "axxxxxxxxxxxxxx");
     const id = +this.route.snapshot.paramMap.get('id');
     this.studentProfileService.getStudentProfile(id)
       .subscribe(profile => {
