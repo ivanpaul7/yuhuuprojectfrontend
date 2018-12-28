@@ -15,7 +15,7 @@ export class StudentProfileEditContactComponent implements OnInit {
   constructor(private studentProfileService: AbstractStudentProfileService,
               public dialogRef: MatDialogRef<StudentProfileEditContactComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.applicant = Object.assign({}, data.studentProfile);
+    this.applicant = JSON.parse(JSON.stringify(data.studentProfile));
   }
 
   ngOnInit() {

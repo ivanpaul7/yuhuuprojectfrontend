@@ -19,7 +19,7 @@ export class StudentProfileEditBasicComponent implements OnInit {
     private studentProfileService: AbstractStudentProfileService,
     public dialogRef: MatDialogRef<StudentProfileEditBasicComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.applicant = Object.assign({}, data.studentProfile);
+    this.applicant = JSON.parse(JSON.stringify(data.studentProfile));
   }
 
   onNoClick() {

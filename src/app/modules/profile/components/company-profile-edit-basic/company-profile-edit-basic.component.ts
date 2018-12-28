@@ -16,7 +16,7 @@ export class CompanyProfileEditBasicComponent implements OnInit {
     private companyService: AbstractCompanyProfileService,
     public dialogRef: MatDialogRef<CompanyProfileEditBasicComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.company = Object.assign({}, data.companyProfile);
+    this.company = JSON.parse(JSON.stringify(data.companyProfile));
   }
 
   onNoClick() {
