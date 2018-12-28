@@ -11,6 +11,6 @@ export class MockCompanyProfileService implements AbstractCompanyProfileService 
 
 }
 
-export class ServerCompanyProfileService  implements AbstractCompanyProfileService {
+export class ServerCompanyProfileService implements AbstractCompanyProfileService {
 
 }

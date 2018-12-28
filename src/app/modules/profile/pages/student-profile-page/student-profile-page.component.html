@@ -1,6 +1,5 @@
 <div class="container content" *ngIf="applicant">
 
-
   <mat-card class="example-card">
     <mat-card-content>
       <div class="row">
@@ -16,7 +15,6 @@
         <div class="col-sm-12">
           <h4>{{applicant.birthday}}</h4>
         </div>
-
       </div>
       <div class="divider">
         <mat-divider></mat-divider>
@@ -28,7 +26,6 @@
       </div>
     </mat-card-content>
   </mat-card>
-
 
   <mat-card class="example-card">
     <mat-card-header>
@@ -131,21 +128,62 @@
 
   <mat-card class="example-card">
     <mat-card-header>
-      <mat-card-title><h2>Studii</h2></mat-card-title>
+      <div class="card-title-wrapper">
+        <mat-card-title>
+          <h2>Education</h2>
+        </mat-card-title>
+      </div>
+      <div class="float-right">
+        <button mat-icon-button color="primary" (click)="openAddEducationDialog()">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+      </div>
     </mat-card-header>
     <mat-card-content>
-      <div class="row">
-        <div class="col-sm-12 col-md-2 ">
-          <h4>Facultate:</h4>
-        </div>
-        <div class="col-sm-12 col-md-10">
-          <h4>--</h4>
-        </div>
-      </div>
+      <mat-list>
+        <mat-list-item *ngFor="let education of educationList; let lastItem = last;">
+          <div class="card-title-wrapper">
+            <app-education [education]=education></app-education>
+          </div>
+          <div class="float-right">
+            <button mat-icon-button color="warn" (click)="deleteEducation(education.id)">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+          </div>
+          <mat-divider *ngIf="!lastItem"></mat-divider>
+        </mat-list-item>
+      </mat-list>
     </mat-card-content>
   </mat-card>
 
-  <div class="float-right">
-    <button mat-raised-button (click)="openDialog()">Edit</button>
-  </div>
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div class="card-title-wrapper">
+        <mat-card-title>
+          <h2>Skills</h2>
+        </mat-card-title>
+      </div>
+      <div class="float-right">
+        <button mat-icon-button color="primary" (click)="openAddSkillDialog()">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let skill of skillsList; let lastItem = last;">
+          <div class="card-title-wrapper skill-item">
+            <p>{{skill.name}}</p>
+          </div>
+          <div class="float-right skill-button">
+            <button mat-icon-button color="warn" (click)="deleteSkill(skill.id)">
+              <mat-icon>delete_outline</mat-icon>
+            </button>
+          </div>
+          <mat-divider *ngIf="!lastItem"></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+
 </div>

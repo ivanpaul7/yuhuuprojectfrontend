@@ -10,7 +10,9 @@ import {
   MatInputModule,
   MatSelectModule,
   MatNativeDateModule,
-  MatDatepickerModule
+  MatDatepickerModule,
+  MatListModule,
+  MatIconModule
 } from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserModule} from '@angular/platform-browser';
@@ -31,7 +33,7 @@ import {InternshipDetailsPageComponent} from './modules/internship-details/pages
 import {InternshipDetailsModule} from './modules/internship-details/internship-details.module';
 import {CompanyProfilePageComponent} from './modules/profile/pages/company-profile-page/company-profile-page.component';
 import {AgmCoreModule} from '@agm/core';
-import { DatePipe } from '@angular/common'
+import {DatePipe} from '@angular/common';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -85,6 +87,8 @@ const appRoutes: Routes = [
     MatDividerModule,
     MatNativeDateModule,
     MatDatepickerModule,
+    MatListModule,
+    MatIconModule,
     ReactiveFormsModule,
     //TODO update key with a real value (because it cost Paul'll update this later)
     AgmCoreModule.forRoot({

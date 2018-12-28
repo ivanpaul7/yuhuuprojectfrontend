@@ -3,10 +3,14 @@ import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {Applicant} from '../../../../shared/model/Applicant';
 import {AbstractStudentProfileService} from '../../services/student-profile.service';
-import {MatDialog} from '@angular/material';
-import {StudentProfileEditComponentComponent} from '../../components/student-profile-edit-component/student-profile-edit-component.component';
+import {MatDialog, MatListModule} from '@angular/material';
 import {StudentProfileEditBasicComponent} from '../../components/student-profile-edit-basic/student-profile-edit-basic.component';
 import {StudentProfileEditContactComponent} from '../../components/student-profile-edit-contact/student-profile-edit-contact.component';
+import {Education} from '../../../../shared/model/Education';
+import {EducationComponent} from '../../components/education/education.component';
+import {StudentProfileEditEducationComponent} from '../../components/student-profile-edit-education/student-profile-edit-education.component';
+import {Skill} from '../../../../shared/model/Skill';
+import {StudentProfileEditSkillsComponent} from '../../components/student-profile-edit-skills/student-profile-edit-skills.component';
 
 @Component({
   selector: 'app-student-profile-page',
@@ -15,6 +19,8 @@ import {StudentProfileEditContactComponent} from '../../components/student-profi
 })
 export class StudentProfilePageComponent implements OnInit {
   @Input() applicant: Applicant;
+  @Input() educationList: Education[];
+  @Input() skillsList: Skill[];
 
   constructor(
     private route: ActivatedRoute,
@@ -26,9 +32,11 @@ export class StudentProfilePageComponent implements OnInit {
 
   ngOnInit() {
     this.getStudentProfile();
+    this.getEducation();
+    this.getSkills();
   }
 
-  getStudentProfile(): void {
+  public getStudentProfile(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.studentProfileService.getStudentProfile(id)
       .subscribe(profile => {
@@ -37,18 +45,20 @@ export class StudentProfilePageComponent implements OnInit {
 
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(StudentProfileEditComponentComponent, {
-      width: '90%',
-      data: {studentProfile: this.applicant}
-    });
+  public getEducation() {
+    this.studentProfileService.getEducationForApplicant(this.applicant.id).subscribe(
+      list => {
+        this.educationList = list;
+      }
+    );
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-    });
-
-    const sub = dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
-      this.getStudentProfile();
-    });
+  private getSkills() {
+    this.studentProfileService.getSkillsForApplicant().subscribe(
+      list => {
+        this.skillsList = list;
+      }
+    );
   }
 
   openBasicEditDialog() {
@@ -76,6 +86,47 @@ export class StudentProfilePageComponent implements OnInit {
 
     dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
       this.getStudentProfile();
+    });
+  }
+
+
+  openAddEducationDialog() {
+    const dialogRef = this.dialog.open(StudentProfileEditEducationComponent, {
+      width: '90%',
+      data: {studentProfile: this.applicant}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+
+    dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
+      this.getEducation();
+    });
+  }
+
+  deleteEducation(id: number) {
+    this.studentProfileService.deleteEducation(id).subscribe(() => {
+      this.getEducation();
+    });
+  }
+
+  openAddSkillDialog() {
+    const dialogRef = this.dialog.open(StudentProfileEditSkillsComponent, {
+      width: '90%',
+      data: {studentProfile: this.applicant}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+
+    dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
+      this.getEducation();
+    });
+  }
+
+  deleteSkill(id: number) {
+    this.studentProfileService.deleteSkill(id).subscribe(() => {
+      this.getSkills();
     });
   }
 }

@@ -11,7 +11,7 @@
   margin-bottom: 20px;
 }
 
-.profile-pic  {
+.profile-pic {
   display: inline-block;
   width: 250px;
   height: 250px;
@@ -20,14 +20,13 @@
   object-fit: cover;
 }
 
-.mat-card-header-text-wrapper{
-  width:100%;
+.mat-card-header-text-wrapper {
+  width: 100%;
 }
 
 .card-title-wrapper {
   width: 100%;
 }
-
 
 .mat-divider {
   display: block;
@@ -38,6 +37,19 @@
   padding-bottom: 15px;
 }
 
-.divider{
+.divider {
   height: 15px;
+}
+
+.mat-list .mat-list-item {
+  display: block;
+  height: 100%;
+}
+
+.skill-item {
+  min-height: 50px;
+}
+
+.skill-button {
+  padding-bottom: 20px;
 }

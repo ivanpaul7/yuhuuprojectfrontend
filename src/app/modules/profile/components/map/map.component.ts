@@ -9,6 +9,7 @@ import {AgmCoreModule} from '@agm/core';
 export class MapComponent implements OnInit {
   @Input() latitude: number;
   @Input() longitude: number;
+
   constructor() {
   }
 
