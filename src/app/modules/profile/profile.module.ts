@@ -4,10 +4,12 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
-  MatDialogModule,
+  MatDialogModule, MatDividerModule,
   MatFormFieldModule,
   MatInputModule,
-  MatSelectModule
+  MatSelectModule,
+  MatNativeDateModule,
+  MatDatepickerModule
 } from '@angular/material';
 import {StudentProfileEditComponentComponent} from './components/student-profile-edit-component/student-profile-edit-component.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -20,6 +22,10 @@ import {profileRoutes} from './profile.routing';
 import {RouterModule} from '@angular/router';
 import {MapComponent} from './components/map/map.component';
 import {AgmCoreModule} from '@agm/core';
+import { StudentProfileEditEducationComponent } from './components/student-profile-edit-education/student-profile-edit-education.component';
+import { StudentProfileEditSkillsComponent } from './components/student-profile-edit-skills/student-profile-edit-skills.component';
+import { StudentProfileEditContactComponent } from './components/student-profile-edit-contact/student-profile-edit-contact.component';
+import { StudentProfileEditBasicComponent } from './components/student-profile-edit-basic/student-profile-edit-basic.component';
 
 @NgModule({
   imports: [
@@ -32,6 +38,9 @@ import {AgmCoreModule} from '@agm/core';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatDividerModule,
     ReactiveFormsModule,
     RouterModule.forChild(profileRoutes),
     AgmCoreModule
@@ -40,10 +49,18 @@ import {AgmCoreModule} from '@agm/core';
     StudentProfileEditComponentComponent,
     CompanyProfilePageComponent,
     CompanyProfileEditComponentComponent,
-    MapComponent
+    MapComponent,
+    StudentProfileEditEducationComponent,
+    StudentProfileEditSkillsComponent,
+    StudentProfileEditContactComponent,
+    StudentProfileEditBasicComponent
   ],
   entryComponents: [
     StudentProfileEditComponentComponent,
+    StudentProfileEditEducationComponent,
+    StudentProfileEditSkillsComponent,
+    StudentProfileEditContactComponent,
+    StudentProfileEditBasicComponent,
     CompanyProfileEditComponentComponent
   ],
   providers: [

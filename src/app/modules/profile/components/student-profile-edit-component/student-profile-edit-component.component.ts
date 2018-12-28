@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Inject, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {StudentProfile} from '../../services/StudentProfile';
+import {Applicant} from '../../../../shared/model/Applicant';
 import {AbstractStudentProfileService} from '../../services/student-profile.service';
 
 @Component({
@@ -11,12 +11,12 @@ import {AbstractStudentProfileService} from '../../services/student-profile.serv
 export class StudentProfileEditComponentComponent {
   @Output() editSubmitEventEmitter = new EventEmitter();
 
-  studentProfileTemp: StudentProfile;
+  applicant: Applicant;
 
   constructor(
     private studentProfileService: AbstractStudentProfileService,
     public dialogRef: MatDialogRef<StudentProfileEditComponentComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
-    this.studentProfileTemp = Object.assign({}, data.studentProfile);
+    this.applicant = Object.assign({}, data.studentProfile);
   }
 
   onNoClick() {
@@ -24,7 +24,7 @@ export class StudentProfileEditComponentComponent {
   }
 
   onSaveClick() {
-    this.studentProfileService.updateStudentProfile(this.studentProfileTemp)
+    this.studentProfileService.updateStudentProfile(this.applicant)
       .subscribe(() => {
         this.editSubmitEventEmitter.emit();
         this.dialogRef.close();

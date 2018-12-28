@@ -10,3 +10,34 @@
 .mat-card {
   margin-bottom: 20px;
 }
+
+.profile-pic  {
+  display: inline-block;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+
+  object-fit: cover;
+}
+
+.mat-card-header-text-wrapper{
+  width:100%;
+}
+
+.card-title-wrapper {
+  width: 100%;
+}
+
+
+.mat-divider {
+  display: block;
+  border-top-width: 2px;
+  border-top-style: solid;
+  margin-left: 3%;
+  width: 94% !important;
+  padding-bottom: 15px;
+}
+
+.divider{
+  height: 15px;
+}

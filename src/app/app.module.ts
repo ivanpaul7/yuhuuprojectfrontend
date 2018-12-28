@@ -1,7 +1,17 @@
 import {HttpClientModule} from '@angular/common/http';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatButtonModule, MatCardModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSelectModule} from '@angular/material';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatDividerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
+  MatNativeDateModule,
+  MatDatepickerModule
+} from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -21,6 +31,7 @@ import {InternshipDetailsPageComponent} from './modules/internship-details/pages
 import {InternshipDetailsModule} from './modules/internship-details/internship-details.module';
 import {CompanyProfilePageComponent} from './modules/profile/pages/company-profile-page/company-profile-page.component';
 import {AgmCoreModule} from '@agm/core';
+import { DatePipe } from '@angular/common'
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -71,6 +82,9 @@ const appRoutes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatDividerModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
     ReactiveFormsModule,
     //TODO update key with a real value (because it cost Paul'll update this later)
     AgmCoreModule.forRoot({
@@ -83,7 +97,8 @@ const appRoutes: Routes = [
     ReactiveFormsModule
   ],
   providers: [
-    AlertModule
+    AlertModule,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

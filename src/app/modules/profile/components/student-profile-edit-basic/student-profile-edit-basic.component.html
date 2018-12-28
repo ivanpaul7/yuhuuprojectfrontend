@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Edit profile</h1>
+<div mat-dialog-content>
+  <div class="main-container">
+    <mat-form-field>
+      <input matInput [(ngModel)]="applicant.firstName" placeholder="First name"
+             value="{{applicant.firstName}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="applicant.lastName" placeholder="Last name"
+             value={{applicant.lastName}}>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="picker" placeholder="Date of birth" [(ngModel)]="applicant.birthday">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput [(ngModel)]="applicant.description" placeholder="Description"
+                matTextareaAutosize matAutosizeMinRows=7
+                value={{applicant.description}}></textarea>
+    </mat-form-field>
+  </div>
+</div>
+<div class="float-right" mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button (click)="onSaveClick()">Save</button>
+</div>
