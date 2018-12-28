@@ -2,22 +2,44 @@
 <div mat-dialog-content>
   <div class="main-container">
     <mat-form-field>
-      <input matInput [(ngModel)]="applicant.firstName" placeholder="First name"
-             value="{{applicant.firstName}}" onchange="">
+      <input matInput [(ngModel)]="applicant.contact.phoneNumber" placeholder="Phone number"
+             value="{{applicant.contact.phoneNumber}}" onchange="">
     </mat-form-field>
     <mat-form-field>
-      <input matInput [(ngModel)]="applicant.lastName" placeholder="Last name"
-             value={{applicant.lastName}}>
+      <input matInput [(ngModel)]="applicant.user.email" placeholder="Email"
+             value="{{applicant.user.email}}" onchange="">
     </mat-form-field>
     <mat-form-field>
-      <input matInput [matDatepicker]="picker" placeholder="Date of birth" [(ngModel)]="applicant.birthday">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+      <input matInput [(ngModel)]="applicant.contact.linkedinLink" placeholder="Linkedin"
+             value="{{applicant.contact.linkedinLink}}" onchange="">
     </mat-form-field>
     <mat-form-field>
-      <textarea matInput [(ngModel)]="applicant.description" placeholder="Description"
-                matTextareaAutosize matAutosizeMinRows=7
-                value={{applicant.description}}></textarea>
+      <input matInput [(ngModel)]="applicant.contact.facebookLink" placeholder="Facebook"
+             value="{{applicant.contact.facebookLink}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="applicant.contact.website" placeholder="Website"
+             value="{{applicant.contact.website}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="applicant.contact.address.country" placeholder="Country"
+             value="{{applicant.contact.address.country}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="applicant.contact.address.town" placeholder="City"
+             value="{{applicant.contact.address.town}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="applicant.contact.address.county" placeholder="County"
+             value="{{applicant.contact.address.county}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="applicant.contact.address.street" placeholder="Street"
+             value="{{applicant.contact.address.street}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="applicant.contact.address.number" placeholder="Number"
+             value="{{applicant.contact.address.number}}" onchange="">
     </mat-form-field>
   </div>
 </div>

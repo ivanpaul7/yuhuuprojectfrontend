@@ -13,7 +13,10 @@ export abstract class AbstractStudentProfileService {
   public abstract updateStudentProfileBasic(studentProfile: Applicant): Observable<Applicant>
 
   public abstract updateStudentProfile(studentProfile: Applicant): Observable<Applicant>
+
+  public abstract updateStudentProfileContact(applicant: Applicant): Observable<Applicant>
 }
+
 
 @Injectable({
   providedIn: 'root'
@@ -90,6 +93,10 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
     return this.mockUpdate(studentProfile);
   }
 
+  updateStudentProfileContact(studentProfile: Applicant): Observable<Applicant> {
+    return this.mockUpdate(studentProfile);
+  }
+
   private mockUpdate(studentProfile: Applicant): Observable<Applicant> {
     this.applicant=studentProfile;
     return of(this.applicant);
@@ -150,6 +157,10 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   updateStudentProfileBasic(studentProfile: Applicant): Observable<Applicant> {
+    return undefined;
+  }
+
+  updateStudentProfileContact(studentProfile: Applicant): Observable<Applicant> {
     return undefined;
   }
 }

@@ -26,7 +26,7 @@ export class StudentProfileEditContactComponent implements OnInit {
   }
 
   onSaveClick() {
-    this.studentProfileService.updateStudentProfileBasic(this.applicant)
+    this.studentProfileService.updateStudentProfileContact(this.applicant)
       .subscribe(() => {
         this.editSubmitEventEmitter.emit();
         this.dialogRef.close();
