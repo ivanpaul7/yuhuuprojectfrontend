@@ -15,7 +15,6 @@ import {
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CompanyProfilePageComponent} from './pages/company-profile-page/company-profile-page.component';
-import {CompanyProfileEditComponentComponent} from './components/company-profile-edit-component/company-profile-edit-component.component';
 import {environment} from '../../../environments/environment';
 import {AbstractStudentProfileService} from './services/student-profile.service';
 import {AbstractCompanyProfileService} from './services/company-profile.service';
@@ -28,6 +27,9 @@ import {StudentProfileEditSkillsComponent} from './components/student-profile-ed
 import {StudentProfileEditContactComponent} from './components/student-profile-edit-contact/student-profile-edit-contact.component';
 import {StudentProfileEditBasicComponent} from './components/student-profile-edit-basic/student-profile-edit-basic.component';
 import {EducationComponent} from './components/education/education.component';
+import { CompanyProfileEditBasicComponent } from './components/company-profile-edit-basic/company-profile-edit-basic.component';
+import { CompanyProfileEditContactComponent } from './components/company-profile-edit-contact/company-profile-edit-contact.component';
+import { CompanyProfileEditMapComponent } from './components/company-profile-edit-map/company-profile-edit-map.component';
 
 @NgModule({
   imports: [
@@ -51,20 +53,24 @@ import {EducationComponent} from './components/education/education.component';
   ],
   declarations: [
     CompanyProfilePageComponent,
-    CompanyProfileEditComponentComponent,
     MapComponent,
     StudentProfileEditEducationComponent,
     StudentProfileEditSkillsComponent,
     StudentProfileEditContactComponent,
     StudentProfileEditBasicComponent,
-    EducationComponent
+    EducationComponent,
+    CompanyProfileEditBasicComponent,
+    CompanyProfileEditContactComponent,
+    CompanyProfileEditMapComponent
   ],
   entryComponents: [
     StudentProfileEditEducationComponent,
     StudentProfileEditSkillsComponent,
     StudentProfileEditContactComponent,
     StudentProfileEditBasicComponent,
-    CompanyProfileEditComponentComponent
+    CompanyProfileEditBasicComponent,
+    CompanyProfileEditContactComponent,
+    CompanyProfileEditMapComponent
   ],
   providers: [
     {

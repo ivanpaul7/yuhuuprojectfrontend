@@ -9,5 +9,5 @@ export interface NavbarItem {
 
 export const profileRoutes: Routes = [
   {path: 'profile/student/:id', component: StudentProfilePageComponent},
-  {path: 'profile/company', component: CompanyProfilePageComponent}
+  {path: 'profile/company/:id', component: CompanyProfilePageComponent}
 ];

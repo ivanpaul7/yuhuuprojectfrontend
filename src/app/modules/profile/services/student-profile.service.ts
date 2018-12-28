@@ -3,7 +3,6 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {Applicant} from '../../../shared/model/Applicant';
 import {catchError, tap} from 'rxjs/operators';
-import {st} from '@angular/core/src/render3';
 import {Education} from '../../../shared/model/Education';
 import {Skill} from '../../../shared/model/Skill';
 
