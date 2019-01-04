@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>Edit contact</h1>
+<div mat-dialog-content>
+  <div class="main-container">
+    <mat-form-field>
+      <input matInput [(ngModel)]="company.contact.phoneNumber" placeholder="Phone number"
+             value="{{company.contact.phoneNumber}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="company.user.email" placeholder="Email"
+             value="{{company.user.email}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="company.contact.linkedinLink" placeholder="Linkedin"
+             value="{{company.contact.linkedinLink}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="company.contact.facebookLink" placeholder="Facebook"
+             value="{{company.contact.facebookLink}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="company.contact.website" placeholder="Website"
+             value="{{company.contact.website}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="company.contact.address.country" placeholder="Country"
+             value="{{company.contact.address.country}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="company.contact.address.town" placeholder="City"
+             value="{{company.contact.address.town}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="company.contact.address.county" placeholder="County"
+             value="{{company.contact.address.county}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="company.contact.address.street" placeholder="Street"
+             value="{{company.contact.address.street}}" onchange="">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="company.contact.address.number" placeholder="Number"
+             value="{{company.contact.address.number}}" onchange="">
+    </mat-form-field>
+  </div>
+</div>
+<div class="float-right" mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button (click)="onSaveClick()">Save</button>
+</div>
