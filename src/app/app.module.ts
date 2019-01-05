@@ -29,15 +29,13 @@ import {ProfileModule} from './modules/profile/profile.module';
 import {DashboardModule} from './modules/dashboard/dashboard.module';
 import {RegisterPageComponent} from './modules/login/pages/register-page/register-page.component';
 import {AlertModule} from './modules/alert/alert.module';
-import {InternshipDetailsPageComponent} from './modules/internship-details/pages/internship-details-page/internship-details-page.component';
-import {InternshipDetailsModule} from './modules/internship-details/internship-details.module';
 import {CompanyProfilePageComponent} from './modules/profile/pages/company-profile-page/company-profile-page.component';
 import {AgmCoreModule} from '@agm/core';
 import {DatePipe} from '@angular/common';
+import { InternshipDetailsPageComponent } from './modules/internships/pages/internship-details-page/internship-details-page.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
-  {path: 'internships', component: InternshipsPageComponent, pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent, pathMatch: 'full'},
   {
     path: 'dashboard',
@@ -69,7 +67,6 @@ const appRoutes: Routes = [
     LoginModule,
     ProfileModule,
     InternshipsModule,
-    InternshipDetailsModule,
     HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
