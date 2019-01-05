@@ -1,7 +1,8 @@
 import {ServerLoginService} from '../app/modules/login/services/login.service';
 import {ServerRegisterService} from '../app/modules/login/services/register.service';
-import { ServerStudentProfileService} from '../app/modules/profile/services/student-profile.service';
-import {ServerCompanyProfileService} from '../app/modules/profile/services/company-profile.service';
+import { ServerStudentProfileService } from '../app/modules/profile/services/student-profile.service';
+import { ServerCompanyProfileService } from '../app/modules/profile/services/company-profile.service';
+import {ServerInternshipDetailsService} from '../app/modules/internships/services/internship-details.service'
 
 export const environment = {
   production: true,
@@ -11,5 +12,6 @@ export const environment = {
   loginService: ServerLoginService,
   registerService: ServerRegisterService,
   studentProfileService: ServerStudentProfileService,
-  companyProfileService: ServerCompanyProfileService
+  companyProfileService: ServerCompanyProfileService,
+  internshipDetailsService: ServerInternshipDetailsService
 };
