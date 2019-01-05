@@ -1,6 +1,6 @@
-<div class="internship-details">
+<mat-card class="internship-details">
   <div class="grid-container">
-    <div class="internship-title">{{internshipDetails.title}}</div>
+    <mat-card-title class="internship-title">{{internshipDetails.title}}</mat-card-title>
     <div class="internship-desc">{{internshipDetails.description}}</div>
     <div class="internship-skills">
     <ul>
@@ -18,12 +18,14 @@
       <li>{{internshipDetails.freeSpots}}</li>
       <li>{{internshipDetails.status}}</li>
     </ul></div>
-    <div class="internship_date">{{internshipDetails.deadline | date: 'yyyy-MM-dd'}}</div>
+    <div class="internship_date">{{internshipDetails.deadline | date: 'yyyy/MM/dd'}}</div>
     <div class= "internship-logo"> <img src="{{internshipDetails.companyLogo}}"> </div>
     <div class="internship-tags">
     <ul>
       <li *ngFor = "let tag of internshipDetails.tags">{{tag}}</li>
     </ul>
     </div>
+  <a mat-stroked-button class="internship-apply">Aplica</a>
   </div>
-</div>
+</mat-card>
+

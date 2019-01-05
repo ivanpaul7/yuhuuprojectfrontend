@@ -1,4 +1,5 @@
 export class Internship {
+  public id: number;
   public title: string;
   public description: string;
   public deadline: string;
@@ -15,9 +16,10 @@ export class Internship {
   public attributes: string[];
   public requirements: string[];
 
-  constructor(title: string, description: string, deadline: string,
+  constructor(id: number, title: string, description: string, deadline: string,
     employmentType: string, companyLogo: string, startDate: string,
-     endDate: string, company?: string, skills?: string[], freeSpots?: number, status?: string, active?: boolean, tags?: string[], attributes?: string[], requirements?: string[]) {
+    endDate: string, company?: string, skills?: string[], freeSpots?: number, status?: string, active?: boolean, tags?: string[], attributes?: string[], requirements?: string[]) {
+    this.id = id;
     this.title = title;
     this.deadline = deadline;
     this.description = description;
@@ -30,5 +32,8 @@ export class Internship {
     this.companyLogo = companyLogo;
     this.company = company;
     this.skills = skills;
+    this.tags = tags;
+    this.requirements = requirements;
+    this.attributes = attributes;
   }
 }

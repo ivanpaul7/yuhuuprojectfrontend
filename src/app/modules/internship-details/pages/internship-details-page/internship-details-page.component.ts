@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MockInternshipDetailsService } from '../../services/internship-details.service';
+import { MockInternshipDetailsService, AbstractInternshipDetailsService } from '../../services/internship-details.service';
 import { ActivatedRoute } from '@angular/router';
 import { Internship } from 'src/app/shared/model/internships.model';
 
@@ -13,7 +13,7 @@ export class InternshipDetailsPageComponent implements OnInit {
   public internshipID: string;
   public internshipDetails: Internship;
 
-  constructor(private details: MockInternshipDetailsService, private route: ActivatedRoute) {
+  constructor(private details: AbstractInternshipDetailsService, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
       this.internshipID = params.id;
     })

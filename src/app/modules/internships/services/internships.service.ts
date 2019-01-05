@@ -7,6 +7,7 @@ export class InternshipsService {
     skillFilters: string[] = [];
     private internships: Internship[] = [
         new Internship(
+            1,
             'La fortech',
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
             'sambata viitoare',
@@ -18,6 +19,7 @@ export class InternshipsService {
             ['C#']
         ),
         new Internship(
+            2,
             'La arobs',
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
             'vineri',
@@ -29,6 +31,7 @@ export class InternshipsService {
             ['C++', 'android', 'Java']
         ),
         new Internship(
+            3,
             'Un internship',
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
             '12/12/2022',
@@ -40,6 +43,7 @@ export class InternshipsService {
             ['angular', 'C#', 'Java']
         ),
         new Internship(
+            4,
             'Un internship',
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
             '12/12/2022',
@@ -50,6 +54,7 @@ export class InternshipsService {
             'amazon',
             ['Ruby', 'CSS']
         ),  new Internship(
+            5,
             'Un internship',
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
             '12/12/2022',
@@ -60,6 +65,7 @@ export class InternshipsService {
             'amazon',
             ['HTML', 'CSS']
         ),  new Internship(
+            6,
             'Un internship',
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
             '12/12/2022',
@@ -68,6 +74,7 @@ export class InternshipsService {
             '2012/10/11',
             '2013/10/11'
         ),  new Internship(
+            7,
             'Un internship',
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
             '12/12/2022',
