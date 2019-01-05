@@ -21,6 +21,8 @@ import { FiltersComponent } from './components/filters/filters.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InternshipDetailsComponent } from './components/internship-details/internship-details.component';
 import { AbstractInternshipDetailsService } from './services/internship-details.service';
+import { ChatComponent } from './components/chat/chat.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -36,7 +38,8 @@ import { AbstractInternshipDetailsService } from './services/internship-details.
     MatInputModule,
     MatChipsModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    NgbModule
   ],
   declarations: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent],
   exports: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent],

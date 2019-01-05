@@ -32,6 +32,7 @@ import {AlertModule} from './modules/alert/alert.module';
 import {CompanyProfilePageComponent} from './modules/profile/pages/company-profile-page/company-profile-page.component';
 import {AgmCoreModule} from '@agm/core';
 import {DatePipe} from '@angular/common';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {InternshipDetailsPageComponent} from './modules/internships/pages/internship-details-page/internship-details-page.component';
 import {CompaniesPageComponent} from './modules/companies/pages/companies-page/companies-page.component';
@@ -96,6 +97,8 @@ const appRoutes: Routes = [
     MatListModule,
     MatIconModule,
     ReactiveFormsModule,
+    // TODO update key with a real value (because it cost Paul'll update this later)
+    NgbModule,
     // TODO update key with a real value (because it cost Paul'll update this later)
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYMs'

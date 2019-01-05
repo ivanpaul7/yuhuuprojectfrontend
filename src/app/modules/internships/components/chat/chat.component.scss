@@ -1,0 +1,101 @@
+::ng-deep .center {
+  margin-top:10px;
+  background-color: gainsboro;
+  margin-left: 30px;
+  border: 1px solid black;
+  height: 50px;
+  margin-right: 100px;
+}
+
+.name{
+  font-size: 15px;
+  font-style: italic;
+  margin-left:40px;
+  margin-top: 10px;
+}
+
+.nameReply{
+  font-size: 15px;
+  font-style: italic;
+  margin-left:80px;
+  margin-top: 10px;
+}
+
+.divButtons{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px;
+  margin-right: 120px;
+}
+
+.divButtons2{
+  display: flex;
+  justify-content: flex-end;
+  margin-top:30px;
+  margin-right:10px;
+}
+
+.number{
+  margin: 6px 10px 0 6px;
+}
+
+.buttonDislike{
+  margin-top:5px;
+
+}
+.buttonImage{
+  margin-top:5px;
+}
+
+.replies{
+  background-color: gainsboro;
+  margin-top:10px;
+  margin-left: 60px;
+  border: 1px solid black;
+  height: 50px;
+}
+
+@keyframes fade {
+  0%   {opacity: 100%}
+  25%  {opacity: 75%}
+  50%  {opacity: 50%}
+  75%  {opacity: 25%}
+  100% {opacity: 0;z-index: -999}
+
+}
+
+.run_animation{
+  -webkit-animation-name: fade;
+  -moz-animation-name: fade;
+  -o-animation-name: fade;
+  animation-name: fade;
+  z-index: 999;
+  animation-duration: 4s;
+  animation-fill-mode: forwards;
+}
+
+.replyComment{
+  margin-top:20px;
+  margin-left: 60px;
+  border: 1px solid black;
+  height: 50px;
+}
+
+.repliesNone{
+  display: none;
+}
+
+.alertMessage{
+  opacity: 0;
+  position: absolute;
+}
+
+.button{
+  margin-top:5px;
+  margin-left: 40px;
+}
+
+.buttonReply{
+  margin-top:5px;
+  margin-left: 70px;
+}
