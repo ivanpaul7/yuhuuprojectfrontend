@@ -33,7 +33,6 @@ export class FiltersComponent implements OnInit {
           if (params['name'] !== undefined) {
             this.selectedNames = this.selectedNames.concat(decodeURI(params['name']).split(','));
           }
-          // this.setFilters();
           this.router.navigate(['companies']);
         }
       );

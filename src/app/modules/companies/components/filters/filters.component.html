@@ -10,42 +10,5 @@
       </mat-panel-description>
     </mat-expansion-panel-header>
 
-    <!--<mat-form-field>
-      <mat-chip-list #chipListCompany>
-        <mat-chip *ngFor="let filter of selectedCompanies" [selectable]="false" [removable]="removable"
-                  (removed)="removeCompany(filter)">
-          {{filter}}
-          <mat-icon matChipRemove *ngIf="removable">&times;</mat-icon>
-        </mat-chip>
-        <input #triggerCompany type="text" matInput placeholder="Filtrati dupa numele companiei"
-               formControlName="companyFilter"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputFor]="chipListCompany"
-               [matAutocomplete]="autoCompany">
-      </mat-chip-list>
-      <mat-autocomplete #autoCompany="matAutocomplete" (optionSelected)="selectedCompany($event)">
-        <mat-option *ngFor="let company of filteredCompanies" [value]="company">
-          {{company}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>-->
-
-    <!--<mat-form-field>
-      <mat-chip-list #chipListSkill>
-        <mat-chip *ngFor="let filter of selectedSkills" [selectable]="false" [removable]="removable"
-                  (removed)="removeSkill(filter)">
-          {{filter}}
-          <mat-icon matChipRemove *ngIf="removable">&times;</mat-icon>
-        </mat-chip>
-        <input #triggerSkill type="text" matInput placeholder="Filtrati dupa skill-uri" formControlName="skillFilter"
-               [matChipInputFor]="chipListSkill"
-               [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matAutocomplete]="autoSkill">
-      </mat-chip-list>
-      <mat-autocomplete #autoSkill="matAutocomplete" (optionSelected)="selectedSkill($event)">
-        <mat-option *ngFor="let skill of filteredSkills" [value]="skill">
-          {{skill}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>-->
-
   </mat-expansion-panel>
 </form>
