@@ -12,19 +12,33 @@
 
 import * as models from './models';
 
-export interface Education {
-    degree?: string;
+export interface Address {
+    apartment?: string;
 
-    endDate?: Date;
+    block?: string;
+
+    country?: string;
+
+    county?: string;
+
+    entrance?: string;
+
+    floor?: string;
 
     id?: number;
 
-    name?: string;
+    latitude?: number;
 
-    schoolLocation?: string;
+    longitude?: number;
 
-    schoolTitle?: string;
+    number?: string;
 
-    startDate?: Date;
+    postalCode?: string;
+
+    sector?: string;
+
+    street?: string;
+
+    town?: string;
 
 }

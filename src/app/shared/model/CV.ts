@@ -12,19 +12,15 @@
 
 import * as models from './models';
 
-export interface Education {
-    degree?: string;
-
-    endDate?: Date;
+export interface CV {
+    deleted?: boolean;
 
     id?: number;
 
-    name?: string;
+    path?: string;
 
-    schoolLocation?: string;
+    publicId?: string;
 
-    schoolTitle?: string;
-
-    startDate?: Date;
+    url?: string;
 
 }

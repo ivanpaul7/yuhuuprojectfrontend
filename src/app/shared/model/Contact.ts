@@ -12,19 +12,21 @@
 
 import * as models from './models';
 
-export interface Education {
-    degree?: string;
+export interface Contact {
+    address?: models.Address;
 
-    endDate?: Date;
+    cv?: models.CV;
+
+    facebookLink?: string;
 
     id?: number;
 
-    name?: string;
+    linkedinLink?: string;
 
-    schoolLocation?: string;
+    phoneNumber?: string;
 
-    schoolTitle?: string;
+    photo?: models.Photo;
 
-    startDate?: Date;
+    website?: string;
 
 }

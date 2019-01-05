@@ -29,13 +29,15 @@ import {ProfileModule} from './modules/profile/profile.module';
 import {DashboardModule} from './modules/dashboard/dashboard.module';
 import {RegisterPageComponent} from './modules/login/pages/register-page/register-page.component';
 import {AlertModule} from './modules/alert/alert.module';
-import {InternshipDetailsPageComponent} from './modules/internship-details/pages/internship-details-page/internship-details-page.component';
-import {InternshipDetailsModule} from './modules/internship-details/internship-details.module';
-import {CompaniesPageComponent} from './modules/companies/pages/companies-page/companies-page.component';
-import {CompaniesModule} from './modules/companies/companies.module';
 import {CompanyProfilePageComponent} from './modules/profile/pages/company-profile-page/company-profile-page.component';
 import {AgmCoreModule} from '@agm/core';
 import {DatePipe} from '@angular/common';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import {InternshipDetailsPageComponent} from './modules/internships/pages/internship-details-page/internship-details-page.component';
+import {CompaniesPageComponent} from './modules/companies/pages/companies-page/companies-page.component';
+import {CompaniesModule} from './modules/companies/companies.module';
+
+
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},

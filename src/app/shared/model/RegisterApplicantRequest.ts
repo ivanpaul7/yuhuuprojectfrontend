@@ -12,19 +12,9 @@
 
 import * as models from './models';
 
-export interface Education {
-    degree?: string;
+export interface RegisterApplicantRequest {
+    applicant?: models.Applicant;
 
-    endDate?: Date;
-
-    id?: number;
-
-    name?: string;
-
-    schoolLocation?: string;
-
-    schoolTitle?: string;
-
-    startDate?: Date;
+    user?: models.User;
 
 }

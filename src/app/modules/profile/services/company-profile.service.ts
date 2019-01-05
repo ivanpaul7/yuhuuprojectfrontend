@@ -1,7 +1,10 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {Company} from '../../../shared/model/Company';
+import {Role} from '../../../shared/model/Role';
+import {Applicant} from '../../../shared/model/Applicant';
+import {tap} from 'rxjs/operators';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable()
 export abstract class AbstractCompanyProfileService {
@@ -12,6 +15,8 @@ export abstract class AbstractCompanyProfileService {
   public abstract updateCompanyBasicInfo(comp: Company): Observable<Company>;
 
   public abstract updateCompanyContact(comp: Company): Observable<Company>;
+
+  public abstract updateCompanyEmail(comp: Company): Observable<Company>;
 }
 
 export class MockCompanyProfileService implements AbstractCompanyProfileService {
@@ -26,7 +31,7 @@ export class MockCompanyProfileService implements AbstractCompanyProfileService 
       'roles': [
         {
           'roleId': 21,
-          'roleString': 'COMPANY'
+          'roleString': Role.RoleStringEnum.COMPANY
         }
       ]
     },
@@ -57,7 +62,7 @@ export class MockCompanyProfileService implements AbstractCompanyProfileService 
       'photo': {
         'id': 9,
         'url': null,
-        'public_id': null,
+        'publicId': null,
         'path': 'https://aussiebet.com/wp-content/uploads/2018/01/betfair.png'
       },
       'cv': null
@@ -80,14 +85,44 @@ export class MockCompanyProfileService implements AbstractCompanyProfileService 
     return of(this.company);
   }
 
+  updateCompanyEmail(comp: Company): Observable<Company> {
+    this.company = comp;
+    return of(this.company);
+  }
+
 
 }
 
+//todo change bearer from logged user
+const httpOptions = {
+  headers: new HttpHeaders(
+    {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1NzI2MzMwODQsImF1dGhvcml0aWVzIjpbIkNPTVBBTlkiXSwianRpIjoiY2FhM2U1ZTYtNjAzZC00OGJiLWI4ZTYtMzc3MzNmZTQyYzM3IiwiY2xpZW50X2lkIjoidGVzdGp3dGNsaWVudGlkIn0.eDrgooHEd42Ueg3QJbaJ3txr1cEFogLvzOLfNHSjf60'    })
+};
+
+
+@Injectable({
+  providedIn: 'root'
+})
 export class ServerCompanyProfileService implements AbstractCompanyProfileService {
   company: Company;
+  private url = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
+
+  constructor(private http: HttpClient) {
+  }
 
   getCompany(id: number): Observable<Company> {
-    return undefined;
+    return this.http.get<Company>(this.url + '/user/company/' + id, httpOptions).pipe(
+      tap(
+        data => {
+          this.company = data;
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
   }
 
   updateCompanyBasicInfo(comp: Company): Observable<Company> {
@@ -95,6 +130,10 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
   }
 
   updateCompanyContact(comp: Company): Observable<Company> {
+    return undefined;
+  }
+
+  updateCompanyEmail(comp: Company): Observable<Company> {
     return undefined;
   }
 

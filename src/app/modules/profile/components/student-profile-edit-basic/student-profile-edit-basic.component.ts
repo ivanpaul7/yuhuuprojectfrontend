@@ -30,7 +30,7 @@ export class StudentProfileEditBasicComponent implements OnInit {
   }
 
   onSaveClick() {
-    this.applicant.birthday = this.datepipe.transform(this.applicant.birthday, 'yyyy-MM-dd');
+    this.applicant.birthday = new Date(this.datepipe.transform(this.applicant.birthday, 'yyyy-MM-dd'));
     this.studentProfileService.updateStudentProfileBasic(this.applicant)
       .subscribe(() => {
         this.editSubmitEventEmitter.emit();
