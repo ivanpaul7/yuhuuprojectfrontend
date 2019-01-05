@@ -1,31 +1,29 @@
-.internship-title {
-  grid-area: i_title;
+.internship-title { 
+  grid-area: i_title; 
 }
 
-.internship-desc {
+.internship-desc { 
   grid-area: i_desc;
 }
-
-.internship-skills {
+.internship-skills { 
   grid-area: i_skills;
 }
-
-.internship-attr {
+.internship-attr { 
   grid-area: i_attr;
 }
-
-.internship-req {
+.internship-req { 
   grid-area: i_req;
 }
-
-.internship_date {
-  grid-area: i_date;
+.internship_date { 
+  grid-area: i_date; 
 }
-
-.internship-logo {
-  grid-area: i_logo;
+.internship-logo { 
+  grid-area: i_logo; 
 }
-
+.internship-apply { 
+  grid-area: i_apply; 
+  text-transform: uppercase;
+}
 .internship-logo > img {
   object-fit: cover;
   max-width: 100%;
@@ -34,39 +32,32 @@
   -moz-border-radius: 10px;
   border-radius: 10px;
 }
-
-.internship-status {
-  grid-area: i_status;
-}
-
-.internship-tags {
-  grid-area: i_tags;
-}
+.internship-status { grid-area: i_status;}
+.internship-tags { grid-area: i_tags;}
 
 .internship-details {
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
-  border: 1px solid #707070;
   width: 100%;
-  min-width: 720px;
 }
+
 
 .grid-container {
   display: grid;
-  grid-template-areas: 'i_title i_title . i_status i_status i_status i_logo' 'i_desc i_desc i_desc i_skills i_attr i_req i_logo' 'i_desc i_desc i_desc i_skills i_attr i_req i_date' 'i_tags i_tags i_tags i_tags i_tags i_tags i_tags';
+  grid-template-areas:
+    'i_title i_title . i_status i_status i_status i_logo'
+    'i_desc i_desc i_desc i_skills i_attr i_req i_logo'
+    'i_desc i_desc i_desc i_skills i_attr i_req i_date'
+    'i_tags i_tags i_tags i_tags i_tags i_tags i_tags'
+    '. . . . . . i_apply';
   grid-template-rows: 28px 120px 120px 28px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 10px;
   padding: 10px;
 }
-
 .grid-container > div {
 
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  background-color: #FFDBB7;
   text-align: left;
 }
 
