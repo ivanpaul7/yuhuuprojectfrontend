@@ -11,4 +11,4 @@ ex. ng serve --configuration=production --port 4201
 ##If you want angular to load a new tab add:
 --open
 ex. ng serve --configuration=production --open
-
+// fast run:  ng serve --configuration=production --optimization=false
