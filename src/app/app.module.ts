@@ -34,6 +34,7 @@ import {InternshipDetailsModule} from './modules/internship-details/internship-d
 import {CompanyProfilePageComponent} from './modules/profile/pages/company-profile-page/company-profile-page.component';
 import {AgmCoreModule} from '@agm/core';
 import {DatePipe} from '@angular/common';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -90,7 +91,8 @@ const appRoutes: Routes = [
     MatListModule,
     MatIconModule,
     ReactiveFormsModule,
-    //TODO update key with a real value (because it cost Paul'll update this later)
+    NgbModule,
+    // TODO update key with a real value (because it cost Paul'll update this later)
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYMs'
     })
