@@ -14,7 +14,7 @@ export class StudentProfileEditEducationComponent implements OnInit {
   @Output() editSubmitEventEmitter = new EventEmitter();
   startDatex = new Date(2010, 0, 1);
   applicant: Applicant;
-  education: Education = new Education();
+  education: Education =  {};
 
   constructor(
     public datepipe: DatePipe,
@@ -33,7 +33,7 @@ export class StudentProfileEditEducationComponent implements OnInit {
   }
 
   onSaveClick() {
-    this.applicant.birthday = this.datepipe.transform(this.applicant.birthday, 'yyyy-MM-dd');
+    this.applicant.birthday =new Date( this.datepipe.transform(this.applicant.birthday, 'yyyy-MM-dd'));
     this.studentProfileService.addEducation(this.applicant.id, this.education)
       .subscribe(() => {
         this.editSubmitEventEmitter.emit();

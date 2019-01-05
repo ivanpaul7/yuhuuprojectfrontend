@@ -13,7 +13,7 @@ export class StudentProfileEditSkillsComponent implements OnInit {
   @Output() editSubmitEventEmitter = new EventEmitter();
   startDatex = new Date(2010, 0, 1);
   applicant: Applicant;
-  skill: Skill = new Skill();
+  skill: Skill = {};
 
   constructor(
     private studentProfileService: AbstractStudentProfileService,

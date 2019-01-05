@@ -12,19 +12,9 @@
 
 import * as models from './models';
 
-export interface Education {
-    degree?: string;
-
-    endDate?: Date;
-
+export interface Tag {
     id?: number;
 
     name?: string;
-
-    schoolLocation?: string;
-
-    schoolTitle?: string;
-
-    startDate?: Date;
 
 }

@@ -4,7 +4,7 @@ import {Location} from '@angular/common';
 import {Company} from '../../../../shared/model/Company';
 import {AbstractCompanyProfileService} from '../../services/company-profile.service';
 import {MatDialog, MatListModule} from '@angular/material';
-
+import { Router } from '@angular/router';
 import {CompanyProfileEditBasicComponent} from '../../components/company-profile-edit-basic/company-profile-edit-basic.component';
 import {CompanyProfileEditContactComponent} from '../../components/company-profile-edit-contact/company-profile-edit-contact.component';
 
@@ -18,6 +18,7 @@ export class CompanyProfilePageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private companyService: AbstractCompanyProfileService,
     private location: Location,
     public dialog: MatDialog) {
@@ -63,4 +64,7 @@ export class CompanyProfilePageComponent implements OnInit {
     });
   }
 
+  navigateToCompanyInternships() {
+    this.router.navigateByUrl('/internships?company=facebook');
+  }
 }
