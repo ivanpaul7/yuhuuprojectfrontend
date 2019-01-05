@@ -13,7 +13,7 @@
           <h1>{{applicant.firstName}} {{applicant.lastName}}</h1>
         </div>
         <div class="col-sm-12">
-          <h4>{{applicant.birthday}}</h4>
+          <h4>{{applicant.birthday| date : "yyyy-MM-dd" }}</h4>
         </div>
         <div class="col-sm-12 cv-button-wrapper">
           <button mat-raised-button (click)="openCV()">

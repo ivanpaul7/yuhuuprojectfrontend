@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {Company} from '../../../shared/model/Company';
+import {Role} from '../../../shared/model/Role';
 
 @Injectable()
 export abstract class AbstractCompanyProfileService {
@@ -26,7 +26,7 @@ export class MockCompanyProfileService implements AbstractCompanyProfileService 
       'roles': [
         {
           'roleId': 21,
-          'roleString': 'COMPANY'
+          'roleString': Role.RoleStringEnum.COMPANY
         }
       ]
     },
@@ -57,7 +57,7 @@ export class MockCompanyProfileService implements AbstractCompanyProfileService 
       'photo': {
         'id': 9,
         'url': null,
-        'public_id': null,
+        'publicId': null,
         'path': 'https://aussiebet.com/wp-content/uploads/2018/01/betfair.png'
       },
       'cv': null

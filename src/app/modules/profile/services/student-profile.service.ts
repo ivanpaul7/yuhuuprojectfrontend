@@ -5,6 +5,7 @@ import {Applicant} from '../../../shared/model/Applicant';
 import {catchError, tap} from 'rxjs/operators';
 import {Education} from '../../../shared/model/Education';
 import {Skill} from '../../../shared/model/Skill';
+import {Role} from '../../../shared/model/Role';
 
 export abstract class AbstractStudentProfileService {
   applicant: Applicant;
@@ -49,13 +50,13 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
       'roles': [
         {
           'roleId': 11,
-          'roleString': 'APPLICANT'
+          'roleString': Role.RoleStringEnum.APPLICANT
         }
       ]
     },
     'firstName': 'Liam',
     'lastName': 'Neeson',
-    'birthday': '1952-06-07',
+    'birthday': new Date('1952-06-07'),
     'description': 'Born in Northern Ireland in 1952, Liam Neeson began pursuing an acting career in the mid-1970s. His breakout role came with the Holocaust drama Schindler\'s List, for which he garnered an Academy Award nomination. Neeson also starred in Star Wars: Episode I and Kinsey, before claiming a string of action-hero roles in flicks like Taken. He has also supplied voice work for hit family films like The Chronicles of Narnia and The LEGO Movie. ',
     'contact': {
       'id': 20,
@@ -82,13 +83,13 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
       'photo': {
         'id': 22,
         'url': 'http://res.cloudinary.com/yuhuubackend/image/upload/v1546683243/fuarlcqjs93dlhh6lupc.jpg',
-        'public_id': null,
+        'publicId': null,
         'path': null
       },
       'cv': {
         'id': 23,
         'url': 'http://res.cloudinary.com/yuhuubackend/raw/upload/v1546682795/hsahlamrdhcpwgdmecl9',
-        'public_id': null,
+        'publicId': null,
         'path': null
       }
     }
@@ -97,8 +98,8 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
     {
       'id': 1,
       'name': 'Mathematics',
-      'startDate': '2012-09-12',
-      'endDate': '2016-07-01',
+      'startDate': new Date('2012-09-12'),
+      'endDate': new Date('2016-07-01'),
       'schoolTitle': 'Nicolae Balcescu Theoretical High School',
       'degree': 'High School Diploma',
       'schoolLocation': 'Cluj-Napoca'
@@ -106,8 +107,8 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
     {
       'id': 2,
       'name': 'Computer Science',
-      'startDate': '2016-10-03',
-      'endDate': '2019-07-01',
+      'startDate': new Date('2016-10-03'),
+      'endDate': new Date('2019-07-01'),
       'schoolTitle': 'University \'Babes-Bolyai\'',
       'degree': 'Bachelor\'s Degrees',
       'schoolLocation': 'Cluj-Napoca'
@@ -115,8 +116,8 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
     {
       'id': 3,
       'name': 'Computer Science',
-      'startDate': '2019-10-03',
-      'endDate': '2021-07-01',
+      'startDate': new Date('2019-10-03'),
+      'endDate': new Date('2021-07-01'),
       'schoolTitle': 'University \'Babes-Bolyai\'',
       'degree': 'Master\'s degree',
       'schoolLocation': 'Cluj-Napoca'
@@ -124,8 +125,8 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
     {
       'id': 4,
       'name': 'Computer Science',
-      'startDate': '2021-10-03',
-      'endDate': '2023-07-01',
+      'startDate': new Date('2021-10-03'),
+      'endDate': new Date('2023-07-01'),
       'schoolTitle': 'University \'Babes-Bolyai\'',
       'degree': 'Doctoral degree',
       'schoolLocation': 'Cluj-Napoca'
