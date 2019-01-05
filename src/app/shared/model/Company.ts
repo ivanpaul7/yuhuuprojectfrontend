@@ -34,6 +34,14 @@ export class Photo {
   url: string;
   public_id: string;
   path: string;
+
+
+  constructor(id: number, url: string, public_id?: string, path?: string) {
+    this.id = id;
+    this.url = url;
+    this.public_id = public_id;
+    this.path = path;
+  }
 }
 
 export class Contact {
@@ -45,16 +53,44 @@ export class Contact {
   address: Address;
   photo: Photo;
   cv: string;
+
+
+  constructor(id: number, phoneNumber: string, photo?: Photo, website?: string,
+              linkedinLink?: string, address?: Address, facebookLink?: string, cv?: string) {
+    this.id = id;
+    this.phoneNumber = phoneNumber;
+    this.facebookLink = facebookLink;
+    this.website = website;
+    this.linkedinLink = linkedinLink;
+    this.address = address;
+    this.photo = photo;
+    this.cv = cv;
+  }
 }
 
 export class Company {
   id: number;
-  user: User;
   name: string;
+  description: string;
+  dimension: number;
   views: number;
   contact: Contact;
-  dimension: number;
-  description: string;
+  user: User;
+
+  // internships: string[];
+
+
+  constructor(id: number, name: string, description: string, dimension: number, views: number,
+              contact?: Contact, user?: User) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.dimension = dimension;
+    this.views = views;
+    this.contact = contact;
+    this.user = user;
+    // this.internships = internships;
+  }
 }
 
 

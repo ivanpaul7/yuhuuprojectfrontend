@@ -31,6 +31,8 @@ import {RegisterPageComponent} from './modules/login/pages/register-page/registe
 import {AlertModule} from './modules/alert/alert.module';
 import {InternshipDetailsPageComponent} from './modules/internship-details/pages/internship-details-page/internship-details-page.component';
 import {InternshipDetailsModule} from './modules/internship-details/internship-details.module';
+import {CompaniesPageComponent} from './modules/companies/pages/companies-page/companies-page.component';
+import {CompaniesModule} from './modules/companies/companies.module';
 import {CompanyProfilePageComponent} from './modules/profile/pages/company-profile-page/company-profile-page.component';
 import {AgmCoreModule} from '@agm/core';
 import {DatePipe} from '@angular/common';
@@ -38,6 +40,7 @@ import {DatePipe} from '@angular/common';
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'internships', component: InternshipsPageComponent, pathMatch: 'full'},
+  {path: 'companies', component: CompaniesPageComponent, pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent, pathMatch: 'full'},
   {
     path: 'dashboard',
@@ -61,6 +64,7 @@ const appRoutes: Routes = [
     InternshipDetailsPageComponent,
     StudentProfilePageComponent,
     InternshipsPageComponent,
+    CompaniesPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +74,7 @@ const appRoutes: Routes = [
     ProfileModule,
     InternshipsModule,
     InternshipDetailsModule,
+    CompaniesModule,
     HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
@@ -90,7 +95,7 @@ const appRoutes: Routes = [
     MatListModule,
     MatIconModule,
     ReactiveFormsModule,
-    //TODO update key with a real value (because it cost Paul'll update this later)
+    // TODO update key with a real value (because it cost Paul'll update this later)
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYMs'
     })

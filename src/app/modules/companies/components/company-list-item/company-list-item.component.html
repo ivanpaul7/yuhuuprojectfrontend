@@ -1,0 +1,53 @@
+<!--<p>
+  company-list-item works!
+</p>
+<h2 style="color: red">VOI LUATI MUIE !!!</h2>
+<h4 style="color: blue">Nu stiti ce va asteapta</h4>-->
+<mat-card routerLinkActive="active" [routerLink]="[index]">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <img mat-card-sm-image src="{{company.contact.photo.url}}" alt="{{company.name}}">
+    </div>
+
+    <mat-card-title>{{ company.name }}</mat-card-title>
+    <mat-card-subtitle>CompanyName</mat-card-subtitle>
+    <div class="header-text additional-header">
+      <div class="mat-card-subtitle date">
+        Dimension: {{company.dimension}}
+      </div>
+      <div class="mat-card-subtitle date">
+        Views: {{company.views}}
+      </div>
+    </div>
+
+  </mat-card-header>
+ <hr>
+  <mat-card-content>
+    <p>
+      {{ company.description }}
+    </p>
+  </mat-card-content>
+  <mat-card-content>
+      <mat-card-actions class="m-0">
+
+        <a href="#">#tag1</a>
+        <a href="#">#tag2</a>
+        <a href="#">#tag3</a>
+
+        <div class="content-text d-flex flex-row float-right" >
+            <img class="imagine" src="assets/img/distance.png">
+            <span class="align-self-center" >Distance: 5.0 Km</span>
+        </div>
+
+      </mat-card-actions>
+
+    <!--<div class="content-text">-->
+      <!--<div class="mat-card-subtitle date">-->
+        <!--<img class="imagine" src="assets/img/distance.png">-->
+        <!--Distance: 5.0 Km-->
+      <!--</div>-->
+    <!--</div>-->
+
+  </mat-card-content>
+  <!--<img class="imagine" src="assets/img/distance.png">-->
+</mat-card>
