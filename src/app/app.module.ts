@@ -34,6 +34,7 @@ import {InternshipDetailsModule} from './modules/internship-details/internship-d
 import {CompanyProfilePageComponent} from './modules/profile/pages/company-profile-page/company-profile-page.component';
 import {AgmCoreModule} from '@agm/core';
 import {DatePipe} from '@angular/common';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -92,8 +93,9 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     //TODO update key with a real value (because it cost Paul'll update this later)
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYMs'
-    })
+      apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYM'
+    }),
+    PdfViewerModule
   ],
   entryComponents: [],
   exports: [

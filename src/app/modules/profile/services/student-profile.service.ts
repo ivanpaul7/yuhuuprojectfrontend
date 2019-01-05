@@ -81,15 +81,15 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
       },
       'photo': {
         'id': 22,
-        'url': null,
+        'url': 'http://res.cloudinary.com/yuhuubackend/image/upload/v1546683243/fuarlcqjs93dlhh6lupc.jpg',
         'public_id': null,
-        'path': 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Liam_Neeson_Deauville_2012_2.jpg/220px-Liam_Neeson_Deauville_2012_2.jpg'
+        'path': null
       },
       'cv': {
         'id': 23,
-        'url': null,
+        'url': 'http://res.cloudinary.com/yuhuubackend/raw/upload/v1546682795/hsahlamrdhcpwgdmecl9',
         'public_id': null,
-        'path': 'https://europass.cedefop.europa.eu/sites/default/files/europass_cv_instructions_ro.pdf'
+        'path': null
       }
     }
   };
@@ -218,18 +218,27 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   applicant: Applicant;
   educations: Education[];
   skills: Skill[];
-  private studentsProfilesUrl = 'api/studentsProfiles';  // URL to web api
+  private studentsProfilesUrl = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
 
   constructor(private http: HttpClient) {
   }
 
   /** GET student profile by id. Will 404 if id not found */
   getStudentProfile(id: number): Observable<Applicant> {
-    const url = `${this.studentsProfilesUrl}/${id}`;
-    return this.http.get<Applicant>(url).pipe(
+    const httpOptions = {
+      headers: new HttpHeaders(
+        {'Content-Type': 'application/json',
+        'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3MjYzNDY2MSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjU1MTgwZThkLWE4NDktNGQ4MS05MjgyLWZkZjA0MGNjNzMyMSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.zsrWgXhBTaEwLomy2KDX7xy-EFDAqx5GfXNMdaAdgJw'})
+    };
+    //todo
+    //const url = `${this.studentsProfilesUrl}/${id}`;
+    return this.http.get<Applicant>(this.studentsProfilesUrl+"/user/applicant/2", httpOptions).pipe(
       tap(_ => this.log(`fetched StudentProfile id=${id}`)),
       catchError(this.handleError<Applicant>(`getStudentProfile id=${id}`))
     );
+
+
+
   }
 
   /** PUT: update the Applicant on the server */

@@ -1,0 +1,16 @@
+<div mat-dialog-content>
+  <div class="main-container">
+    <pdf-viewer [src]="applicant.contact.cv.url"
+                [render-text]="true"
+                style="display: block;"
+    ></pdf-viewer>
+  </div>
+</div>
+<div class="float-right" mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="onNoClick()">Close</button>
+  <a target="_blank" href="{{applicant.contact.cv.url}}">
+    <button mat-raised-button>
+      Download
+    </button>
+  </a>
+</div>
