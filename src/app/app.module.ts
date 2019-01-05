@@ -75,7 +75,6 @@ const appRoutes: Routes = [
     LoginModule,
     ProfileModule,
     InternshipsModule,
-    InternshipDetailsModule,
     CompaniesModule,
     HttpClientModule,
     RouterModule.forRoot(
