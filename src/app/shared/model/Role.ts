@@ -12,19 +12,16 @@
 
 import * as models from './models';
 
-export interface Education {
-    degree?: string;
+export interface Role {
+    roleId?: number;
 
-    endDate?: Date;
+    roleString?: Role.RoleStringEnum;
 
-    id?: number;
-
-    name?: string;
-
-    schoolLocation?: string;
-
-    schoolTitle?: string;
-
-    startDate?: Date;
-
+}
+export namespace Role {
+    export enum RoleStringEnum {
+        ADMIN = <any> 'ADMIN',
+        APPLICANT = <any> 'APPLICANT',
+        COMPANY = <any> 'COMPANY'
+    }
 }

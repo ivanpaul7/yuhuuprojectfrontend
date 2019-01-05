@@ -30,6 +30,8 @@ import {EducationComponent} from './components/education/education.component';
 import { CompanyProfileEditBasicComponent } from './components/company-profile-edit-basic/company-profile-edit-basic.component';
 import { CompanyProfileEditContactComponent } from './components/company-profile-edit-contact/company-profile-edit-contact.component';
 import { CompanyProfileEditMapComponent } from './components/company-profile-edit-map/company-profile-edit-map.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { StudentProfileCvViewComponent } from './components/student-profile-cv-view/student-profile-cv-view.component';
 
 @NgModule({
   imports: [
@@ -49,7 +51,8 @@ import { CompanyProfileEditMapComponent } from './components/company-profile-edi
     MatIconModule,
     ReactiveFormsModule,
     RouterModule.forChild(profileRoutes),
-    AgmCoreModule
+    AgmCoreModule,
+    PdfViewerModule
   ],
   declarations: [
     CompanyProfilePageComponent,
@@ -61,7 +64,8 @@ import { CompanyProfileEditMapComponent } from './components/company-profile-edi
     EducationComponent,
     CompanyProfileEditBasicComponent,
     CompanyProfileEditContactComponent,
-    CompanyProfileEditMapComponent
+    CompanyProfileEditMapComponent,
+    StudentProfileCvViewComponent
   ],
   entryComponents: [
     StudentProfileEditEducationComponent,
@@ -70,7 +74,8 @@ import { CompanyProfileEditMapComponent } from './components/company-profile-edi
     StudentProfileEditBasicComponent,
     CompanyProfileEditBasicComponent,
     CompanyProfileEditContactComponent,
-    CompanyProfileEditMapComponent
+    CompanyProfileEditMapComponent,
+    StudentProfileCvViewComponent
   ],
   providers: [
     {

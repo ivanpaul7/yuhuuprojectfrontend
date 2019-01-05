@@ -4,7 +4,7 @@
     <mat-card-content>
       <div class="row">
         <div class="col-sm-12">
-          <img src={{applicant.contact.photo.path}} alt="..." class="profile-pic">
+          <img src={{applicant.contact.photo.url}} alt="..." class="profile-pic">
           <div class="float-right">
             <button mat-raised-button (click)="openBasicEditDialog()">Edit</button>
           </div>
@@ -13,7 +13,13 @@
           <h1>{{applicant.firstName}} {{applicant.lastName}}</h1>
         </div>
         <div class="col-sm-12">
-          <h4>{{applicant.birthday}}</h4>
+          <h4>{{applicant.birthday| date : "yyyy-MM-dd" }}</h4>
+        </div>
+        <div class="col-sm-12 cv-button-wrapper">
+          <button mat-raised-button (click)="openCV()">
+            <mat-icon>attach_file</mat-icon>
+            CV
+          </button>
         </div>
       </div>
       <div class="divider">
