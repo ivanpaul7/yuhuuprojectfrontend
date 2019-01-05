@@ -20,6 +20,11 @@
             <mat-icon>attach_file</mat-icon>
             CV
           </button>
+          <input
+            style="display: none"
+            type="file" (change)="onFileChanged($event)"
+            #fileInput>
+          <button (click)="fileInput.click()">Select File</button>
         </div>
       </div>
       <div class="divider">
