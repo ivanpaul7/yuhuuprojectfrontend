@@ -19,6 +19,8 @@ export abstract class AbstractStudentProfileService {
 
   public abstract updateStudentProfileContact(applicant: Applicant): Observable<Applicant>
 
+  public abstract updateStudentProfileEmail(applicant: Applicant): Observable<Applicant>
+
   public abstract getEducationForApplicant(): Observable<Education[]>
 
   public abstract addEducation(id: number, education: Education): Observable<Applicant>
@@ -158,6 +160,10 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
     return this.mockUpdate(studentProfile);
   }
 
+  updateStudentProfileEmail(studentProfile: Applicant): Observable<Applicant> {
+    return this.mockUpdate(studentProfile);
+  }
+
   private mockUpdate(studentProfile: Applicant): Observable<Applicant> {
     this.applicant = studentProfile;
     return of(this.applicant);
@@ -234,7 +240,6 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
       tap(
         data => {
           this.applicant = data;
-          console.log(data);
         },
         error => {
           console.log(error);
@@ -257,20 +262,6 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   updateStudentProfileContact(studentProfile: Applicant): Observable<Applicant> {
-    this.http.put<Applicant>(
-      this.url + '/applicant/' + this.applicant.id+'/email',
-      {"email":studentProfile.user.email},
-      httpOptions
-    ).pipe(
-      tap(
-        data => {
-          this.applicant = data;
-        },
-        error => {
-          console.log(error);
-        }
-      )
-    );
     return this.http.put<Applicant>(
       this.url + '/applicant/' + this.applicant.id+'/contact',
       studentProfile.contact,
@@ -287,16 +278,30 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
     );
   }
 
+  updateStudentProfileEmail(studentProfile: Applicant): Observable<Applicant> {
+    return this.http.put<Applicant>(
+      this.url + '/applicant/' + studentProfile.id+'/email',
+      {"email":studentProfile.user.email},
+      httpOptions
+    ).pipe(
+      tap(
+        data => {
+          console.log("email ")
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );;
+  }
+
   getEducationForApplicant(): Observable<Education[]> {
-    console.log("educations");
     return this.http.get<Education[]>(this.url + '/applicant/' + this.applicant.id+'/educations', httpOptions).pipe(
       tap(
         data => {
           this.educations = data;
-          console.log(data);
         },
         error => {
-          console.log(error);
         }
       )
     );
@@ -306,37 +311,51 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
     return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id+'/education', education, httpOptions).pipe(
       tap(
         data => {
-          return true;
         },
         error => {
-          return false;
         }
       )
     );
   }
 
   deleteEducation(id: number): Observable<Applicant> {
-    //todo
-    return undefined;
+    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id+'/educations/'+id, httpOptions).pipe(
+      tap(
+        data => {
+        },
+        error => {
+        }
+      )
+    );
   }
 
   addSkill(skill: Skill): Observable<Applicant> {
-    //todo
-    return undefined;
+    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id+'/skill', skill, httpOptions).pipe(
+      tap(
+        data => {
+        },
+        error => {
+        }
+      )
+    );
   }
 
   deleteSkill(id: number): Observable<Applicant> {
-    //todo
-    return undefined;
+    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id+'/skills/'+id, httpOptions).pipe(
+      tap(
+        data => {
+        },
+        error => {
+        }
+      )
+    );
   }
 
   getSkillsForApplicant(): Observable<Skill[]> {
-    console.log("skillsss");
     return this.http.get<Skill[]>(this.url + '/applicant/' + this.applicant.id+'/skills', httpOptions).pipe(
       tap(
         data => {
           this.skills = data;
-          console.log(data);
         },
         error => {
           console.log(error);

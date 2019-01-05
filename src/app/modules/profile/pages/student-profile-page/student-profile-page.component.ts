@@ -123,7 +123,7 @@ export class StudentProfilePageComponent implements OnInit {
     });
 
     dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
-      this.getEducation();
+      this.getSkills();
     });
   }
 
