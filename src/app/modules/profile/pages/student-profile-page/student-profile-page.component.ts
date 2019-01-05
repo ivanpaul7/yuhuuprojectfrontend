@@ -1,15 +1,16 @@
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
-
-import { StudentProfile} from '../../services/StudentProfile';
-import { StudentProfileService} from '../../services/student-profile.service';
-import {MatDialog} from '@angular/material';
-import {StudentProfileEditComponentComponent} from '../../components/student-profile-edit-component/student-profile-edit-component.component';
-import {MatCardModule} from '@angular/material/card';
+import {Component, Input, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Location} from '@angular/common';
+import {Applicant} from '../../../../shared/model/Applicant';
+import {AbstractStudentProfileService} from '../../services/student-profile.service';
+import {MatDialog, MatListModule} from '@angular/material';
+import {StudentProfileEditBasicComponent} from '../../components/student-profile-edit-basic/student-profile-edit-basic.component';
+import {StudentProfileEditContactComponent} from '../../components/student-profile-edit-contact/student-profile-edit-contact.component';
+import {Education} from '../../../../shared/model/Education';
+import {EducationComponent} from '../../components/education/education.component';
+import {StudentProfileEditEducationComponent} from '../../components/student-profile-edit-education/student-profile-edit-education.component';
+import {Skill} from '../../../../shared/model/Skill';
+import {StudentProfileEditSkillsComponent} from '../../components/student-profile-edit-skills/student-profile-edit-skills.component';
 
 @Component({
   selector: 'app-student-profile-page',
@@ -17,38 +18,115 @@ import {MatCardModule} from '@angular/material/card';
   styleUrls: ['./student-profile-page.component.scss']
 })
 export class StudentProfilePageComponent implements OnInit {
-  @Input() studentProfile: StudentProfile;
+  @Input() applicant: Applicant;
+  @Input() educationList: Education[];
+  @Input() skillsList: Skill[];
 
   constructor(
     private route: ActivatedRoute,
-    private studentProfileService: StudentProfileService,
+    private studentProfileService: AbstractStudentProfileService,
     private location: Location,
     public dialog: MatDialog
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.getStudentProfile();
+    this.getEducation();
+    this.getSkills();
   }
 
-  getStudentProfile(): void {
+  public getStudentProfile(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.studentProfileService.getStudentProfile(id)
       .subscribe(profile => {
-        this.studentProfile = profile;
+        this.applicant = profile;
       });
+
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(StudentProfileEditComponentComponent, {
+  public getEducation() {
+    this.studentProfileService.getEducationForApplicant(this.applicant.id).subscribe(
+      list => {
+        this.educationList = list;
+      }
+    );
+  }
+
+  private getSkills() {
+    this.studentProfileService.getSkillsForApplicant().subscribe(
+      list => {
+        this.skillsList = list;
+      }
+    );
+  }
+
+  openBasicEditDialog() {
+    const dialogRef = this.dialog.open(StudentProfileEditBasicComponent, {
       width: '90%',
-      data: { studentProfile: this.studentProfile }
+      data: {studentProfile: this.applicant}
     });
 
     dialogRef.afterClosed().subscribe(result => {
     });
 
-    const sub = dialogRef.componentInstance.onEditSubmit.subscribe(() => {
+    dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
       this.getStudentProfile();
+    });
+  }
+
+  openContactEditDialog() {
+    const dialogRef = this.dialog.open(StudentProfileEditContactComponent, {
+      width: '90%',
+      data: {studentProfile: this.applicant}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+
+    dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
+      this.getStudentProfile();
+    });
+  }
+
+
+  openAddEducationDialog() {
+    const dialogRef = this.dialog.open(StudentProfileEditEducationComponent, {
+      width: '90%',
+      data: {studentProfile: this.applicant}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+
+    dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
+      this.getEducation();
+    });
+  }
+
+  deleteEducation(id: number) {
+    this.studentProfileService.deleteEducation(id).subscribe(() => {
+      this.getEducation();
+    });
+  }
+
+  openAddSkillDialog() {
+    const dialogRef = this.dialog.open(StudentProfileEditSkillsComponent, {
+      width: '90%',
+      data: {studentProfile: this.applicant}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+
+    dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
+      this.getEducation();
+    });
+  }
+
+  deleteSkill(id: number) {
+    this.studentProfileService.deleteSkill(id).subscribe(() => {
+      this.getSkills();
     });
   }
 }

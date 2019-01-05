@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertService } from '../../../alert/services/alert.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AlertService} from '../../../alert/services/alert.service';
 import {AbstractRegisterService} from '../../services/register.service';
-import {AbstractLoginService} from '../../services/login.service';
 
 @Component({
   selector: 'app-register-component',
@@ -17,11 +16,16 @@ export class RegisterComponentComponent implements OnInit {
 
   private registerService: AbstractRegisterService;
 
-  constructor( registerService: AbstractRegisterService,
-               private router: Router,
-               private alertService: AlertService,
-               private formBuilder: FormBuilder  ) {
+  constructor(registerService: AbstractRegisterService,
+              private router: Router,
+              private alertService: AlertService,
+              private formBuilder: FormBuilder) {
     this.registerService = registerService;
+  }
+
+  // convenience getter for easy access to form fields
+  get f() {
+    return this.registerForm.controls;
   }
 
   ngOnInit() {
@@ -35,10 +39,6 @@ export class RegisterComponentComponent implements OnInit {
     });
   }
 
-  // convenience getter for easy access to form fields
-  get f() { return this.registerForm.controls; }
-
-
   onSubmit() {
     this.submitted = true;
 
@@ -48,11 +48,14 @@ export class RegisterComponentComponent implements OnInit {
     }
 
     this.loading = true;
-    this.registerService.register(this.f.username.value,this.f.password.value,this.f.email.value,this.f.firstName.value,this.f.lastName.value,this.f.age.value).subscribe((isValid: boolean) => {
+    this.registerService.register(this.f.username.value,
+      this.f.password.value, this.f.email.value,
+      this.f.firstName.value, this.f.lastName.value,
+      this.f.age.value).subscribe((isValid: boolean) => {
       if (isValid) {
         this.router.navigateByUrl('/login');
       } else {
-        this.alertService.error("Register error", true);
+        this.alertService.error('Register error', true);
         this.loading = false;
       }
     });

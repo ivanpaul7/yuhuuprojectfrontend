@@ -1,5 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { InternshipsPageComponent } from './internships-page.component';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {InternshipsPageComponent} from './internships-page.component';
 
 
 describe('LoginPageComponent', () => {

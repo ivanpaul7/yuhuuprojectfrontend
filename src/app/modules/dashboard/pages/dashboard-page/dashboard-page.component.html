@@ -1,5 +1,13 @@
-<p>
-  dashboard-page works + {{environment.environmentTestText}}
-</p>
+<div class="col-md-12">
+  <div class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLinkActive="active" *ngFor="let item of menuNavBar;let i = index"
+           [ngClass]="{'active':i == 0}"
+           [routerLink]="['./' + item.path]">{{item.title}}</a>
+      </div>
+    </div>
+  </div>
+</div>
 
-<img src="{{environment.imageTestLink}}">
+<router-outlet></router-outlet>

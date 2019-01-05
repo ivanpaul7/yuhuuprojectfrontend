@@ -64,7 +64,7 @@ export class FiltersComponent implements OnInit {
     const value = this.filterForm.get('skillFilter').value;
     if (value !== null && value !== undefined && value !== '') {
       return this.skills.filter(skill => this.selectedSkills.indexOf(skill) < 0)
-      .filter((skill) => skill.toLowerCase().includes(value.toLowerCase()));
+        .filter((skill) => skill.toLowerCase().includes(value.toLowerCase()));
     }
     return this.skills.filter(skill => this.selectedSkills.indexOf(skill) < 0);
 

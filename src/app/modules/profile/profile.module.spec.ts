@@ -1,4 +1,4 @@
-import { ProfileModule } from './profile.module';
+import {ProfileModule} from './profile.module';
 
 describe('ProfileModule', () => {
   let profileModule: ProfileModule;
