@@ -36,6 +36,7 @@ import { InternshipDetailsPageComponent } from './modules/internships/pages/inte
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: 'login', component: LoginPageComponent, pathMatch: 'full'},
   {
     path: 'dashboard',
     component: DashboardPageComponent,
