@@ -11,7 +11,7 @@ import {EducationComponent} from '../../components/education/education.component
 import {StudentProfileEditEducationComponent} from '../../components/student-profile-edit-education/student-profile-edit-education.component';
 import {Skill} from '../../../../shared/model/Skill';
 import {StudentProfileEditSkillsComponent} from '../../components/student-profile-edit-skills/student-profile-edit-skills.component';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
+import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {StudentProfileCvViewComponent} from '../../components/student-profile-cv-view/student-profile-cv-view.component';
 
 @Component({
@@ -135,7 +135,7 @@ export class StudentProfilePageComponent implements OnInit {
   openCV() {
     const dialogRef = this.dialog.open(StudentProfileCvViewComponent, {
       width: '95%',
-      height:'95%',
+      height: '95%',
       data: {studentProfile: this.applicant}
     });
 
