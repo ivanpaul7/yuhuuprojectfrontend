@@ -4,6 +4,8 @@ import { InternshipsRoutingModule } from './internships-routing.module';
 import { InternshipListComponent } from './components/internship-list/internship-list.component';
 import { InternshipListItemComponent } from './components/internship-list-item/internship-list-item.component';
 import { InternshipsService } from './services/internships.service';
+import { environment } from '../../../environments/environment';
+
 import {
   MatAutocompleteModule,
   MatCardModule,
@@ -12,12 +14,13 @@ import {
   MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
-  MatInputModule
+  MatInputModule,
+  MatButtonModule,
 } from '@angular/material';
 import { FiltersComponent } from './components/filters/filters.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InternshipDetailsComponent } from './components/internship-details/internship-details.component';
-import { MockInternshipDetailsService } from './services/internship-details.service';
+import { AbstractInternshipDetailsService } from './services/internship-details.service';
 
 @NgModule({
   imports: [
@@ -32,11 +35,15 @@ import { MockInternshipDetailsService } from './services/internship-details.serv
     FormsModule,
     MatInputModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonModule
   ],
   declarations: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent],
   exports: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent],
-  providers: [InternshipsService, MockInternshipDetailsService]
+  providers: [InternshipsService, {
+    provide: AbstractInternshipDetailsService,
+    useClass: environment.internshipDetailsService
+  }]
 })
 export class InternshipsModule {
 }

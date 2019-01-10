@@ -6,6 +6,7 @@ import {catchError, tap} from 'rxjs/operators';
 import {Education} from '../../../shared/model/Education';
 import {Skill} from '../../../shared/model/Skill';
 import {Role} from '../../../shared/model/Role';
+import {st} from '@angular/core/src/render3';
 
 export abstract class AbstractStudentProfileService {
   applicant: Applicant;
@@ -16,21 +17,21 @@ export abstract class AbstractStudentProfileService {
 
   public abstract updateStudentProfileBasic(studentProfile: Applicant): Observable<Applicant>
 
-  public abstract updateStudentProfile(studentProfile: Applicant): Observable<Applicant>
-
   public abstract updateStudentProfileContact(applicant: Applicant): Observable<Applicant>
 
-  public abstract getEducationForApplicant(id: number): Observable<Education[]>
+  public abstract updateStudentProfileEmail(applicant: Applicant): Observable<Applicant>
 
-  public abstract addEducation(id: number, education: Education): Observable<Boolean>
+  public abstract getEducationForApplicant(): Observable<Education[]>
 
-  public abstract deleteEducation(id: number): Observable<Boolean>
+  public abstract addEducation(id: number, education: Education): Observable<Applicant>
+
+  public abstract deleteEducation(id: number): Observable<Applicant>
 
   public abstract getSkillsForApplicant(): Observable<Skill[]>
 
-  public abstract addSkill(skill: Skill): Observable<Boolean>
+  public abstract addSkill(skill: Skill): Observable<Applicant>
 
-  public abstract deleteSkill(id: number): Observable<Boolean>
+  public abstract deleteSkill(id: number): Observable<Applicant>
 }
 
 
@@ -151,10 +152,6 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
     return of(this.applicant);
   }
 
-  updateStudentProfile(studentProfile: Applicant): Observable<Applicant> {
-    return this.mockUpdate(studentProfile);
-  }
-
   updateStudentProfileBasic(studentProfile: Applicant): Observable<Applicant> {
     return this.mockUpdate(studentProfile);
   }
@@ -163,47 +160,51 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
     return this.mockUpdate(studentProfile);
   }
 
+  updateStudentProfileEmail(studentProfile: Applicant): Observable<Applicant> {
+    return this.mockUpdate(studentProfile);
+  }
+
   private mockUpdate(studentProfile: Applicant): Observable<Applicant> {
     this.applicant = studentProfile;
     return of(this.applicant);
   }
 
-  getEducationForApplicant(id: number): Observable<Education[]> {
+  getEducationForApplicant(): Observable<Education[]> {
     return of(this.educations);
   }
 
-  addEducation(id: number, education: Education): Observable<Boolean> {
+  addEducation(id: number, education: Education): Observable<Applicant> {
     education.id = this.mockId;
     this.mockId = this.mockId + 1;
     this.educations.push(education);
-    return of(true);
+    return of(this.applicant);
   }
 
-  deleteEducation(id: number): Observable<Boolean> {
+  deleteEducation(id: number): Observable<Applicant> {
     var i = this.educations.length;
     while (i--) {
       if (this.educations[i].id == id) {
         this.educations.splice(i, 1);
       }
     }
-    return of(true);
+    return of(this.applicant);
   }
 
-  addSkill(skill: Skill): Observable<Boolean> {
+  addSkill(skill: Skill): Observable<Applicant> {
     skill.id = this.mockId;
     this.mockId = this.mockId + 1;
     this.skills.push(skill);
-    return of(true);
+    return of(this.applicant);
   }
 
-  deleteSkill(id: number): Observable<Boolean> {
+  deleteSkill(id: number): Observable<Applicant> {
     var i = this.skills.length;
     while (i--) {
       if (this.skills[i].id == id) {
         this.skills.splice(i, 1);
       }
     }
-    return of(true);
+    return of(this.applicant);
   }
 
   getSkillsForApplicant(): Observable<Skill[]> {
@@ -211,6 +212,14 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
   }
 }
 
+//todo change bearer from logged user
+const httpOptions = {
+  headers: new HttpHeaders(
+    {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3MjYzNDY2MSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjU1MTgwZThkLWE4NDktNGQ4MS05MjgyLWZkZjA0MGNjNzMyMSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.zsrWgXhBTaEwLomy2KDX7xy-EFDAqx5GfXNMdaAdgJw'
+    })
+};
 
 @Injectable({
   providedIn: 'root'
@@ -219,34 +228,139 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   applicant: Applicant;
   educations: Education[];
   skills: Skill[];
-  private studentsProfilesUrl = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
+
+  private url = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
 
   constructor(private http: HttpClient) {
   }
 
   /** GET student profile by id. Will 404 if id not found */
   getStudentProfile(id: number): Observable<Applicant> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        {'Content-Type': 'application/json',
-        'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3MjYzNDY2MSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjU1MTgwZThkLWE4NDktNGQ4MS05MjgyLWZkZjA0MGNjNzMyMSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.zsrWgXhBTaEwLomy2KDX7xy-EFDAqx5GfXNMdaAdgJw'})
-    };
-    //todo
-    //const url = `${this.studentsProfilesUrl}/${id}`;
-    return this.http.get<Applicant>(this.studentsProfilesUrl+"/user/applicant/2", httpOptions).pipe(
-      tap(_ => this.log(`fetched StudentProfile id=${id}`)),
-      catchError(this.handleError<Applicant>(`getStudentProfile id=${id}`))
+    return this.http.get<Applicant>(this.url + '/user/applicant/' + id, httpOptions).pipe(
+      tap(
+        data => {
+          this.applicant = data;
+        },
+        error => {
+          console.log(error);
+        }
+      )
     );
-
-
-
   }
 
-  /** PUT: update the Applicant on the server */
-  updateStudentProfile(studentProfile: Applicant): Observable<Applicant> {
-    return this.http.put(this.studentsProfilesUrl, studentProfile, httpOptions).pipe(
-      tap(_ => this.log(`ssupdated Student's Profile id=${studentProfile.id}`)),
-      catchError(this.handleError<any>('updateStudentProfile'))
+  updateStudentProfileBasic(studentProfile: Applicant): Observable<Applicant> {
+    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id, studentProfile, httpOptions).pipe(
+      tap(
+        data => {
+          this.applicant = data;
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
+  }
+
+  updateStudentProfileContact(studentProfile: Applicant): Observable<Applicant> {
+    return this.http.put<Applicant>(
+      this.url + '/applicant/' + this.applicant.id+'/contact',
+      studentProfile.contact,
+      httpOptions
+    ).pipe(
+      tap(
+        data => {
+          this.applicant = data;
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
+  }
+
+  updateStudentProfileEmail(studentProfile: Applicant): Observable<Applicant> {
+    return this.http.put<Applicant>(
+      this.url + '/applicant/' + studentProfile.id+'/email',
+      {"email":studentProfile.user.email},
+      httpOptions
+    ).pipe(
+      tap(
+        data => {
+          console.log("email ")
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );;
+  }
+
+  getEducationForApplicant(): Observable<Education[]> {
+    return this.http.get<Education[]>(this.url + '/applicant/' + this.applicant.id+'/educations', httpOptions).pipe(
+      tap(
+        data => {
+          this.educations = data;
+        },
+        error => {
+        }
+      )
+    );
+  }
+
+  addEducation(id: number, education: Education): Observable<Applicant> {
+    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id+'/education', education, httpOptions).pipe(
+      tap(
+        data => {
+        },
+        error => {
+        }
+      )
+    );
+  }
+
+  deleteEducation(id: number): Observable<Applicant> {
+    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id+'/educations/'+id, httpOptions).pipe(
+      tap(
+        data => {
+        },
+        error => {
+        }
+      )
+    );
+  }
+
+  addSkill(skill: Skill): Observable<Applicant> {
+    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id+'/skill', skill, httpOptions).pipe(
+      tap(
+        data => {
+        },
+        error => {
+        }
+      )
+    );
+  }
+
+  deleteSkill(id: number): Observable<Applicant> {
+    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id+'/skills/'+id, httpOptions).pipe(
+      tap(
+        data => {
+        },
+        error => {
+        }
+      )
+    );
+  }
+
+  getSkillsForApplicant(): Observable<Skill[]> {
+    return this.http.get<Skill[]>(this.url + '/applicant/' + this.applicant.id+'/skills', httpOptions).pipe(
+      tap(
+        data => {
+          this.skills = data;
+        },
+        error => {
+          console.log(error);
+        }
+      )
     );
   }
 
@@ -274,42 +388,4 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   private log(message: string) {
     console.log(`StudentProfileService: ${message}`);
   }
-
-  updateStudentProfileBasic(studentProfile: Applicant): Observable<Applicant> {
-    return undefined;
-  }
-
-  updateStudentProfileContact(studentProfile: Applicant): Observable<Applicant> {
-    return undefined;
-  }
-
-  getEducationForApplicant(id: number): Observable<Education[]> {
-    return undefined;
-  }
-
-  addEducation(id: number, education: Education): Observable<Boolean> {
-    return undefined;
-  }
-
-  deleteEducation(id: number): Observable<Boolean> {
-    return undefined;
-  }
-
-  addSkill(skill: Skill): Observable<Boolean> {
-    return undefined;
-  }
-
-  deleteSkill(id: number): Observable<Boolean> {
-    return undefined;
-  }
-
-  getSkillsForApplicant(): Observable<Skill[]> {
-    return undefined;
-  }
-
 }
-
-
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
-};

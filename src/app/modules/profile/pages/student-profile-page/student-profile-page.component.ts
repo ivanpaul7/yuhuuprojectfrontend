@@ -13,6 +13,7 @@ import {Skill} from '../../../../shared/model/Skill';
 import {StudentProfileEditSkillsComponent} from '../../components/student-profile-edit-skills/student-profile-edit-skills.component';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {StudentProfileCvViewComponent} from '../../components/student-profile-cv-view/student-profile-cv-view.component';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-student-profile-page',
@@ -34,8 +35,6 @@ export class StudentProfilePageComponent implements OnInit {
 
   ngOnInit() {
     this.getStudentProfile();
-    this.getEducation();
-    this.getSkills();
   }
 
   public getStudentProfile(): void {
@@ -43,12 +42,14 @@ export class StudentProfilePageComponent implements OnInit {
     this.studentProfileService.getStudentProfile(id)
       .subscribe(profile => {
         this.applicant = profile;
+        this.getEducation();
+        this.getSkills();
       });
 
   }
 
   public getEducation() {
-    this.studentProfileService.getEducationForApplicant(this.applicant.id).subscribe(
+    this.studentProfileService.getEducationForApplicant().subscribe(
       list => {
         this.educationList = list;
       }
@@ -122,7 +123,7 @@ export class StudentProfilePageComponent implements OnInit {
     });
 
     dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
-      this.getEducation();
+      this.getSkills();
     });
   }
 
