@@ -36,13 +36,12 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {InternshipDetailsPageComponent} from './modules/internships/pages/internship-details-page/internship-details-page.component';
 import {CompaniesPageComponent} from './modules/companies/pages/companies-page/companies-page.component';
 import {CompaniesModule} from './modules/companies/companies.module';
-
+import {CompanyDetailsPageComponent} from './modules/companies/pages/company-details-page/company-details-page.component';
 
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'internships', component: InternshipsPageComponent, pathMatch: 'full'},
-  {path: 'companies', component: CompaniesPageComponent, pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent, pathMatch: 'full'},
   {
     path: 'dashboard',
@@ -67,6 +66,7 @@ const appRoutes: Routes = [
     StudentProfilePageComponent,
     InternshipsPageComponent,
     CompaniesPageComponent,
+    CompanyDetailsPageComponent,
   ],
   imports: [
     BrowserModule,

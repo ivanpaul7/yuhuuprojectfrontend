@@ -1,27 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {CompanyListComponent} from './components/company-list/company-list.component';
-import {CompanyListItemComponent} from './components/company-list-item/company-list-item.component';
+import {CompaniesPageComponent} from './pages/companies-page/companies-page.component';
+import {CompanyDetailsPageComponent} from './pages/company-details-page/company-details-page.component';
 
 const companiesRoutes: Routes = [
   {
     path: 'companies',
-    component: CompanyListComponent,
-    children: [
-      {
-        path: ':id',
-        component: CompanyListItemComponent,
-        children: [
-          {
-            path: '',
-            redirectTo: '/:id',
-            pathMatch: 'full'
-          }
-        ]
-      },
-    ]
-  }
+    component: CompaniesPageComponent,
+  },
+  {path: 'companies/:id', component: CompanyDetailsPageComponent},
+
 ];
 
 @NgModule({
@@ -32,4 +20,5 @@ const companiesRoutes: Routes = [
     RouterModule
   ]
 })
-export class CompaniesRoutingModule { }
+export class CompaniesRoutingModule {
+}

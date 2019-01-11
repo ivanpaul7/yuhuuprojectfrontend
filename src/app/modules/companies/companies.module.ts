@@ -17,8 +17,8 @@ import {CompanyListItemComponent} from './components/company-list-item/company-l
 import {FiltersComponent} from './components/filters/filters.component';
 import {environment} from '../../../environments/environment';
 import {AbstractCompaniesService} from './services/companies.service';
-import { CompanyDetailsPageComponent } from './pages/company-details-page/company-details-page.component';
 import { CompanyDetailsComponent } from './components/company-details/company-details.component';
+import {AbstractCompanyDetailsService} from './services/company-details.service';
 
 @NgModule({
   imports: [
@@ -35,12 +35,16 @@ import { CompanyDetailsComponent } from './components/company-details/company-de
     MatChipsModule,
     MatIconModule
   ],
-  declarations: [CompanyListComponent, CompanyListItemComponent, FiltersComponent, CompanyDetailsPageComponent, CompanyDetailsComponent],
-  exports: [CompanyListComponent, CompanyListItemComponent],
+  declarations: [CompanyListComponent, CompanyListItemComponent, FiltersComponent, CompanyDetailsComponent],
+  exports: [CompanyListComponent, CompanyListItemComponent, FiltersComponent, CompanyDetailsComponent],
   providers: [{
     provide: AbstractCompaniesService,
     useClass: environment.companiesService
-  }]
+  },
+    {
+      provide: AbstractCompanyDetailsService,
+      useClass: environment.companyDetailsService
+    }]
 })
 export class CompaniesModule {
 }

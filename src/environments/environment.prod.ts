@@ -4,6 +4,7 @@ import { ServerStudentProfileService } from '../app/modules/profile/services/stu
 import { ServerCompanyProfileService } from '../app/modules/profile/services/company-profile.service';
 import {ServerInternshipDetailsService} from '../app/modules/internships/services/internship-details.service'
 import {ServerCompaniesService} from '../app/modules/companies/services/companies.service';
+import {ServerCompanyDetailsService} from '../app/modules/companies/services/company-details.service';
 
 export const environment = {
   production: true,
@@ -15,5 +16,6 @@ export const environment = {
   studentProfileService: ServerStudentProfileService,
   companyProfileService: ServerCompanyProfileService,
   internshipDetailsService: ServerInternshipDetailsService,
-  companiesService: ServerCompaniesService
+  companiesService: ServerCompaniesService,
+  companyDetailsService: ServerCompanyDetailsService,
 };
