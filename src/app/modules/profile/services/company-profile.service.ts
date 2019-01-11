@@ -173,6 +173,7 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
     ).pipe(
       tap(
         data => {
+          this.company.user=data;
         },
         error => {
           console.log(error);

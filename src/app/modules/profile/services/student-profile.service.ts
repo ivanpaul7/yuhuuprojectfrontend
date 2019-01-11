@@ -257,7 +257,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   updateStudentProfileBasic(studentProfile: Applicant): Observable<Applicant> {
-    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id, studentProfile, httpOptions).pipe(
+    return this.http.put<Applicant>(this.url + '/applicant/' + studentProfile.id, studentProfile, httpOptions).pipe(
       tap(
         data => {
           this.applicant = data;
@@ -270,14 +270,16 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   updateStudentProfileContact(studentProfile: Applicant): Observable<Applicant> {
+    console.log("contact");
+    console.log(this.applicant);
     return this.http.put<Applicant>(
-      this.url + '/applicant/' + this.applicant.id + '/contact',
+      this.url + '/applicant/' + studentProfile.id + '/contact',
       studentProfile.contact,
       httpOptions
     ).pipe(
       tap(
         data => {
-          this.applicant = data;
+          this.applicant.contact = data;
         },
         error => {
           console.log(error);
@@ -287,6 +289,9 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   updateStudentProfileEmail(studentProfile: Applicant): Observable<Applicant> {
+    if(this.applicant.user.email == studentProfile.user.email){
+      return of(this.applicant);
+    }
     return this.http.put<Applicant>(
       this.url + '/applicant/' + studentProfile.id + '/email',
       {'email': studentProfile.user.email},
@@ -294,7 +299,8 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
     ).pipe(
       tap(
         data => {
-          console.log('email ');
+          this.applicant.user=data;
+          console.log(this.applicant);
         },
         error => {
           console.log(error);
