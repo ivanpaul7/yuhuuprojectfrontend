@@ -8,6 +8,7 @@ import {AlertModule} from '../alert/alert.module';
 import {RouterModule} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AbstractRegisterService} from './services/register.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import {AbstractRegisterService} from './services/register.service';
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [LoginComponentComponent, RegisterComponentComponent],
   exports: [LoginComponentComponent, RegisterComponentComponent],
