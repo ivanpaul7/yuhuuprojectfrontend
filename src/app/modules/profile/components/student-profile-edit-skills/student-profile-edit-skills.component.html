@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Add skill</h1>
+<div mat-dialog-content>
+  <div class="main-container container">
+    <mat-form-field>
+      <input matInput [(ngModel)]="skill.name" placeholder=""
+             value="{{skill.name}}" onchange="">
+    </mat-form-field>
+  </div>
+</div>
+<div class="float-right" mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button (click)="onSaveClick()">Save</button>
+</div>

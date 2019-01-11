@@ -1,26 +1,15 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {InternshipListComponent} from './components/internship-list/internship-list.component';
-import {InternshipListItemComponent} from './components/internship-list-item/internship-list-item.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { InternshipDetailsPageComponent } from './pages/internship-details-page/internship-details-page.component';
+import { InternshipsPageComponent } from './pages/internships-page/internships-page.component';
 
 const internshipsRoutes: Routes = [
   {
     path: 'internships',
-    component: InternshipListComponent,
-    children: [
-      {
-        path: ':id',
-        component: InternshipListItemComponent,
-        children: [
-          {
-            path: '',
-            redirectTo: '/:id',
-            pathMatch: 'full'
-          }
-        ]
-      },
-    ]
-  }
+    component: InternshipsPageComponent,
+  },
+  { path: 'internships/:id', component: InternshipDetailsPageComponent },
+
 ];
 
 @NgModule({
