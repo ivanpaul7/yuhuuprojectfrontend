@@ -90,7 +90,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     //TODO update key with a real value (because it cost Paul'll update this later)
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYM'
+      apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYMs'
     })
   ],
   entryComponents: [],
