@@ -31,11 +31,9 @@ export class LoginComponentComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-
     // TODO
     // reset login status
     // this.loginService.logout();
-
   }
 
   // convenience getter for easy access to form fields
@@ -53,14 +51,16 @@ export class LoginComponentComponent implements OnInit {
 
     this.loading = true;
 
-    this.loginService.login(this.f.username.value, this.f.password.value).subscribe((isValid: boolean) => {
+    this.loginService.login(this.f.username.value, this.f.password.value).then((isValid: boolean) => {
       if (isValid) {
         this.router.navigateByUrl('/dashboard/test1');
       } else {
         this.alertService.error('Login error', true);
         this.loading = false;
       }
+    }).catch( err=> {
+      this.alertService.error('Login error', true);
+      this.loading = false;
     });
-
   }
 }

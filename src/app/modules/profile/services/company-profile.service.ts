@@ -118,6 +118,8 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
       tap(
         data => {
           this.company = data;
+          //todo delete this after backend delivers the object properly :)
+          this.company.contact.cv={};
         },
         error => {
           console.log(error);
@@ -127,14 +129,8 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
   }
 
   updateCompanyBasicInfo(comp: Company): Observable<Company> {
-    //todo after bug fix, test this
     return this.http.put<Applicant>(this.url + '/company/' + this.company.id + '/profile',
-      {
-        'id': comp.id,
-        'name': comp.name,
-        'description': comp.description,
-        'dimension': comp.dimension
-      },
+      comp,
       httpOptions
     ).pipe(
       tap(
@@ -149,13 +145,10 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
   }
 
   updateCompanyContact(comp: Company): Observable<Company> {
-    //todo after bug fix, test this
+    //todo test for linkedin also
     return this.http.put<Applicant>(
       this.url + '/company/' + this.company.id + '/contact',
-      {
-        'id': comp.id,
-        'contact':comp.contact
-      },
+      comp,
       httpOptions
     ).pipe(
       tap(
@@ -170,6 +163,9 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
   }
 
   updateCompanyEmail(comp: Company): Observable<Company> {
+    if(this.company.user.email == comp.user.email)
+      return of(this.company);
+
     return this.http.put<Applicant>(
       this.url + '/company/' + comp.id + '/email',
       {'email': comp.user.email},
@@ -177,7 +173,6 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
     ).pipe(
       tap(
         data => {
-          console.log('email ');
         },
         error => {
           console.log(error);
