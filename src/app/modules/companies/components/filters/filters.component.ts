@@ -21,8 +21,6 @@ export class FiltersComponent implements OnInit {
   @ViewChild('triggerName', {read: MatAutocompleteTrigger}) triggerCompany: MatAutocompleteTrigger;
   timeout;
 
-  // TODO - Filtrare dupa numele companiei
-
   constructor(private companiesService: AbstractCompaniesService,
               private route: ActivatedRoute, private router: Router) { }
 
