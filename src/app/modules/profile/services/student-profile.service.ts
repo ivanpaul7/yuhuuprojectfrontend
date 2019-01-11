@@ -375,7 +375,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
 
 
   uploadPhoto(uploadData: FormData): Observable<Photo> {
-
+    //todo is not yet working
     const httpOptionsSpecial = {
       headers: new HttpHeaders(
         {
@@ -386,17 +386,14 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
       processData: false,
     };
     let x=this.url + '/applicant/' + this.applicant.id+'/photo';
-    console.log("xxxxx  "+x);
     return this.http.put<Photo>(this.url + '/applicant/' + this.applicant.id+'/photo', uploadData, httpOptionsSpecial).pipe(
       tap(
         data => {
           console.log(data);
-          console.log("111111111");
           this.applicant.contact.photo=data;
 
         },
         error => {
-          console.log("222");
           console.log(error);
         }
       )
