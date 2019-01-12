@@ -28,7 +28,19 @@ mat-card:hover {
   flex-direction: column;
 }
 
-.additional-header{
-  width: 100%;
+.content-text {
+  align-self: flex-end;
+  margin: 0 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.additional-header {
   align-items: end;
+  width: 100%
+}
+
+.imagine {
+  height: 25px;
+  width: 25px;
 }

@@ -34,9 +34,14 @@ import {AgmCoreModule} from '@agm/core';
 import {DatePipe} from '@angular/common';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {InternshipDetailsPageComponent} from './modules/internships/pages/internship-details-page/internship-details-page.component';
+import {CompaniesPageComponent} from './modules/companies/pages/companies-page/companies-page.component';
+import {CompaniesModule} from './modules/companies/companies.module';
+import {CompanyDetailsPageComponent} from './modules/companies/pages/company-details-page/company-details-page.component';
+
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: 'internships', component: InternshipsPageComponent, pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent, pathMatch: 'full'},
   {
     path: 'dashboard',
@@ -60,6 +65,8 @@ const appRoutes: Routes = [
     InternshipDetailsPageComponent,
     StudentProfilePageComponent,
     InternshipsPageComponent,
+    CompaniesPageComponent,
+    CompanyDetailsPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +75,7 @@ const appRoutes: Routes = [
     LoginModule,
     ProfileModule,
     InternshipsModule,
+    CompaniesModule,
     HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
@@ -88,7 +96,7 @@ const appRoutes: Routes = [
     MatListModule,
     MatIconModule,
     ReactiveFormsModule,
-    //TODO update key with a real value (because it cost Paul'll update this later)
+    // TODO update key with a real value (because it cost Paul'll update this later)
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYMs'
     })
