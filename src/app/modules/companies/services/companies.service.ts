@@ -54,7 +54,7 @@ export class MockCompaniesService implements AbstractCompaniesService {
     }
   ];
 
-  private companiesName: string[] = ['facebook', 'google', 'amazon'];
+  private companiesName: string[] = ['facebook', 'google', 'amazon', 'La Fortech', 'La Arobs'];
 
   constructor() {
   }
