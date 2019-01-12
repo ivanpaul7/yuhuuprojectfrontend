@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ChatComment} from '../../../../shared/model/chatComment';
 
 @Component({
@@ -8,14 +8,16 @@ import {ChatComment} from '../../../../shared/model/chatComment';
 })
 export class ChatComponent implements OnInit {
 
+  @ViewChild('warningAlert') warning: ElementRef;
+
   commentList: ChatComment[] = [{
     chatMessage: 'mere', commentList: [{chatMessage: 'mere', commentList: [], like: 1, dislike: 2, name: 'Ion'},
       {chatMessage: 'mere2', commentList: [], like: 1, dislike: 2, name: 'Ilie'}],
     like: 5, dislike: 9, name: 'Bubu'
   }];
 
-  comment = ' ';
-  replyCom = ' ';
+  comment = '';
+  replyCom = '';
 
   constructor() {
   }
@@ -26,11 +28,13 @@ export class ChatComponent implements OnInit {
   public myFunction($event) {
     console.log($event.target.parentElement.getElementsByClassName('alert'));
     const reply = $event.target.parentElement.getElementsByClassName('alert');
-    if (this.comment === ' ') {
-      (<HTMLScriptElement> reply.item(0)).classList.remove('run_animation');
-      (<HTMLScriptElement> reply.item(0)).style.opacity = '100';
+    const warningAsHtmlElement = this.warning.nativeElement as HTMLElement;
+    console.log(warningAsHtmlElement);
+    if (this.comment === '') {
+      warningAsHtmlElement.classList.remove('run_animation');
+      warningAsHtmlElement.style.opacity = '100';
       setTimeout(function () {
-        (<HTMLScriptElement> reply.item(0)).classList.add('run_animation');
+        warningAsHtmlElement.classList.add('run_animation');
       }, 10);
 
     } else {
@@ -39,7 +43,20 @@ export class ChatComponent implements OnInit {
   }
 
   public reply(comment: ChatComment) {
-    comment.commentList.push({chatMessage: this.replyCom, commentList: [], like: 0, dislike: 0, name: 'Alt Prost'});
+
+
+    const warningAsHtmlElement = this.warning.nativeElement as HTMLElement;
+
+    if (this.replyCom === '') {
+      warningAsHtmlElement.classList.remove('run_animation');
+      warningAsHtmlElement.style.opacity = '100';
+      setTimeout(function () {
+        warningAsHtmlElement.classList.add('run_animation');
+      }, 10);
+
+    } else {
+      comment.commentList.push({chatMessage: this.replyCom, commentList: [], like: 0, dislike: 0, name: 'Alt Prost'});
+    }
 
   }
 

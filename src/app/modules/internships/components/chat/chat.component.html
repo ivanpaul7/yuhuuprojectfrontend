@@ -1,10 +1,10 @@
 
 
 <div class="container">
-  <div class="alertMessage alert alert-warning" role="alert">
+  <div #warningAlert class="alertMessage alert alert-warning" role="alert">
     Can't post an empty comment!
   </div>
-<textarea class="col-10" [value]="comment" (input)="comment = $event.target.value" id="textArea" rows="3" cols="80"  >
+<textarea placeholder="Write a comment..." class="col-10" [value]="comment" (input)="comment = $event.target.value" id="textArea" rows="3" cols="80"  >
 
 </textarea>
   <br>
@@ -37,7 +37,7 @@
       <ng-container *ngFor="let comment2 of comment.commentList">
         <div class="nameReply"><b> {{comment2.name}} </b></div>
         <div class="replies col-10">
-          <div>
+          <div class="message2">
             {{comment2.chatMessage}}
           </div>
           <div class="divButtons2">
