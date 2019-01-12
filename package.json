@@ -37,7 +37,9 @@
     "ng2-pdf-viewer": "^5.2.3",
     "popper.js": "^1.14.3",
     "rxjs": "~6.2.0",
-    "zone.js": "~0.8.26"
+    "vanilla-tilt": "^1.6.1",
+    "zone.js": "~0.8.26",
+    "@angular/material-moment-adapter": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.8.0",
