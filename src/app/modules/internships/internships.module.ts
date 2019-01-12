@@ -16,11 +16,17 @@ import {
   MatIconModule,
   MatInputModule,
   MatButtonModule,
+  MatDialogModule, MatDividerModule,
+  MatSelectModule,
+  MatNativeDateModule,
+  MatDatepickerModule,
+  MatListModule,
 } from '@angular/material';
 import { FiltersComponent } from './components/filters/filters.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InternshipDetailsComponent } from './components/internship-details/internship-details.component';
 import { AbstractInternshipDetailsService } from './services/internship-details.service';
+import { InternshipEditComponent } from './components/internship-edit/internship-edit.component';
 import { ChatComponent } from './components/chat/chat.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
@@ -39,10 +45,16 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MatChipsModule,
     MatIconModule,
     MatButtonModule,
+    MatDialogModule, MatDividerModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatListModule,
     NgbModule
   ],
-  declarations: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, ChatComponent],
-  exports: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, ChatComponent],
+  entryComponents: [InternshipEditComponent],
+  declarations: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, InternshipEditComponent, ChatComponent],
+  exports: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent,ChatComponent],
   providers: [InternshipsService, {
     provide: AbstractInternshipDetailsService,
     useClass: environment.internshipDetailsService
