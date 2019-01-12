@@ -27,6 +27,7 @@
     "@clr/angular": "^0.13.9",
     "@clr/icons": "^0.13.9",
     "@clr/ui": "^0.13.9",
+    "@ng-bootstrap/ng-bootstrap": "^4.0.1",
     "@types/googlemaps": "latest",
     "@webcomponents/custom-elements": "^1.0.0",
     "angular-in-memory-web-api": "^0.7.0",

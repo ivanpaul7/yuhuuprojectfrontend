@@ -17,7 +17,7 @@ import {CompanyListItemComponent} from './components/company-list-item/company-l
 import {FiltersComponent} from './components/filters/filters.component';
 import {environment} from '../../../environments/environment';
 import {AbstractCompaniesService} from './services/companies.service';
-import { CompanyDetailsComponent } from './components/company-details/company-details.component';
+import {CompanyDetailsComponent} from './components/company-details/company-details.component';
 import {AbstractCompanyDetailsService} from './services/company-details.service';
 
 @NgModule({
