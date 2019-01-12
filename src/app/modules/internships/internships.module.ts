@@ -16,6 +16,11 @@ import {
   MatIconModule,
   MatInputModule,
   MatButtonModule,
+  MatDialogModule, MatDividerModule,
+  MatSelectModule,
+  MatNativeDateModule,
+  MatDatepickerModule,
+  MatListModule,
 } from '@angular/material';
 import { FiltersComponent } from './components/filters/filters.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -36,7 +41,12 @@ import { AbstractInternshipDetailsService } from './services/internship-details.
     MatInputModule,
     MatChipsModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule, MatDividerModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatListModule,
   ],
   declarations: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent],
   exports: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent],

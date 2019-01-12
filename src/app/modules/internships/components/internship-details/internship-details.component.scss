@@ -20,8 +20,13 @@
 .internship-logo { 
   grid-area: i_logo; 
 }
+
 .internship-apply { 
   grid-area: i_apply; 
+  text-transform: uppercase;
+}
+.internship-modify { 
+  grid-area: i_modify; 
   text-transform: uppercase;
 }
 .internship-logo > img {
@@ -37,21 +42,21 @@
 
 .internship-details {
   width: 100%;
+  padding-top: 20;
 }
 
 
 .grid-container {
   display: grid;
   grid-template-areas:
-    'i_title i_title . i_status i_status i_status i_logo'
-    'i_desc i_desc i_desc i_skills i_attr i_req i_logo'
-    'i_desc i_desc i_desc i_skills i_attr i_req i_date'
-    'i_tags i_tags i_tags i_tags i_tags i_tags i_tags'
-    '. . . . . . i_apply';
+    'i_title i_title i_title i_title i_title i_status'
+    'i_logo i_logo i_desc i_desc i_desc i_date'
+    '. . i_desc i_desc i_desc i_date'
+    'i_tags i_tags i_tags . i_modify i_apply';
   grid-template-rows: 28px 120px 120px 28px;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 10px;
-  padding: 10px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 8px;
+  margin-top: 20px;
 }
 .grid-container > div {
 
@@ -76,6 +81,53 @@
 
 .grid-container > div > ul {
   padding: 0px;
+}
+
+.mat-card {
+  margin-top: 20px;
+}
+
+.profile-pic {
+  display: inline-block;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+
+  object-fit: cover;
+}
+
+.mat-card-header-text-wrapper {
+  width: 100%;
+}
+
+.card-title-wrapper {
+  width: 100%;
+}
+
+.mat-divider {
+  display: block;
+  border-top-width: 2px;
+  border-top-style: solid;
+  margin-left: 3%;
+  width: 94% !important;
+  padding-bottom: 15px;
+}
+
+.divider {
+  height: 15px;
+}
+
+.mat-list .mat-list-item {
+  display: block;
+  height: 100%;
+}
+
+.skill-item {
+  min-height: 50px;
+}
+
+.skill-button {
+  padding-bottom: 20px;
 }
 
 
