@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Company} from '../../../../shared/model/company';
 import {AbstractCompaniesService} from '../../services/companies.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-company-list',
@@ -10,7 +11,7 @@ import {AbstractCompaniesService} from '../../services/companies.service';
 export class CompanyListComponent implements OnInit {
   companies: Company[];
 
-  constructor(private companyService: AbstractCompaniesService) {
+  constructor(private companyService: AbstractCompaniesService, private router: Router) {
   }
 
   ngOnInit() {
@@ -31,4 +32,8 @@ export class CompanyListComponent implements OnInit {
     return this.companies;
   }
 
+  goToDetailedCompany(companyId: number) {
+    console.log(companyId);
+    this.router.navigate(['./profile/company/' + companyId]);
+  }
 }
