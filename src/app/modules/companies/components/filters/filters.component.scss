@@ -1,0 +1,10 @@
+::ng-deep mat-expansion-panel div.mat-expansion-panel-body {
+  padding-top: 5px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.mat-expansion-panel-header.mat-expanded,
+.mat-expansion-panel-header.mat-expanded:hover {
+  background: lightblue !important;
+}

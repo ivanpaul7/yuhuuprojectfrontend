@@ -1,0 +1,32 @@
+<mat-card routerLinkActive="active" [routerLink]="[index]">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <img mat-card-sm-image src="{{internship.companyLogo}}" alt="{{internship.title}}">
+    </div>
+    <mat-card-title>{{ internship.title }}</mat-card-title>
+    <mat-card-subtitle>CompanyName</mat-card-subtitle>
+    <div class="header-text additional-header">
+      <div class="mat-card-subtitle date">
+        Start date: {{internship.startDate}}
+      </div>
+      <div class="mat-card-subtitle date">
+        End date: {{internship.endDate}}
+      </div>
+    </div>
+  </mat-card-header>
+
+  <hr>
+
+  <mat-card-content>
+    <p>
+      {{ internship.description }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions class="m-0">
+    <a href="#">#tag1</a>
+    <a href="#">#tag2</a>
+    <a href="#">#tag3</a>
+
+
+  </mat-card-actions>
+</mat-card>

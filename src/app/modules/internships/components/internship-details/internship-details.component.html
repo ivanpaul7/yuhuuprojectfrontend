@@ -1,0 +1,35 @@
+<mat-card class="internship-details">
+    <div class="grid-container">
+      <mat-card-title class="internship-title">{{internshipDetails.title}}</mat-card-title>
+      <div class="internship-desc">{{internshipDetails.description}}</div>
+      <div class="internship-skills">
+      <ul>
+        <li *ngFor = "let skill of internshipDetails.skills">{{skill}}</li>
+      </ul>
+      </div>
+      <div class="internship-attr"><ul>
+          <li *ngFor = "let attribute of internshipDetails.attributes">{{attribute}}</li>
+        </ul></div>
+      <div class="internship-req"><ul>
+          <li *ngFor = "let requirement of internshipDetails.requirements">{{requirement}}</li>
+        </ul></div>
+      <div class="internship-status"><ul>
+        <li>{{internshipDetails.employmentType}}</li>
+        <li>{{internshipDetails.freeSpots}}</li>
+        <li>{{internshipDetails.status}}</li>
+      </ul></div>
+      <div class="internship_date">{{internshipDetails.deadline | date: 'yyyy/MM/dd'}}</div>
+      <div class= "internship-logo"> <img src="{{internshipDetails.companyLogo}}"> </div>
+      <div class="internship-tags">
+      <ul>
+        <li *ngFor = "let tag of internshipDetails.tags">{{tag}}</li>
+      </ul>
+      </div>
+    <a mat-stroked-button class="internship-apply">Aplica</a>
+    </div>
+  </mat-card>
+
+<br>
+<br>
+
+<app-chat></app-chat>

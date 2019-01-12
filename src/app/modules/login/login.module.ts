@@ -4,10 +4,44 @@ import {LoginComponentComponent} from './components/login-component/login-compon
 import {RegisterComponentComponent} from './components/register-component/register-component.component';
 import {AbstractLoginService} from './services/login.service';
 import {environment} from '../../../environments/environment';
+import {AlertModule} from '../alert/alert.module';
+import {RouterModule} from '@angular/router';
+import {ReactiveFormsModule} from '@angular/forms';
+import {AbstractRegisterService} from './services/register.service';
+import { FormsModule } from '@angular/forms';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatDialogModule, MatDividerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
+  MatNativeDateModule,
+  MatDatepickerModule,
+  MatListModule,
+  MatIconModule
+} from '@angular/material';
 
 @NgModule({
   imports: [
-    CommonModule
+    AlertModule,
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatDividerModule,
+    MatListModule,
+    MatIconModule,
   ],
   declarations: [LoginComponentComponent, RegisterComponentComponent],
   exports: [LoginComponentComponent, RegisterComponentComponent],
@@ -15,7 +49,11 @@ import {environment} from '../../../environments/environment';
     {
       provide: AbstractLoginService,
       useClass: environment.loginService
-    }
+    },
+    {
+      provide: AbstractRegisterService,
+      useClass: environment.registerService
+    },
   ]
 })
 export class LoginModule {

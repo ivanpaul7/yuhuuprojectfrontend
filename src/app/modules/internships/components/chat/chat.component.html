@@ -1,0 +1,61 @@
+
+<div class="container">
+  <div #warningAlert class="alertMessage alert alert-warning" role="alert">
+    Can't post an empty comment!
+  </div>
+<textarea placeholder="Write a comment..." class="col-10" [value]="comment" (input)="comment = $event.target.value" id="textArea" rows="3" cols="80"  >
+
+</textarea>
+  <br>
+  <button type="button" (click)="myFunction($event)">Post</button>
+
+  <br>
+  <br>
+  <ng-container *ngFor="let comment of commentList">
+    <div >
+      <div class="name"><b> {{comment.name}} </b></div>
+      <div  class="center">
+        {{comment.chatMessage}}
+      </div>
+      <div class="divButtons ">
+        <div>
+        <button class="button" (click)="moreComments($event)"> Replies</button>
+        </div>
+        <div style = "display: flex">
+        <button class="buttonImage">
+          <mat-icon>thumb_up</mat-icon>
+        </button>
+        <div class="number">{{comment.like}}</div>
+        <button class="buttonDislike">
+          <mat-icon>thumb_down</mat-icon>
+        </button>
+        <div class="number">{{comment.dislike}}</div>
+        </div>
+      </div>
+      <div class="repliesNone">
+      <ng-container *ngFor="let comment2 of comment.commentList">
+        <div class="nameReply"><b> {{comment2.name}} </b></div>
+        <div class="replies col-10">
+          <div class="message2">
+            {{comment2.chatMessage}}
+          </div>
+          <div class="divButtons2">
+            <button class="buttonImage">
+              <mat-icon>thumb_up</mat-icon>
+            </button>
+            <div class="number">{{comment2.like}}</div>
+            <button class="buttonDislike">
+              <mat-icon>thumb_down</mat-icon>
+            </button>
+            <div class="number">{{comment2.dislike}}</div>
+          </div>
+        </div>
+        <br>
+        <br>
+      </ng-container>
+      <textarea class="replyComment col-10" [value]="replyCom" (input)="replyCom = $event.target.value" id="textArea2" rows="3" cols="80"></textarea>
+        <button class="buttonReply" (click)="reply(comment)"> Reply</button>
+    </div>
+    </div>
+  </ng-container>
+</div>
