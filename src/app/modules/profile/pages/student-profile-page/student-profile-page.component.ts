@@ -143,4 +143,12 @@ export class StudentProfilePageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
     });
   }
+
+
+
+  onFileChanged(event) {
+    const uploadData = new FormData();
+    uploadData.append('file', event.target.files[0]);
+    this.studentProfileService.uploadPhoto(uploadData).subscribe();
+  }
 }

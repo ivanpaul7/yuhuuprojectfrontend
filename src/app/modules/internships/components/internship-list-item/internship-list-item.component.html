@@ -5,7 +5,7 @@
     </div>
     <mat-card-title>{{internship.title}}</mat-card-title>
     <mat-card-subtitle>{{company !== undefined ? company.name : ''}}</mat-card-subtitle>
-    <div class="header-text">
+    <div class="header-text additional-header">
       <div class="mat-card-subtitle date">
         Start date: {{internship.startDate}}
       </div>
@@ -13,14 +13,16 @@
         End date: {{internship.endDate}}
       </div>
     </div>
-
   </mat-card-header>
+
+  <hr>
+
   <mat-card-content>
     <p>
       {{ internship.description }}
     </p>
   </mat-card-content>
-  <mat-card-actions>
+  <mat-card-actions class="m-0">
     <span *ngFor="let tag of tags">#{{tag.name}} </span>
   </mat-card-actions>
 </mat-card>

@@ -7,6 +7,8 @@ import {Education} from '../../../shared/model/Education';
 import {Skill} from '../../../shared/model/Skill';
 import {Role} from '../../../shared/model/Role';
 import {st} from '@angular/core/src/render3';
+import {Form} from '@angular/forms';
+import {Photo} from '../../../shared/model/Photo';
 
 export abstract class AbstractStudentProfileService {
   applicant: Applicant;
@@ -32,6 +34,8 @@ export abstract class AbstractStudentProfileService {
   public abstract addSkill(skill: Skill): Observable<Applicant>
 
   public abstract deleteSkill(id: number): Observable<Applicant>
+
+  public abstract uploadPhoto(uploadData: FormData): Observable<Photo>
 }
 
 
@@ -85,13 +89,13 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
         'id': 22,
         'url': 'http://res.cloudinary.com/yuhuubackend/image/upload/v1546683243/fuarlcqjs93dlhh6lupc.jpg',
         'publicId': null,
-        'path': null
+        'path': 'http://res.cloudinary.com/yuhuubackend/image/upload/v1546683243/fuarlcqjs93dlhh6lupc.jpg'
       },
       'cv': {
         'id': 23,
         'url': 'http://res.cloudinary.com/yuhuubackend/raw/upload/v1546682795/hsahlamrdhcpwgdmecl9',
         'publicId': null,
-        'path': null
+        'path': 'https://aussiebet.com/wp-content/uploads/2018/01/betfair.png'
       }
     }
   };
@@ -210,6 +214,10 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
   getSkillsForApplicant(): Observable<Skill[]> {
     return of(this.skills);
   }
+
+  uploadPhoto(): Observable<Photo> {
+    return of(null);
+  }
 }
 
 //todo change bearer from logged user
@@ -249,7 +257,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   updateStudentProfileBasic(studentProfile: Applicant): Observable<Applicant> {
-    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id, studentProfile, httpOptions).pipe(
+    return this.http.put<Applicant>(this.url + '/applicant/' + studentProfile.id, studentProfile, httpOptions).pipe(
       tap(
         data => {
           this.applicant = data;
@@ -262,14 +270,16 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   updateStudentProfileContact(studentProfile: Applicant): Observable<Applicant> {
+    console.log('contact');
+    console.log(this.applicant);
     return this.http.put<Applicant>(
-      this.url + '/applicant/' + this.applicant.id+'/contact',
+      this.url + '/applicant/' + studentProfile.id + '/contact',
       studentProfile.contact,
       httpOptions
     ).pipe(
       tap(
         data => {
-          this.applicant = data;
+          this.applicant.contact = data;
         },
         error => {
           console.log(error);
@@ -279,24 +289,29 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   updateStudentProfileEmail(studentProfile: Applicant): Observable<Applicant> {
+    if (this.applicant.user.email == studentProfile.user.email) {
+      return of(this.applicant);
+    }
     return this.http.put<Applicant>(
-      this.url + '/applicant/' + studentProfile.id+'/email',
-      {"email":studentProfile.user.email},
+      this.url + '/applicant/' + studentProfile.id + '/email',
+      {'email': studentProfile.user.email},
       httpOptions
     ).pipe(
       tap(
         data => {
-          console.log("email ")
+          this.applicant.user = data;
+          console.log(this.applicant);
         },
         error => {
           console.log(error);
         }
       )
-    );;
+    );
+    ;
   }
 
   getEducationForApplicant(): Observable<Education[]> {
-    return this.http.get<Education[]>(this.url + '/applicant/' + this.applicant.id+'/educations', httpOptions).pipe(
+    return this.http.get<Education[]>(this.url + '/applicant/' + this.applicant.id + '/educations', httpOptions).pipe(
       tap(
         data => {
           this.educations = data;
@@ -308,7 +323,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   addEducation(id: number, education: Education): Observable<Applicant> {
-    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id+'/education', education, httpOptions).pipe(
+    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id + '/education', education, httpOptions).pipe(
       tap(
         data => {
         },
@@ -319,7 +334,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   deleteEducation(id: number): Observable<Applicant> {
-    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id+'/educations/'+id, httpOptions).pipe(
+    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id + '/educations/' + id, httpOptions).pipe(
       tap(
         data => {
         },
@@ -330,7 +345,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   addSkill(skill: Skill): Observable<Applicant> {
-    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id+'/skill', skill, httpOptions).pipe(
+    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id + '/skill', skill, httpOptions).pipe(
       tap(
         data => {
         },
@@ -341,7 +356,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   deleteSkill(id: number): Observable<Applicant> {
-    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id+'/skills/'+id, httpOptions).pipe(
+    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id + '/skills/' + id, httpOptions).pipe(
       tap(
         data => {
         },
@@ -352,7 +367,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   getSkillsForApplicant(): Observable<Skill[]> {
-    return this.http.get<Skill[]>(this.url + '/applicant/' + this.applicant.id+'/skills', httpOptions).pipe(
+    return this.http.get<Skill[]>(this.url + '/applicant/' + this.applicant.id + '/skills', httpOptions).pipe(
       tap(
         data => {
           this.skills = data;
@@ -363,6 +378,34 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
       )
     );
   }
+
+
+  uploadPhoto(uploadData: FormData): Observable<Photo> {
+    //todo is not yet working
+    const httpOptionsSpecial = {
+      headers: new HttpHeaders(
+        {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3MjYzNDY2MSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjU1MTgwZThkLWE4NDktNGQ4MS05MjgyLWZkZjA0MGNjNzMyMSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.zsrWgXhBTaEwLomy2KDX7xy-EFDAqx5GfXNMdaAdgJw'
+        }),
+      contentType: false,
+      processData: false,
+    };
+    let x = this.url + '/applicant/' + this.applicant.id + '/photo';
+    return this.http.put<Photo>(this.url + '/applicant/' + this.applicant.id + '/photo', uploadData, httpOptionsSpecial).pipe(
+      tap(
+        data => {
+          console.log(data);
+          this.applicant.contact.photo = data;
+
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
+  }
+
 
   /**
    * Handle Http operation that failed.

@@ -29,10 +29,16 @@ export class CompanyProfileEditContactComponent implements OnInit {
   onSaveClick() {
     this.companyService.updateCompanyContact(this.company)
       .subscribe(() => {
+        this.updateEmail();
+      });
+  }
+
+  updateEmail() {
+    this.companyService.updateCompanyEmail(this.company)
+      .subscribe(() => {
         this.editSubmitEventEmitter.emit();
         this.dialogRef.close();
       });
   }
-
 }
 

@@ -98,7 +98,8 @@ const httpOptions = {
   headers: new HttpHeaders(
     {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1NzI2MzMwODQsImF1dGhvcml0aWVzIjpbIkNPTVBBTlkiXSwianRpIjoiY2FhM2U1ZTYtNjAzZC00OGJiLWI4ZTYtMzc3MzNmZTQyYzM3IiwiY2xpZW50X2lkIjoidGVzdGp3dGNsaWVudGlkIn0.eDrgooHEd42Ueg3QJbaJ3txr1cEFogLvzOLfNHSjf60'    })
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1NzY3MDcxNjgsImF1dGhvcml0aWVzIjpbIkNPTVBBTlkiXSwianRpIjoiYjNjNTlmZDctMTlhNy00NDIzLWFjN2EtMTVkZDQxZmJiZTEyIiwiY2xpZW50X2lkIjoidGVzdGp3dGNsaWVudGlkIn0.e6QTmifb1YFYSYgZE37PfQQINrUS2hlWyLUssTnjAGk'
+    })
 };
 
 
@@ -117,6 +118,8 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
       tap(
         data => {
           this.company = data;
+          //todo delete this after backend delivers the object properly :)
+          this.company.contact.cv={};
         },
         error => {
           console.log(error);
@@ -126,15 +129,58 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
   }
 
   updateCompanyBasicInfo(comp: Company): Observable<Company> {
-    return undefined;
+    return this.http.put<Applicant>(this.url + '/company/' + this.company.id + '/profile',
+      comp,
+      httpOptions
+    ).pipe(
+      tap(
+        data => {
+          this.company = data;
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
   }
 
   updateCompanyContact(comp: Company): Observable<Company> {
-    return undefined;
+    //todo test for linkedin also
+    return this.http.put<Applicant>(
+      this.url + '/company/' + this.company.id + '/contact',
+      comp,
+      httpOptions
+    ).pipe(
+      tap(
+        data => {
+          this.company = data;
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
   }
 
   updateCompanyEmail(comp: Company): Observable<Company> {
-    return undefined;
+    if(this.company.user.email == comp.user.email)
+      return of(this.company);
+
+    return this.http.put<Applicant>(
+      this.url + '/company/' + comp.id + '/email',
+      {'email': comp.user.email},
+      httpOptions
+    ).pipe(
+      tap(
+        data => {
+          this.company.user=data;
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
+    ;
   }
 
 }
