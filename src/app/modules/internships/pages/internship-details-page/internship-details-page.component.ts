@@ -31,6 +31,6 @@ export class InternshipDetailsPageComponent implements OnInit {
     this.details.getInternshipLogo(this.internshipID).subscribe(internshipLogo => this.internshipLogo = internshipLogo);
     this.details.getInternshipTags(this.internshipID).subscribe(internshipTags => this.internshipTags = internshipTags);
     this.details.getInternshipSkills(this.internshipID).subscribe(internshipSkils => this.internshipSkills = internshipSkils);
-
   }
+  
 }

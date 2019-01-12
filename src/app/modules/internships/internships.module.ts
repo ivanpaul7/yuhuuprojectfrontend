@@ -26,6 +26,7 @@ import { FiltersComponent } from './components/filters/filters.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InternshipDetailsComponent } from './components/internship-details/internship-details.component';
 import { AbstractInternshipDetailsService } from './services/internship-details.service';
+import { InternshipEditComponent } from './components/internship-edit/internship-edit.component';
 
 @NgModule({
   imports: [
@@ -48,7 +49,8 @@ import { AbstractInternshipDetailsService } from './services/internship-details.
     MatDatepickerModule,
     MatListModule,
   ],
-  declarations: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent],
+  entryComponents: [InternshipEditComponent],
+  declarations: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, InternshipEditComponent],
   exports: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent],
   providers: [InternshipsService, {
     provide: AbstractInternshipDetailsService,

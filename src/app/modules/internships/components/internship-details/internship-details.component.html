@@ -14,8 +14,8 @@
         <li *ngFor = "let tag of internshipTags">#{{tag.name}}</li>
       </ul>
       </div>
-    <a mat-raised-button class="internship-modify">Modifica</a>
-    <a mat-raised-button class="internship-apply">Aplica</a>
+    <button mat-raised-button class="internship-modify" (click)="openEditDialog()">Edit</button>
+    <a mat-raised-button class="internship-apply">Apply</a>
     </div>
   </mat-card>
   <mat-card class="mat-card">
