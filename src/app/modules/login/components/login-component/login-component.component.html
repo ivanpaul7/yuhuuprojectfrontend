@@ -9,31 +9,32 @@
 					<span class="login100-form-title">
             Login
 					</span>
-
+        <!--Username-->
         <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
           <input class="input100" type="text" formControlName="username" name="email" placeholder="Username"
                  [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
-          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">Username is required</div>
-          </div>
+
           <span class="focus-input100"></span>
           <span class="symbol-input100">
 							<i class="fa fa-user" aria-hidden="true"></i>
 						</span>
         </div>
-
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback-y">
+          <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
+        <!--Password-->
         <div class="wrap-input100 validate-input" data-validate="Password is required">
           <input class="input100" type="password" formControlName="password" name="pass" placeholder="Password"
                  [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-          </div>
           <span class="focus-input100"></span>
           <span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
 						</span>
         </div>
-
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback-y">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+        </div>
+        <!--Button-->
         <div class="container-login100-form-btn">
           <button class="login100-form-btn" type="button" (click)="onLogin()">
             <p *ngIf="!loading" class="login-button-text">Login</p>

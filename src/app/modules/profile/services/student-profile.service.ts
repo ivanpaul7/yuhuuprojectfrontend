@@ -89,13 +89,13 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
         'id': 22,
         'url': 'http://res.cloudinary.com/yuhuubackend/image/upload/v1546683243/fuarlcqjs93dlhh6lupc.jpg',
         'publicId': null,
-        'path': null
+        'path': 'http://res.cloudinary.com/yuhuubackend/image/upload/v1546683243/fuarlcqjs93dlhh6lupc.jpg'
       },
       'cv': {
         'id': 23,
         'url': 'http://res.cloudinary.com/yuhuubackend/raw/upload/v1546682795/hsahlamrdhcpwgdmecl9',
         'publicId': null,
-        'path': null
+        'path': 'https://aussiebet.com/wp-content/uploads/2018/01/betfair.png'
       }
     }
   };
@@ -270,7 +270,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   updateStudentProfileContact(studentProfile: Applicant): Observable<Applicant> {
-    console.log("contact");
+    console.log('contact');
     console.log(this.applicant);
     return this.http.put<Applicant>(
       this.url + '/applicant/' + studentProfile.id + '/contact',
@@ -289,7 +289,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   updateStudentProfileEmail(studentProfile: Applicant): Observable<Applicant> {
-    if(this.applicant.user.email == studentProfile.user.email){
+    if (this.applicant.user.email == studentProfile.user.email) {
       return of(this.applicant);
     }
     return this.http.put<Applicant>(
@@ -299,7 +299,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
     ).pipe(
       tap(
         data => {
-          this.applicant.user=data;
+          this.applicant.user = data;
           console.log(this.applicant);
         },
         error => {
@@ -391,12 +391,12 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
       contentType: false,
       processData: false,
     };
-    let x=this.url + '/applicant/' + this.applicant.id+'/photo';
-    return this.http.put<Photo>(this.url + '/applicant/' + this.applicant.id+'/photo', uploadData, httpOptionsSpecial).pipe(
+    let x = this.url + '/applicant/' + this.applicant.id + '/photo';
+    return this.http.put<Photo>(this.url + '/applicant/' + this.applicant.id + '/photo', uploadData, httpOptionsSpecial).pipe(
       tap(
         data => {
           console.log(data);
-          this.applicant.contact.photo=data;
+          this.applicant.contact.photo = data;
 
         },
         error => {
