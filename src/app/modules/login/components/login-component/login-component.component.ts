@@ -3,6 +3,7 @@ import {AbstractLoginService} from '../../services/login.service';
 import {Router} from '@angular/router';
 import {AlertService} from '../../../alert/services/alert.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import * as RoutingController from '../../../dashboard/dashboard.routing';
 
 @Component({
   selector: 'app-login-component',
@@ -24,6 +25,7 @@ export class LoginComponentComponent implements OnInit {
               private alertService: AlertService,
               private formBuilder: FormBuilder) {
     this.loginService = loginService;
+
   }
 
   ngOnInit() {
@@ -53,7 +55,7 @@ export class LoginComponentComponent implements OnInit {
 
     this.loginService.login(this.f.username.value, this.f.password.value).then((isValid: boolean) => {
       if (isValid) {
-        this.router.navigateByUrl('/dashboard/test1');
+        this.router.navigateByUrl('/dashboard/' + RoutingController.navbarItems[0].path);
       } else {
         this.alertService.error('Login error', true);
         this.loading = false;
