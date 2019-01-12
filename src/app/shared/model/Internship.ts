@@ -11,6 +11,7 @@
  */
 
 import * as models from './models';
+import { Skill } from './Skill';
 
 export interface Internship {
     active?: boolean;
@@ -44,4 +45,14 @@ export namespace Internship {
         ENDED = <any> 'ENDED',
         COMING = <any> 'COMING'
     }
+}
+
+export interface JoinCompany {
+    idInternship?: number;
+    idCompany?: number;
+}
+
+export interface JoinSkill {
+    idInternship?: number;
+    skills?: Skill[];
 }

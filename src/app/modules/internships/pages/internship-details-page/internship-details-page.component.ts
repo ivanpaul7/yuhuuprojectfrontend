@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractInternshipDetailsService} from '../../services/internship-details.service';
 import {ActivatedRoute} from '@angular/router';
-import {Internship} from 'src/app/shared/model/internships.model';
+import {Internship} from 'src/app/shared/model/Internship';
 
 @Component({
   selector: 'app-internship-details-page',
