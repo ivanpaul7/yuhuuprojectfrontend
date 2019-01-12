@@ -34,8 +34,7 @@ export class RegisterComponentComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', Validators.required],
       username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      age: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
@@ -50,9 +49,9 @@ export class RegisterComponentComponent implements OnInit {
     this.loading = true;
     this.registerService.register(this.f.username.value,
       this.f.password.value, this.f.email.value,
-      this.f.firstName.value, this.f.lastName.value,
-      this.f.age.value).subscribe((isValid: boolean) => {
-      if (isValid) {
+      this.f.firstName.value, this.f.lastName.value).subscribe((applicant) => {
+
+      if (applicant) {
         this.router.navigateByUrl('/login');
       } else {
         this.alertService.error('Register error', true);
