@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {Internship} from '../../../../shared/model/internships.model';
+import {Internship} from '../../../../shared/model/Internship';
 
 @Component({
   selector: 'app-internship-list-item',

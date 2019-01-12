@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Internship} from 'src/app/shared/model/internships.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { Internship } from 'src/app/shared/model/Internship';
 
 @Component({
   selector: 'app-internship-details',
