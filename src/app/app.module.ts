@@ -95,7 +95,6 @@ const appRoutes: Routes = [
     MatListModule,
     MatIconModule,
     ReactiveFormsModule,
-    // TODO update key with a real value (because it cost Paul'll update this later)
     NgbModule,
     // TODO update key with a real value (because it cost Paul'll update this later)
     AgmCoreModule.forRoot({
