@@ -5,70 +5,74 @@
         <img src="https://colorlib.com/etc/lf/Login_v1/images/img-01.png" alt="IMG">
       </div>
 
-      <form [formGroup]="registerForm" class="login100-form validate-form">
+      <form [formGroup]="registerForm" class="login100-form validate-form" (ngSubmit)="onSubmit()">
 					<span class="login100-form-title">
             Register
 					</span>
-
-        <div class="wrap-input100 validate-input">
-          <input class="input100" type="text" formControlName="firstName" placeholder="First Name"
-                 [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
-          <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-            <div *ngIf="f.firstName.errors.required">First Name is required</div>
-          </div>
+        <!--First Name-->
+        <div class="form-group wrap-input100 validate-input">
+          <input class="input100" formControlName="firstName" placeholder="First Name"
+                 [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"/>
           <span class="focus-input100"></span>
           <span class="symbol-input100">
 							<i class="fa fa-user" aria-hidden="true"></i>
 						</span>
         </div>
-
+        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback-y">
+          <div *ngIf="f.lastName.errors.required">First Name is required</div>
+        </div>
+        <!--Last Name-->
         <div class="wrap-input100 validate-input">
           <input class="input100" type="text" formControlName="lastName" placeholder="Last Name"
                  [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
-          <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-            <div *ngIf="f.lastName.errors.required">Last Name is required</div>
-          </div>
           <span class="focus-input100"></span>
           <span class="symbol-input100">
 							<i class="fa fa-user" aria-hidden="true"></i>
 						</span>
         </div>
-
+        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback-y">
+          <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+        </div>
+        <!--Email-->
         <div class="wrap-input100 validate-input">
           <input class="input100" type="text" formControlName="email" placeholder="Email"
                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-            <div *ngIf="f.email.errors.required">Email is required</div>
-          </div>
+
           <span class="focus-input100"></span>
           <span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
 						</span>
         </div>
-
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback-y">
+          <div *ngIf="f.email.errors.required">Email is required</div>
+        </div>
+        <!--Username-->
         <div class="wrap-input100 validate-input">
           <input class="input100" type="text" formControlName="username" placeholder="Username"
                  [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
-          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">Username is required</div>
-          </div>
           <span class="focus-input100"></span>
           <span class="symbol-input100">
 							<i class="fa fa-user" aria-hidden="true"></i>
 						</span>
         </div>
-
+        <div *ngIf="submitted && f.username.errors" class="invalid-feedback-y">
+          <div *ngIf="f.username.errors.required">Username is required</div>
+        </div>
+        <!--Password-->
         <div class="wrap-input100 validate-input">
           <input class="input100" type="password" formControlName="password" name="pass" placeholder="Password"
                  [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-          <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
-          </div>
           <span class="focus-input100"></span>
           <span class="symbol-input100">
 							<i class="fa fa-lock" aria-hidden="true"></i>
 						</span>
+        </div>
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback-y">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+          <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+          <div *ngIf="f.password.errors.pattern">Password must contains digits, upper case letters and
+            lower case letters
+          </div>
         </div>
         <!--todo-->
         <!--<div class="wrap-input100 validate-input">-->
@@ -119,8 +123,8 @@
 <!--<label for="firstName">First Name</label>-->
 <!--<input type="text" formControlName="firstName" class="form-control"-->
 <!--[ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"/>-->
-<!--<div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">-->
-<!--<div *ngIf="f.firstName.errors.required">First Name is required</div>-->
+<!--<div *ngIf="submitted" class="invalid-feedback">-->
+<!--<div *ngIf="submitted">First Name is required</div>-->
 <!--</div>-->
 <!--</div>-->
 <!--<div class="form-group">-->
@@ -160,19 +164,9 @@
 <!--</div>-->
 
 <!--<div class="form-group">-->
-<!--<label for="age">Age</label>-->
-<!--<input type="number" formControlName="age" class="form-control"-->
-<!--[ngClass]="{ 'is-invalid': submitted && f.email.errors }"/>-->
-<!--<div *ngIf="submitted && f.age.errors" class="invalid-feedback">-->
-<!--<div *ngIf="f.age.errors.required">Age is required</div>-->
-<!--</div>-->
-<!--</div>-->
-
-<!--<div class="form-group">-->
 <!--<button [disabled]="loading" class="btn btn-primary">Register</button>-->
 <!--<img *ngIf="loading"-->
 <!--src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>-->
 <!--<a [routerLink]="['/login']" class="btn btn-link">Cancel</a>-->
 <!--</div>-->
 <!--</form>-->
-<app-alert></app-alert>

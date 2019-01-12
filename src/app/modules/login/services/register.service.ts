@@ -53,6 +53,17 @@ export class ServerRegisterService implements AbstractRegisterService {
         'firstName': firstName,
         'lastName': lastName
       }
-    });
+    }).pipe(
+      tap(
+        data => {
+          console.log("Succes");
+          console.log(data);
+        },
+        error => {
+          console.log("Error");
+          console.log(error);
+        }
+      )
+    );;
   }
 }

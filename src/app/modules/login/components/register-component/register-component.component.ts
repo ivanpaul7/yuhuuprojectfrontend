@@ -34,7 +34,12 @@ export class RegisterComponentComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', Validators.required],
       username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['',
+        [Validators.required,
+          Validators.minLength(6),
+          Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+        ]
+      ]
     });
   }
 
@@ -50,15 +55,10 @@ export class RegisterComponentComponent implements OnInit {
     this.registerService.register(this.f.username.value,
       this.f.password.value, this.f.email.value,
       this.f.firstName.value, this.f.lastName.value).subscribe((applicant) => {
-
-      if (applicant) {
-        this.router.navigateByUrl('/login');
-      } else {
-        this.alertService.error('Register error', true);
-        this.loading = false;
-      }
+      this.router.navigateByUrl('/login');
+    }, (error) => {
+      this.alertService.error('Register error', true);
+      this.loading = false;
     });
-
   }
-
 }
