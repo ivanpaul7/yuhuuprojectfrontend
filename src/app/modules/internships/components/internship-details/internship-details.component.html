@@ -19,7 +19,7 @@
         <li>{{internshipDetails.status}}</li>
       </ul></div>
       <div class="internship_date">{{internshipDetails.deadline | date: 'yyyy/MM/dd'}}</div>
-      <div class= "internship-logo"> <img src="{{internshipDetails.companyLogo}}"> </div>
+      <div class= "internship-logo"> <!--<img src="{{internshipDetails.companyLogo}}">--> </div>
       <div class="internship-tags">
       <ul>
         <li *ngFor = "let tag of internshipDetails.tags">{{tag}}</li>

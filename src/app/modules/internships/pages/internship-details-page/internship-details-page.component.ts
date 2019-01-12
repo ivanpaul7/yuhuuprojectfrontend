@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractInternshipDetailsService} from '../../services/internship-details.service';
 import {ActivatedRoute} from '@angular/router';
-import {Internship} from 'src/app/shared/model/internships.model';
+import {Internship} from 'src/app/shared/model/Internship';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-internship-details-page',
@@ -20,6 +21,6 @@ export class InternshipDetailsPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.internshipDetails = this.details.getInternship(this.internshipID);
+    this.details.getInternship(this.internshipID).subscribe(internship => this.internshipDetails = internship);
   }
 }
