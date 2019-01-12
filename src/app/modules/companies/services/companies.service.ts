@@ -2,12 +2,15 @@ import {Injectable} from '@angular/core';
 import {Company} from '../../../shared/model/company';
 import {Photo} from '../../../shared/model/Photo';
 import {Contact} from '../../../shared/model/Contact';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 
 @Injectable()
 export abstract class AbstractCompaniesService {
 
-  public abstract getCompanies(): Company[];
+  public abstract getCompanies(): Observable<Company[]>;
 
   public abstract getNameFilters(): string[];
 
@@ -59,8 +62,8 @@ export class MockCompaniesService implements AbstractCompaniesService {
   constructor() {
   }
 
-  public getCompanies(): Company[] {
-    return this.companies.slice();
+  public getCompanies(): Observable<Company[]> {
+    return of(this.companies.slice());
   }
 
   getCompanyLogo() {
@@ -80,13 +83,78 @@ export class MockCompaniesService implements AbstractCompaniesService {
   }
 }
 
-export class ServerCompaniesService implements AbstractCompaniesService {
+// todo change bearer from logged user
+const httpOptions = {
+  headers: new HttpHeaders(
+    {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1NzczMDA1NTksImF1dGhvcml0aWVzIjpbIkNPTVBBTlkiXSwianRpIjoiZWYwNTMyMTItNTBjMy00NjBlLTljMGMtZjQ1MjhhMzIyODljIiwiY2xpZW50X2lkIjoidGVzdGp3dGNsaWVudGlkIn0.AKPOfkqYQ5bvDkbVGBMYXDJzvJIaOukYWLhsnZckmTo'
+    })
+};
 
-  public getCompanies(): Company[] {
-    return null;
+@Injectable({
+  providedIn: 'root'
+})
+export class ServerCompaniesService implements AbstractCompaniesService {
+  companies: Company[];
+
+  private companiesName: string[] = []; // = ['facebook', 'google', 'amazon', 'La Fortech', 'La Arobs', 'Betfair'];
+  nameFilters: string[] = [];
+
+  private url = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
+
+  constructor(private http: HttpClient) {
+  }
+
+  public getCompanies(): Observable<Company[]> {
+    console.log('Da-i Tatii');
+    return this.http.get<Company[]>(this.url + '/company/all', httpOptions).pipe(
+      tap(
+        data => {
+          this.companies = data;
+          // this.companiesName.push(this.companies.forEach(comp => comp.name));
+          /*this.companiesName = function (item) {
+
+          }*/
+          /*angular.forEach(this.companies, function(value) {
+            this.push(value.name);
+          }, this.companiesName);*/
+          /*for (let i = 0; i < this.companies.length; i++) {
+            this.companiesName.push(this.companies[i].name);
+          }*/
+          // todo delete this after backend delivers the object properly :)
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
+    /*for (let i = 0; i < this.companies.length; i++) {
+      // console.log(this.companies[i]);
+      this.companiesName.push(this.companies[i].name);
+    }*/
+  }
+
+  getCompanyName() {
+    console.log('111111');
+    console.log(this.companies.length);
+    for (let i = 0; i < this.companies.length; i++) {
+      console.log(this.companies[i]);
+      this.companiesName.push(this.companies[i].name);
+      console.log(this.companies[i].name);
+    }
+    return this.companiesName.slice();
+  }
+
+  setNameFilters(filters: string[]) {
+    this.nameFilters = filters;
   }
 
   public getNameFilters(): string[] {
+    return this.nameFilters;
+  }
+
+  /*public getNameFilters(): string[] {
     return null;
   }
 
@@ -95,6 +163,6 @@ export class ServerCompaniesService implements AbstractCompaniesService {
   }
 
   setNameFilters(filters: string[]) {
-  }
+  }*/
 }
 
