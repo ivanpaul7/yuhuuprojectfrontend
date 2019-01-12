@@ -9,6 +9,7 @@ import {Role} from '../../../shared/model/Role';
 import {st} from '@angular/core/src/render3';
 import {Form} from '@angular/forms';
 import {Photo} from '../../../shared/model/Photo';
+import * as $ from 'node_modules/jquery/dist/jquery.js';
 
 export abstract class AbstractStudentProfileService {
   applicant: Applicant;
@@ -35,7 +36,9 @@ export abstract class AbstractStudentProfileService {
 
   public abstract deleteSkill(id: number): Observable<Applicant>
 
-  public abstract uploadPhoto(uploadData: FormData): Observable<Photo>
+  public abstract uploadPhoto(uploadData: FormData)
+
+  public abstract uploadCV(uploadData: FormData)
 }
 
 
@@ -215,8 +218,12 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
     return of(this.skills);
   }
 
-  uploadPhoto(): Observable<Photo> {
-    return of(null);
+  uploadPhoto() {
+    //
+  }
+
+  uploadCV(uploadData: FormData) {
+    //
   }
 }
 
@@ -270,8 +277,6 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   updateStudentProfileContact(studentProfile: Applicant): Observable<Applicant> {
-    console.log('contact');
-    console.log(this.applicant);
     return this.http.put<Applicant>(
       this.url + '/applicant/' + studentProfile.id + '/contact',
       studentProfile.contact,
@@ -300,7 +305,6 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
       tap(
         data => {
           this.applicant.user = data;
-          console.log(this.applicant);
         },
         error => {
           console.log(error);
@@ -380,31 +384,51 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
 
-  uploadPhoto(uploadData: FormData): Observable<Photo> {
-    //todo is not yet working
-    const httpOptionsSpecial = {
-      headers: new HttpHeaders(
-        {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3MjYzNDY2MSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjU1MTgwZThkLWE4NDktNGQ4MS05MjgyLWZkZjA0MGNjNzMyMSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.zsrWgXhBTaEwLomy2KDX7xy-EFDAqx5GfXNMdaAdgJw'
-        }),
-      contentType: false,
-      processData: false,
-    };
-    let x = this.url + '/applicant/' + this.applicant.id + '/photo';
-    return this.http.put<Photo>(this.url + '/applicant/' + this.applicant.id + '/photo', uploadData, httpOptionsSpecial).pipe(
-      tap(
-        data => {
-          console.log(data);
-          this.applicant.contact.photo = data;
-
+  uploadPhoto(uploadData: FormData) {
+    return new Promise((resolve, reject) => {
+      const url = 'https://enigmatic-sierra-91538.herokuapp.com/api/applicant/' + this.applicant.id + '/photo';
+      $.ajax({
+        url: url,
+        headers: {
+          //todo change bearer
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3Njk2ODI5MywiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjM1MTdkZDFjLWQwZTEtNDMwYy04MmI4LTQxYjlmMzA0YzEyYSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.UTXR57P-XQQjgDdHeIjAajADLWCPkov4JjwjO5JkwhE',
         },
-        error => {
-          console.log(error);
+        data: uploadData,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function (data) {
+          resolve(data);
+        },
+        error: function (request, status, error) {
+          reject(false);
         }
-      )
-    );
-  }
+      });
+    });
+  };
+
+  uploadCV(uploadData: FormData) {
+    return new Promise((resolve, reject) => {
+      const url = 'https://enigmatic-sierra-91538.herokuapp.com/api/applicant/' + this.applicant.id + '/cv';
+      $.ajax({
+        url: url,
+        headers: {
+          //todo change bearer
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3Njk2ODI5MywiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjM1MTdkZDFjLWQwZTEtNDMwYy04MmI4LTQxYjlmMzA0YzEyYSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.UTXR57P-XQQjgDdHeIjAajADLWCPkov4JjwjO5JkwhE',
+        },
+        data: uploadData,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function (data) {
+          resolve(data);
+        },
+        error: function (request, status, error) {
+          reject(false);
+        }
+      });
+    });
+  };
 
 
   /**
