@@ -33,12 +33,10 @@ import {CompanyProfilePageComponent} from './modules/profile/pages/company-profi
 import {AgmCoreModule} from '@agm/core';
 import {DatePipe} from '@angular/common';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import {InternshipDetailsPageComponent} from './modules/internships/pages/internship-details-page/internship-details-page.component';
 import {CompaniesPageComponent} from './modules/companies/pages/companies-page/companies-page.component';
 import {CompaniesModule} from './modules/companies/companies.module';
 import {CompanyDetailsPageComponent} from './modules/companies/pages/company-details-page/company-details-page.component';
-
 
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
