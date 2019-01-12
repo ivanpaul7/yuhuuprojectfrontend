@@ -27,6 +27,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InternshipDetailsComponent } from './components/internship-details/internship-details.component';
 import { AbstractInternshipDetailsService } from './services/internship-details.service';
 import { InternshipEditComponent } from './components/internship-edit/internship-edit.component';
+import { ChatComponent } from './components/chat/chat.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -48,10 +50,11 @@ import { InternshipEditComponent } from './components/internship-edit/internship
     MatNativeDateModule,
     MatDatepickerModule,
     MatListModule,
+    NgbModule
   ],
   entryComponents: [InternshipEditComponent],
-  declarations: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, InternshipEditComponent],
-  exports: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent],
+  declarations: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, InternshipEditComponent, ChatComponent],
+  exports: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent,ChatComponent],
   providers: [InternshipsService, {
     provide: AbstractInternshipDetailsService,
     useClass: environment.internshipDetailsService

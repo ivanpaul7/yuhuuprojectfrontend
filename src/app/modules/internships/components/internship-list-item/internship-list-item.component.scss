@@ -28,6 +28,7 @@ mat-card:hover {
   flex-direction: column;
 }
 
-::ng-deep .mat-card-header-text {
-  width: 70%;
+.additional-header{
+  width: 100%;
+  align-items: end;
 }

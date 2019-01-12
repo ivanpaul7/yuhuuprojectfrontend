@@ -3,6 +3,8 @@ import {MockRegisterService} from '../app/modules/login/services/register.servic
 import {MockStudentProfileService} from '../app/modules/profile/services/student-profile.service';
 import {MockCompanyProfileService} from '../app/modules/profile/services/company-profile.service';
 import {MockInternshipDetailsService} from '../app/modules/internships/services/internship-details.service';
+import {MockCompaniesService} from '../app/modules/companies/services/companies.service';
+import {MockCompanyDetailsService} from '../app/modules/companies/services/company-details.service';
 
 export const environment = {
   production: false,
@@ -13,5 +15,7 @@ export const environment = {
   registerService: MockRegisterService,
   studentProfileService: MockStudentProfileService,
   companyProfileService: MockCompanyProfileService,
-  internshipDetailsService: MockInternshipDetailsService
+  internshipDetailsService: MockInternshipDetailsService,
+  companiesService: MockCompaniesService,
+  companyDetailsService: MockCompanyDetailsService,
 };

@@ -33,6 +33,7 @@ export class InternshipDetailsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      console.log("closed");
     });
   }
 }
