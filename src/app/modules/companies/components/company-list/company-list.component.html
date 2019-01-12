@@ -1,5 +1,5 @@
 <h2>Company List !</h2>
 <app-filters></app-filters>
 <app-company-list-item *ngFor="let companyE1 of filteredCompanies ; let i = index" [company]="companyE1"
-        [index]="i"></app-company-list-item>
+        [index]="i" (click)="goToDetailedCompany(companyE1.id)"></app-company-list-item>
 

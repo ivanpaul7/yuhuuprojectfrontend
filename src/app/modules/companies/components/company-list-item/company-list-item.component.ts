@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Company} from '../../../../shared/model/Company';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-company-list-item',
@@ -12,6 +13,5 @@ export class CompanyListItemComponent {
 
   constructor() {
   }
-
 
 }
