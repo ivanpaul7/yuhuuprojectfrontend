@@ -16,14 +16,21 @@
           <h4>{{applicant.birthday| date : "yyyy-MM-dd" }}</h4>
         </div>
         <div class="col-sm-12 cv-button-wrapper">
+          <!--CV view-->
           <button mat-raised-button (click)="openCV()">
             <mat-icon>attach_file</mat-icon>
             CV
           </button>
+          <!--Photo upload-->
           <input class="input-file"
-                 type="file" (change)="onFileChanged($event)"
+                 type="file" (change)="onPhotoFileChanged($event)"
                  #fileInput>
-          <button (click)="fileInput.click()">Select File</button>
+          <button (click)="fileInput.click()">Upload Photo</button>
+          <!--CV upload-->
+          <input class="input-file"
+                 type="file" (change)="onCVFileChanged($event)"
+                 #fileInput>
+          <button (click)="fileInput.click()">Upload CV</button>
         </div>
       </div>
       <div class="divider">

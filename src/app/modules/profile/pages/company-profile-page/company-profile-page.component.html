@@ -20,6 +20,11 @@
             <mat-icon>list</mat-icon>
             See our internships
           </button>
+          <!--Photo-->
+          <input class="input-file"
+                 type="file" (change)="onPhotoFileChanged($event)"
+                 #fileInput>
+          <button (click)="fileInput.click()">Upload Photo</button>
         </div>
       </div>
       <div class="divider">
