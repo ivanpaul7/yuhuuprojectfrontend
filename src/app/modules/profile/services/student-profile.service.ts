@@ -15,6 +15,7 @@ export abstract class AbstractStudentProfileService {
   applicant: Applicant;
   educations: Education[];
   skills: Skill[];
+  allSkills: Skill[];
 
   public abstract getStudentProfile(id: number): Observable<Applicant> ;
 
@@ -31,6 +32,8 @@ export abstract class AbstractStudentProfileService {
   public abstract deleteEducation(id: number): Observable<Applicant>
 
   public abstract getSkillsForApplicant(): Observable<Skill[]>
+
+  public abstract getListAllSkills(): Observable<Skill[]>
 
   public abstract addSkill(skill: Skill): Observable<Applicant>
 
@@ -150,6 +153,36 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
       'name': 'C#'
     }
   ];
+  allSkills: Skill[] = [
+    {
+      "id": 23,
+      "name": "Java"
+    },
+    {
+      "id": 24,
+      "name": "C#"
+    },
+    {
+      "id": 25,
+      "name": "Javascript"
+    },
+    {
+      "id": 26,
+      "name": "Hadoop"
+    },
+    {
+      "id": 27,
+      "name": "F#"
+    },
+    {
+      "id": 28,
+      "name": "Go"
+    },
+    {
+      "id": 29,
+      "name": "Erlang"
+    }
+  ];
 
   //todo delete http :)
   constructor(private http: HttpClient) {
@@ -225,6 +258,10 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
   uploadCV(uploadData: FormData) {
     //
   }
+
+  getListAllSkills(): Observable<Skill[]> {
+    return of(this.allSkills);
+  }
 }
 
 //todo change bearer from logged user
@@ -243,6 +280,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   applicant: Applicant;
   educations: Education[];
   skills: Skill[];
+  allSkills: Skill[];
 
   private url = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
 
@@ -375,6 +413,19 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
       tap(
         data => {
           this.skills = data;
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
+  }
+
+  getListAllSkills(): Observable<Skill[]> {
+    return this.http.get<Skill[]>(this.url + '/skill/all', httpOptions).pipe(
+      tap(
+        data => {
+          this.allSkills = data;
         },
         error => {
           console.log(error);
