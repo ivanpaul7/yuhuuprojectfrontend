@@ -6,6 +6,7 @@ import {MockInternshipDetailsService} from '../app/modules/internships/services/
 import {MockCompanyDetailsService} from '../app/modules/companies/services/company-details.service';
 
 import {MockCompaniesService} from '../app/modules/companies/services/companies.service';
+import {MockChatService} from '../app/modules/internships/services/chat.service';
 
 export const environment = {
   production: true,
@@ -19,4 +20,5 @@ export const environment = {
   internshipDetailsService: MockInternshipDetailsService,
   companiesService: MockCompaniesService,
   companyDetailsService: MockCompanyDetailsService,
+  chatService: MockChatService
 };

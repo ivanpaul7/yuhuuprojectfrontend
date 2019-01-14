@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { InternshipsRoutingModule } from './internships-routing.module';
-import { InternshipListComponent } from './components/internship-list/internship-list.component';
-import { InternshipListItemComponent } from './components/internship-list-item/internship-list-item.component';
-import { InternshipsService } from './services/internships.service';
-import { environment } from '../../../environments/environment';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {InternshipsRoutingModule} from './internships-routing.module';
+import {InternshipListComponent} from './components/internship-list/internship-list.component';
+import {InternshipListItemComponent} from './components/internship-list-item/internship-list-item.component';
+import {InternshipsService} from './services/internships.service';
+import {environment} from '../../../environments/environment';
 
 import {
   MatAutocompleteModule,
@@ -17,12 +17,13 @@ import {
   MatInputModule,
   MatButtonModule,
 } from '@angular/material';
-import { FiltersComponent } from './components/filters/filters.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InternshipDetailsComponent } from './components/internship-details/internship-details.component';
-import { AbstractInternshipDetailsService } from './services/internship-details.service';
-import { ChatComponent } from './components/chat/chat.component';
+import {FiltersComponent} from './components/filters/filters.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {InternshipDetailsComponent} from './components/internship-details/internship-details.component';
+import {AbstractInternshipDetailsService} from './services/internship-details.service';
+import {ChatComponent} from './components/chat/chat.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {AbstractChatService} from './services/chat.service';
 
 @NgModule({
   imports: [
@@ -46,7 +47,12 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
   providers: [InternshipsService, {
     provide: AbstractInternshipDetailsService,
     useClass: environment.internshipDetailsService
-  }]
+  }, {
+    provide: AbstractChatService,
+    useClass: environment.chatService
+  }
+
+  ]
 })
 export class InternshipsModule {
 }

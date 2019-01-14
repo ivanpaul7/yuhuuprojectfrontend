@@ -38,6 +38,7 @@ import {CompaniesPageComponent} from './modules/companies/pages/companies-page/c
 import {CompaniesModule} from './modules/companies/companies.module';
 import {CompanyDetailsPageComponent} from './modules/companies/pages/company-details-page/company-details-page.component';
 
+
 const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'internships', component: InternshipsPageComponent, pathMatch: 'full'},
@@ -65,7 +66,7 @@ const appRoutes: Routes = [
     StudentProfilePageComponent,
     InternshipsPageComponent,
     CompaniesPageComponent,
-    CompanyDetailsPageComponent,
+    CompanyDetailsPageComponent
   ],
   imports: [
     BrowserModule,
