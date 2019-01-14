@@ -30,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { InternshipEditComponent } from './components/internship-edit/internship-edit.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {AbstractChatService} from './services/chat.service';
 
 @NgModule({
   imports: [
@@ -66,8 +67,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     {
       provide: AbstractInternshipDetailsService,
       useClass: environment.internshipDetailsService
+    },
+    {
+      provide: AbstractChatService,
+      useClass: environment.chatService
     }
   ]
+
 })
 export class InternshipsModule {
 }
