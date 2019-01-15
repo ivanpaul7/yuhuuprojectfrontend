@@ -24,11 +24,6 @@ export class CompanyListComponent implements OnInit {
       });
   }
 
-  /*public get listCompanies() {
-    this.companies = this.companyService.getCompanies();
-    return this.companies;
-  }*/
-
   public get filteredCompanies() {
 
     this.companies = this.unfilteredCompaniesList;

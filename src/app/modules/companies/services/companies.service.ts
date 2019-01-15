@@ -98,7 +98,7 @@ const httpOptions = {
 export class ServerCompaniesService implements AbstractCompaniesService {
   companies: Company[];
 
-  private companiesName: string[] = []; // = ['facebook', 'google', 'amazon', 'La Fortech', 'La Arobs', 'Betfair'];
+  private companiesName: string[] = [];
   nameFilters: string[] = [];
 
   private url = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
@@ -112,27 +112,12 @@ export class ServerCompaniesService implements AbstractCompaniesService {
       tap(
         data => {
           this.companies = data;
-          // this.companiesName.push(this.companies.forEach(comp => comp.name));
-          /*this.companiesName = function (item) {
-
-          }*/
-          /*angular.forEach(this.companies, function(value) {
-            this.push(value.name);
-          }, this.companiesName);*/
-          /*for (let i = 0; i < this.companies.length; i++) {
-            this.companiesName.push(this.companies[i].name);
-          }*/
-          // todo delete this after backend delivers the object properly :)
         },
         error => {
           console.log(error);
         }
       )
     );
-    /*for (let i = 0; i < this.companies.length; i++) {
-      // console.log(this.companies[i]);
-      this.companiesName.push(this.companies[i].name);
-    }*/
   }
 
   getCompanyName() {
@@ -153,16 +138,5 @@ export class ServerCompaniesService implements AbstractCompaniesService {
   public getNameFilters(): string[] {
     return this.nameFilters;
   }
-
-  /*public getNameFilters(): string[] {
-    return null;
-  }
-
-  public getCompanyName(): string[] {
-    return null;
-  }
-
-  setNameFilters(filters: string[]) {
-  }*/
 }
 
