@@ -2,12 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {Applicant} from '../../../shared/model/Applicant';
-import {catchError, tap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 import {Education} from '../../../shared/model/Education';
 import {Skill} from '../../../shared/model/Skill';
 import {Role} from '../../../shared/model/Role';
-import {st} from '@angular/core/src/render3';
-import {Form} from '@angular/forms';
 import {Photo} from '../../../shared/model/Photo';
 import * as $ from 'node_modules/jquery/dist/jquery.js';
 
@@ -19,29 +17,29 @@ export abstract class AbstractStudentProfileService {
 
   public abstract getStudentProfile(id: number): Observable<Applicant> ;
 
-  public abstract updateStudentProfileBasic(studentProfile: Applicant): Observable<Applicant>
+  public abstract updateStudentProfileBasic(studentProfile: Applicant): Observable<Applicant>;
 
-  public abstract updateStudentProfileContact(applicant: Applicant): Observable<Applicant>
+  public abstract updateStudentProfileContact(applicant: Applicant): Observable<Applicant>;
 
-  public abstract updateStudentProfileEmail(applicant: Applicant): Observable<Applicant>
+  public abstract updateStudentProfileEmail(applicant: Applicant): Observable<Applicant>;
 
-  public abstract getEducationForApplicant(): Observable<Education[]>
+  public abstract getEducationForApplicant(): Observable<Education[]>;
 
-  public abstract addEducation(id: number, education: Education): Observable<Applicant>
+  public abstract addEducation(id: number, education: Education): Observable<Applicant>;
 
-  public abstract deleteEducation(id: number): Observable<Applicant>
+  public abstract deleteEducation(id: number): Observable<Applicant>;
 
-  public abstract getSkillsForApplicant(): Observable<Skill[]>
+  public abstract getSkillsForApplicant(): Observable<Skill[]>;
 
-  public abstract getListAllSkills(): Observable<Skill[]>
+  public abstract getListAllSkills(): Observable<Skill[]>;
 
-  public abstract addSkill(skill: Skill): Observable<Applicant>
+  public abstract addSkill(skill: Skill): Observable<Applicant>;
 
-  public abstract deleteSkill(id: number): Observable<Applicant>
+  public abstract deleteSkill(id: number): Observable<Applicant>;
 
-  public abstract uploadPhoto(uploadData: FormData)
+  public abstract uploadPhoto(uploadData: FormData);
 
-  public abstract uploadCV(uploadData: FormData)
+  public abstract uploadCV(uploadData: FormData);
 }
 
 
@@ -49,7 +47,7 @@ export abstract class AbstractStudentProfileService {
   providedIn: 'root'
 })
 export class MockStudentProfileService implements AbstractStudentProfileService {
-  mockId: number = 100;
+  mockId = 100;
   applicant: Applicant = {
     'id': 16,
     'user': {
@@ -68,7 +66,12 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
     'firstName': 'Liam',
     'lastName': 'Neeson',
     'birthday': new Date('1952-06-07'),
-    'description': 'Born in Northern Ireland in 1952, Liam Neeson began pursuing an acting career in the mid-1970s. His breakout role came with the Holocaust drama Schindler\'s List, for which he garnered an Academy Award nomination. Neeson also starred in Star Wars: Episode I and Kinsey, before claiming a string of action-hero roles in flicks like Taken. He has also supplied voice work for hit family films like The Chronicles of Narnia and The LEGO Movie. ',
+    'description': 'Born in Northern Ireland in 1952, Liam Neeson began pursuing an acting career ' +
+      'in the mid-1970s. His breakout role came with the Holocaust drama Schindler\'s List, ' +
+      'for which he garnered an Academy Award nomination. Neeson also starred in Star Wars: ' +
+      'Episode I and Kinsey, before claiming a string of action-hero roles in flicks like Taken. ' +
+      'He has also supplied voice work for hit family films like The Chronicles of Narnia and The ' +
+      'LEGO Movie. ',
     'contact': {
       'id': 20,
       'phoneNumber': '0758426882',
@@ -155,36 +158,36 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
   ];
   allSkills: Skill[] = [
     {
-      "id": 23,
-      "name": "Java"
+      'id': 23,
+      'name': 'Java'
     },
     {
-      "id": 24,
-      "name": "C#"
+      'id': 24,
+      'name': 'C#'
     },
     {
-      "id": 25,
-      "name": "Javascript"
+      'id': 25,
+      'name': 'Javascript'
     },
     {
-      "id": 26,
-      "name": "Hadoop"
+      'id': 26,
+      'name': 'Hadoop'
     },
     {
-      "id": 27,
-      "name": "F#"
+      'id': 27,
+      'name': 'F#'
     },
     {
-      "id": 28,
-      "name": "Go"
+      'id': 28,
+      'name': 'Go'
     },
     {
-      "id": 29,
-      "name": "Erlang"
+      'id': 29,
+      'name': 'Erlang'
     }
   ];
 
-  //todo delete http :)
+  // todo delete http :)
   constructor(private http: HttpClient) {
   }
 
@@ -221,9 +224,9 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
   }
 
   deleteEducation(id: number): Observable<Applicant> {
-    var i = this.educations.length;
+    let i = this.educations.length;
     while (i--) {
-      if (this.educations[i].id == id) {
+      if (this.educations[i].id === id) {
         this.educations.splice(i, 1);
       }
     }
@@ -238,9 +241,9 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
   }
 
   deleteSkill(id: number): Observable<Applicant> {
-    var i = this.skills.length;
+    let i = this.skills.length;
     while (i--) {
-      if (this.skills[i].id == id) {
+      if (this.skills[i].id === id) {
         this.skills.splice(i, 1);
       }
     }
@@ -252,11 +255,11 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
   }
 
   uploadPhoto() {
-    //todo: for mock is not necessary
+    // todo: for mock is not necessary
   }
 
   uploadCV(uploadData: FormData) {
-    //todo: for mock is not necessary
+    // todo: for mock is not necessary
   }
 
   getListAllSkills(): Observable<Skill[]> {
@@ -264,12 +267,16 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
   }
 }
 
-//todo change bearer from logged user
+// todo change bearer from logged user
 const httpOptions = {
   headers: new HttpHeaders(
     {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3MjYzNDY2MSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjU1MTgwZThkLWE4NDktNGQ4MS05MjgyLWZkZjA0MGNjNzMyMSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.zsrWgXhBTaEwLomy2KDX7xy-EFDAqx5GfXNMdaAdgJw'
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsid' +
+        'GVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmV' +
+        'hZCIsIndyaXRlIl0sImV4cCI6MTU3MjYzNDY2MSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl' +
+        '0sImp0aSI6IjU1MTgwZThkLWE4NDktNGQ4MS05MjgyLWZkZjA0MGNjNzMyMSIsImNsaWVudF9pZ' +
+        'CI6InRlc3Rqd3RjbGllbnRpZCJ9.zsrWgXhBTaEwLomy2KDX7xy-EFDAqx5GfXNMdaAdgJw'
     })
 };
 
@@ -332,7 +339,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   updateStudentProfileEmail(studentProfile: Applicant): Observable<Applicant> {
-    if (this.applicant.user.email == studentProfile.user.email) {
+    if (this.applicant.user.email === studentProfile.user.email) {
       return of(this.applicant);
     }
     return this.http.put<Applicant>(
@@ -349,7 +356,6 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
         }
       )
     );
-    ;
   }
 
   getEducationForApplicant(): Observable<Education[]> {
@@ -441,8 +447,12 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
       $.ajax({
         url: url,
         headers: {
-          //todo change bearer
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3Njk2ODI5MywiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjM1MTdkZDFjLWQwZTEtNDMwYy04MmI4LTQxYjlmMzA0YzEyYSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.UTXR57P-XQQjgDdHeIjAajADLWCPkov4JjwjO5JkwhE',
+          // todo change bearer
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ' +
+            'hdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50I' +
+            'iwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3Njk2ODI5MywiYXV0aG9yaXRpZ' +
+            'XMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjM1MTdkZDFjLWQwZTEtNDMwYy04MmI4LTQxYjlm' +
+            'MzA0YzEyYSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.UTXR57P-XQQjgDdHeIjAajADLWCPkov4JjwjO5JkwhE',
         },
         data: uploadData,
         contentType: false,
@@ -456,7 +466,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
         }
       });
     });
-  };
+  }
 
   uploadCV(uploadData: FormData) {
     return new Promise((resolve, reject) => {
@@ -464,8 +474,13 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
       $.ajax({
         url: url,
         headers: {
-          //todo change bearer
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3Njk2ODI5MywiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjM1MTdkZDFjLWQwZTEtNDMwYy04MmI4LTQxYjlmMzA0YzEyYSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.UTXR57P-XQQjgDdHeIjAajADLWCPkov4JjwjO5JkwhE',
+          // todo change bearer
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJh' +
+            'dWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW5' +
+            '0Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3Njk2ODI5MywiYXV' +
+            '0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjM1MTdkZDFjLWQwZTEtNDM' +
+            'wYy04MmI4LTQxYjlmMzA0YzEyYSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnR' +
+            'pZCJ9.UTXR57P-XQQjgDdHeIjAajADLWCPkov4JjwjO5JkwhE',
         },
         data: uploadData,
         contentType: false,
@@ -479,7 +494,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
         }
       });
     });
-  };
+  }
 
 
   /**
