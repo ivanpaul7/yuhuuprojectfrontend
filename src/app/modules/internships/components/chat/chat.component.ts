@@ -31,7 +31,6 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.commentList = this.chatService.getComments(1);
     this.chatService.getComments(this.internshipId).subscribe((chatComments: any[]) => {
       this.commentList = chatComments;
       for (let i = 0; i < this.commentList.length; i++) {
@@ -49,11 +48,9 @@ export class ChatComponent implements OnInit {
   }
 
   public myFunction($event) {
-    console.log($event.target.parentElement.getElementsByClassName('alert'));
     const reply = $event.target.parentElement.getElementsByClassName('alert');
     const warningAsHtmlElement = this.warning.nativeElement as HTMLElement;
     const jumpTo = this.jump.nativeElement as HTMLElement;
-    console.log(warningAsHtmlElement);
     if (this.comment === '') {
       warningAsHtmlElement.classList.remove('run_animation');
       warningAsHtmlElement.style.opacity = '100';
@@ -71,7 +68,6 @@ export class ChatComponent implements OnInit {
         name: 'Prost'
       }).subscribe(() => {
         this.chatService.getComments(this.internshipId).subscribe((chatComments: any[]) => {
-          console.log(chatComments);
           this.commentList = chatComments;
           setTimeout(function () {
             jumpTo.scrollIntoView();
@@ -81,7 +77,6 @@ export class ChatComponent implements OnInit {
       });
 
 
-      // this.commentList.push({id: this.commId, text: this.comment, comments: [], likes: 0, dislikes: 0, name: 'Prost'});
     }
     this.comment = '';
   }
@@ -106,10 +101,6 @@ export class ChatComponent implements OnInit {
         dislikes: 0,
         name: 'Alt Prost'
       }).subscribe((comm: ChatComment) => {
-        // this.chatService.getComments(this.internshipId).subscribe((chatComments: any[]) => {
-         // console.log(chatComments);
-         // this.commentList = chatComments;
-        // });
         comment.comments.push(comm);
       });
     }
