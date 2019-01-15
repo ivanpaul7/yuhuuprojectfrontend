@@ -28,8 +28,6 @@ export class StudentProfileEditSkillsComponent implements OnInit {
     studentProfileService.getListAllSkills().subscribe(
       (data) => {
         this.allSkills = data;
-        //this.options=this.allSkills.map
-        console.log(this.allSkills);
       }
     );
 

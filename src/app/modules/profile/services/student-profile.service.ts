@@ -252,11 +252,11 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
   }
 
   uploadPhoto() {
-    //
+    //todo: for mock is not necessary
   }
 
   uploadCV(uploadData: FormData) {
-    //
+    //todo: for mock is not necessary
   }
 
   getListAllSkills(): Observable<Skill[]> {
