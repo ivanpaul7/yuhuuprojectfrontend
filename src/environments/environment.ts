@@ -1,10 +1,11 @@
-import {MockLoginService} from '../app/modules/login/services/login.service';
-import {MockRegisterService} from '../app/modules/login/services/register.service';
-import {MockStudentProfileService} from '../app/modules/profile/services/student-profile.service';
-import {MockCompanyProfileService} from '../app/modules/profile/services/company-profile.service';
-import {MockInternshipDetailsService} from '../app/modules/internships/services/internship-details.service';
-import {MockCompaniesService} from '../app/modules/companies/services/companies.service';
-import {MockCompanyDetailsService} from '../app/modules/companies/services/company-details.service';
+import { MockCompaniesService } from 'src/app/modules/companies/services/companies.service';
+import { MockCompanyDetailsService } from 'src/app/modules/companies/services/company-details.service';
+import { MockInternshipsService } from 'src/app/modules/internships/services/internships.service';
+import { MockInternshipDetailsService } from '../app/modules/internships/services/internship-details.service';
+import { MockLoginService } from '../app/modules/login/services/login.service';
+import { MockRegisterService } from '../app/modules/login/services/register.service';
+import { MockCompanyProfileService } from '../app/modules/profile/services/company-profile.service';
+import { MockStudentProfileService } from '../app/modules/profile/services/student-profile.service';
 
 export const environment = {
   production: false,
@@ -16,6 +17,7 @@ export const environment = {
   studentProfileService: MockStudentProfileService,
   companyProfileService: MockCompanyProfileService,
   internshipDetailsService: MockInternshipDetailsService,
+  internshipsService: MockInternshipsService,
   companiesService: MockCompaniesService,
-  companyDetailsService: MockCompanyDetailsService,
+  companyDetailsService: MockCompanyDetailsService
 };
