@@ -36,7 +36,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {InternshipDetailsPageComponent} from './modules/internships/pages/internship-details-page/internship-details-page.component';
 import {CompaniesPageComponent} from './modules/companies/pages/companies-page/companies-page.component';
 import {CompaniesModule} from './modules/companies/companies.module';
-import {CompanyDetailsPageComponent} from './modules/companies/pages/company-details-page/company-details-page.component';
 
 
 const appRoutes: Routes = [
@@ -65,8 +64,7 @@ const appRoutes: Routes = [
     InternshipDetailsPageComponent,
     StudentProfilePageComponent,
     InternshipsPageComponent,
-    CompaniesPageComponent,
-    CompanyDetailsPageComponent
+    CompaniesPageComponent
   ],
   imports: [
     BrowserModule,
