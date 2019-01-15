@@ -64,7 +64,7 @@ export class MockCompanyProfileService implements AbstractCompanyProfileService 
       },
       'photo': {
         'id': 9,
-        'url': null,
+        'url': 'https://aussiebet.com/wp-content/uploads/2018/01/betfair.png',
         'publicId': null,
         'path': 'https://aussiebet.com/wp-content/uploads/2018/01/betfair.png'
       },

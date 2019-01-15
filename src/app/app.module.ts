@@ -12,7 +12,8 @@ import {
   MatNativeDateModule,
   MatDatepickerModule,
   MatListModule,
-  MatIconModule
+  MatIconModule,
+  MatAutocompleteModule
 } from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserModule} from '@angular/platform-browser';
@@ -92,6 +93,7 @@ const appRoutes: Routes = [
     MatDatepickerModule,
     MatListModule,
     MatIconModule,
+    MatAutocompleteModule,
     ReactiveFormsModule,
     NgbModule,
     // TODO update key with a real value (because it cost Paul'll update this later)

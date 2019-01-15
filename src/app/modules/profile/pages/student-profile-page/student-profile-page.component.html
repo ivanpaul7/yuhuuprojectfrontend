@@ -1,38 +1,58 @@
 <div class="container content" *ngIf="applicant">
-
+  <div class="top-gradient-div">
+    <div class="row">
+      <div class="col-sm-12 image-wrapper">
+        <img src={{applicant.contact.photo.url}} alt="..." class="profile-pic">
+      </div>
+    </div>
+  </div>
   <mat-card class="example-card">
     <mat-card-content>
       <div class="row">
-        <div class="col-sm-12">
-          <img src={{applicant.contact.photo.url}} alt="..." class="profile-pic">
-          <div class="float-right">
-            <button mat-raised-button (click)="openBasicEditDialog()">Edit</button>
+        <div class="col-md-6">
+          <div class="col-sm-12 name-wrapper">
+            <h1>{{applicant.firstName}} {{applicant.lastName}}</h1>
+          </div>
+          <div class="col-sm-12">
+            <h4>{{applicant.birthday| date : "yyyy-MM-dd" }}</h4>
+          </div>
+          <div class="col-sm-12 cv-button-wrapper">
+            <!--CV view-->
+            <button mat-raised-button (click)="openCV()">
+              <mat-icon>attach_file</mat-icon>
+              View CV
+            </button>
           </div>
         </div>
-        <div class="col-sm-12">
-          <h1>{{applicant.firstName}} {{applicant.lastName}}</h1>
-        </div>
-        <div class="col-sm-12">
-          <h4>{{applicant.birthday| date : "yyyy-MM-dd" }}</h4>
-        </div>
-        <div class="col-sm-12 cv-button-wrapper">
-          <!--CV view-->
-          <button mat-raised-button (click)="openCV()">
-            <mat-icon>attach_file</mat-icon>
-            CV
-          </button>
-          <!--Photo upload-->
-          <input class="input-file"
-                 type="file" (change)="onPhotoFileChanged($event)"
-                 #fileInput>
-          <button (click)="fileInput.click()">Upload Photo</button>
-          <!--CV upload-->
-          <input class="input-file"
-                 type="file" (change)="onCVFileChanged($event)"
-                 #fileInput>
-          <button (click)="fileInput.click()">Upload CV</button>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-sm-12">
+              <button mat-raised-button class="edit-button" (click)="openBasicEditDialog()">Edit</button>
+            </div>
+            <div class="col-sm-12">
+              <!--Photo upload-->
+              <input class="input-file"
+                     type="file" (change)="onPhotoFileChanged($event)"
+                     #fileInput>
+              <button mat-raised-button class="edit-button upload-button" (click)="fileInput.click()">
+                <mat-icon>add_a_photo</mat-icon>
+                Upload Photo
+              </button>
+            </div>
+            <div class="col-sm-12">
+              <!--CV upload-->
+              <input class="input-file"
+                     type="file" (change)="onCVFileChanged($event)"
+                     #fileInput>
+              <button mat-raised-button class="edit-button upload-button" (click)="fileInput.click()">
+                <mat-icon>attach_file</mat-icon>
+                Upload CV
+              </button>
+            </div>
+          </div>
         </div>
       </div>
+
       <div class="divider">
         <mat-divider></mat-divider>
       </div>

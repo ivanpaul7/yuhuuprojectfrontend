@@ -117,7 +117,6 @@ export class ServerLoginService implements AbstractLoginService, OnInit {
           error: function (request, status, error) {
             console.log("ERROR")
           }
-
         });
       });
 

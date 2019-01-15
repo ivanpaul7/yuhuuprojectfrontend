@@ -11,7 +11,8 @@ import {
   MatNativeDateModule,
   MatDatepickerModule,
   MatListModule,
-  MatIconModule
+  MatIconModule,
+  MatAutocompleteModule,
 } from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CompanyProfilePageComponent} from './pages/company-profile-page/company-profile-page.component';
@@ -49,6 +50,7 @@ import {StudentProfileCvViewComponent} from './components/student-profile-cv-vie
     MatDividerModule,
     MatListModule,
     MatIconModule,
+    MatAutocompleteModule,
     ReactiveFormsModule,
     RouterModule.forChild(profileRoutes),
     AgmCoreModule,
