@@ -64,8 +64,7 @@ export class ChatComponent implements OnInit {
         text: this.comment,
         comments: [],
         likes: 0,
-        dislikes: 0,
-        name: 'Prost'
+        dislikes: 0
       }).subscribe(() => {
         this.chatService.getComments(this.internshipId).subscribe((chatComments: any[]) => {
           this.commentList = chatComments;
@@ -98,8 +97,7 @@ export class ChatComponent implements OnInit {
         text: this.replyCom,
         comments: [],
         likes: 0,
-        dislikes: 0,
-        name: 'Alt Prost'
+        dislikes: 0
       }).subscribe((comm: ChatComment) => {
         comment.comments.push(comm);
       });
