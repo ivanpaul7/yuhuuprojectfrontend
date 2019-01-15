@@ -65,24 +65,25 @@
 .top-gradient-div {
   height: 170px;
   background: #000046;
-  background: -webkit-linear-gradient(to right, #1CB5E0, #000046);
-  background: linear-gradient(to right, #1CB5E0, #000046);
+  background: -webkit-linear-gradient(to right, #000046, #1CB5E0);
+  background: linear-gradient(to right, #000046, #1CB5E0);
 }
-.image-wrapper{
+
+.image-wrapper {
   position: absolute;
   z-index: 2;
   padding: 46px;
 }
 
-.name-wrapper{
+.name-wrapper {
   margin-top: 110px;
 }
 
-.edit-button{
-  float:right;
+.edit-button {
+  float: right;
   margin-bottom: 15px;
 }
 
-.upload-button{
+.upload-button {
   width: 140px;
 }

@@ -15,7 +15,7 @@
   display: inline-block;
   width: 250px;
   height: 250px;
-  border-radius: 50%;
+  //border-radius: 50%;
 
   object-fit: cover;
 }
@@ -54,9 +54,37 @@
   padding-bottom: 20px;
 }
 
-.intenship-button-wrapper{
+.intenship-button-wrapper {
   padding-bottom: 10px;
 }
-.input-file{
+
+.input-file {
   display: none
 }
+
+.top-gradient-div {
+  height: 170px;
+  background: #000046;
+  background: -webkit-linear-gradient(to right, #1CB5E0, #000046);
+  background: linear-gradient(to right, #1CB5E0, #000046);
+}
+
+.image-wrapper {
+  position: absolute;
+  z-index: 2;
+  padding: 46px;
+}
+
+.name-wrapper {
+  margin-top: 110px;
+}
+
+.edit-button {
+  float: right;
+  margin-bottom: 15px;
+}
+
+.upload-button {
+  width: 140px;
+}
+
