@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {AbstractInternshipDetailsService} from '../../services/internship-details.service';
-import {ActivatedRoute} from '@angular/router';
-import {Internship} from 'src/app/shared/model/Internship';
-import { Observable } from 'rxjs';
-import { Skill } from 'src/app/shared/model/Skill';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Internship } from 'src/app/shared/model/Internship';
 import { Photo } from 'src/app/shared/model/Photo';
+import { Skill } from 'src/app/shared/model/Skill';
 import { Tag } from 'src/app/shared/model/Tag';
+import { AbstractInternshipDetailsService } from '../../services/internship-details.service';
 
 @Component({
   selector: 'app-internship-details-page',
@@ -32,5 +31,5 @@ export class InternshipDetailsPageComponent implements OnInit {
     this.details.getInternshipTags(this.internshipID).subscribe(internshipTags => this.internshipTags = internshipTags);
     this.details.getInternshipSkills(this.internshipID).subscribe(internshipSkils => this.internshipSkills = internshipSkils);
   }
-  
+
 }
