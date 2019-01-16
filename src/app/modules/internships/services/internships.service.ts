@@ -1,11 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
 import * as moment from 'moment';
-import { of, ReplaySubject, Subject } from 'rxjs';
-import { Company } from 'src/app/shared/model/models';
-import { Skill } from 'src/app/shared/model/Skill';
-import { Tag } from 'src/app/shared/model/Tag';
-import { Internship } from '../../../shared/model/Internship';
+import {of, ReplaySubject, Subject} from 'rxjs';
+import {Company} from 'src/app/shared/model/models';
+import {Skill} from 'src/app/shared/model/Skill';
+import {Tag} from 'src/app/shared/model/Tag';
+import {Internship} from '../../../shared/model/Internship';
 
 
 export abstract class AbstractInternshipsService {
@@ -15,14 +15,23 @@ export abstract class AbstractInternshipsService {
   skillSubject = new Subject<Skill[]>();
 
   public abstract getInternships();
+
   public abstract getSkills();
+
   public abstract getCompanies();
+
   public abstract getInternshipSkills(idInternship: number);
+
   public abstract getInternshipsForCompany(idCompany: number);
+
   public abstract getInternshipLogo(idInternship: number);
+
   public abstract getInternshipTags(idInternship: number);
+
   public abstract getInternshipCompany(idInternship: number);
+
   public abstract setCompanyFilters(filters: Company[]);
+
   public abstract setSkillFilters(filters: Skill[]);
 }
 
@@ -35,7 +44,11 @@ export class MockInternshipsService implements AbstractInternshipsService {
   private internships: Internship[] = [
     {
       deadline: new Date(),
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+        'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ' +
+        'Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt ' +
+        'lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque ' +
+        'egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
       endDate: new Date('2013/10/11'),
       id: 1,
       startDate: new Date('2012/10/11'),
@@ -43,7 +56,11 @@ export class MockInternshipsService implements AbstractInternshipsService {
     },
     {
       deadline: new Date(),
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ' +
+        'eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer ' +
+        'eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. ' +
+        'Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. ' +
+        'In nibh mauris cursus mattis molestie a. ',
       endDate: moment('2013/10/11').toDate(),
       id: 2,
       startDate: new Date('2012/10/11'),
@@ -51,7 +68,11 @@ export class MockInternshipsService implements AbstractInternshipsService {
     },
     {
       deadline: new Date(),
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+        'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas ' +
+        'nteger eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat' +
+        ' vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu ' +
+        'cursus euismod. In nibh mauris cursus mattis molestie a. ',
       endDate: new Date('2013/10/11'),
       id: 3,
       startDate: new Date('2012/10/11'),
@@ -59,7 +80,11 @@ export class MockInternshipsService implements AbstractInternshipsService {
     },
     {
       deadline: new Date(),
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod ' +
+        'tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. ' +
+        'Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi ' +
+        'porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis' +
+        ' molestie a. ',
       endDate: new Date('2013/10/11'),
       id: 4,
       startDate: new Date('2012/10/11'),
@@ -168,7 +193,11 @@ export class MockInternshipsService implements AbstractInternshipsService {
       return of([
         {
           deadline: new Date(),
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+            'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ' +
+            'Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt ' +
+            'lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque ' +
+            'egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
           endDate: new Date('2013/10/11'),
           id: 1,
           startDate: new Date('2012/10/11'),
@@ -179,7 +208,11 @@ export class MockInternshipsService implements AbstractInternshipsService {
       return of([
         {
           deadline: new Date(),
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+            'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ' +
+            'Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt ' +
+            'lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque ' +
+            'egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
           endDate: new Date('2013/10/11'),
           id: 2,
           startDate: new Date('2012/10/11'),
@@ -190,7 +223,11 @@ export class MockInternshipsService implements AbstractInternshipsService {
       return of([
         {
           deadline: new Date(),
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ' +
+            'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ' +
+            'Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt' +
+            ' lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue ' +
+            'quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
           endDate: new Date('2013/10/11'),
           id: 3,
           startDate: new Date('2012/10/11'),
@@ -198,7 +235,11 @@ export class MockInternshipsService implements AbstractInternshipsService {
         },
         {
           deadline: new Date(),
-          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus euismod. In nibh mauris cursus mattis molestie a. ',
+          description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ' +
+            'eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas integer' +
+            ' eget aliquet nibh. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus. ' +
+            'Imperdiet sed euismod nisi porta. Congue quisque egestas diam in arcu cursus' +
+            ' euismod. In nibh mauris cursus mattis molestie a. ',
           endDate: new Date('2013/10/11'),
           id: 4,
           startDate: new Date('2012/10/11'),
@@ -320,14 +361,21 @@ export class ServerInternshipsService implements AbstractInternshipsService {
   internshipSubject: ReplaySubject<Internship[]>;
   companySubject = new Subject<Company[]>();
   skillSubject = new Subject<Skill[]>();
-  constructor(private httpClient: HttpClient) { }
+
+  constructor(private httpClient: HttpClient) {
+  }
 
   getInternships() {
     const url = 'https://enigmatic-sierra-91538.herokuapp.com/api/internship/all';
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3NjY5OTAzOCwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6ImJjMjEyM2Y2LWVmMTQtNDg0Zi1hZjdlLTliOGVjMzg1ODg2MSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.ekCWKdN7VuQbN9rOexqF07P0B1u2KsiroEOQdsT51Nk'
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhd' +
+          'WQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwi' +
+          'c2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3NjY5OTAzOCwiYXV0aG9yaXRp' +
+          'ZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6ImJjMjEyM2Y2LWVmMTQtNDg0Zi1hZjdlLTli' +
+          'OGVjMzg1ODg2MSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.ekCWKdN7VuQ' +
+          'bN9rOexqF07P0B1u2KsiroEOQdsT51Nk'
       })
     };
     if (this.internshipSubject) {
@@ -344,7 +392,11 @@ export class ServerInternshipsService implements AbstractInternshipsService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3NDgyNDEwNSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjZkY2RmYzk1LTc4YzMtNDE3MS1iZGM5LTc2MjJlOTViNmRlMCIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.n7vWD-ZyLxWBf2Dr4wTKKI4uCFF7KFknDoP900Nharg'
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidG' +
+          'VzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVh' +
+          'ZCIsIndyaXRlIl0sImV4cCI6MTU3NDgyNDEwNSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl' +
+          '0sImp0aSI6IjZkY2RmYzk1LTc4YzMtNDE3MS1iZGM5LTc2MjJlOTViNmRlMCIsImNsaWVudF9pZ' +
+          'CI6InRlc3Rqd3RjbGllbnRpZCJ9.n7vWD-ZyLxWBf2Dr4wTKKI4uCFF7KFknDoP900Nharg'
       })
     };
     return this.httpClient.get<Company[]>(url, httpOptions);
@@ -355,7 +407,11 @@ export class ServerInternshipsService implements AbstractInternshipsService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3NTkzNzQ2MCwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6ImIwMDdjZTYwLWIyYWMtNDFiYi04ZjM0LTM4YzU0OWE1NmViZCIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.3vQ0cLxYBbuB-2Lmf-rgsLWEdfBb3LdfDCb9169l8CU'
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp' +
+          '3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndya' +
+          'XRlIl0sImV4cCI6MTU3NTkzNzQ2MCwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6ImI' +
+          'wMDdjZTYwLWIyYWMtNDFiYi04ZjM0LTM4YzU0OWE1NmViZCIsImNsaWVudF9pZCI6InRlc3Rqd3Rj' +
+          'bGllbnRpZCJ9.3vQ0cLxYBbuB-2Lmf-rgsLWEdfBb3LdfDCb9169l8CU'
       })
     };
     return this.httpClient.get<Skill[]>(url, httpOptions);
@@ -366,7 +422,11 @@ export class ServerInternshipsService implements AbstractInternshipsService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1NzY3MDYyMjksImF1dGhvcml0aWVzIjpbIkNPTVBBTlkiXSwianRpIjoiYTYzZDdlZWYtNTMzYy00MGQzLWE2YWYtNmFhZTM0YjI3MTY0IiwiY2xpZW50X2lkIjoidGVzdGp3dGNsaWVudGlkIn0.YgL9w9v1g6JvOg3_lspms7uMPCpBRMmjkR_I9grAVYY'
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp' +
+          '3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIsInNjb3BlIjpbInJlYWQiLCJ3cml0Z' +
+          'SJdLCJleHAiOjE1NzY3MDYyMjksImF1dGhvcml0aWVzIjpbIkNPTVBBTlkiXSwianRpIjoiYTYzZDd' +
+          'lZWYtNTMzYy00MGQzLWE2YWYtNmFhZTM0YjI3MTY0IiwiY2xpZW50X2lkIjoidGVzdGp3dGNsaWVud' +
+          'GlkIn0.YgL9w9v1g6JvOg3_lspms7uMPCpBRMmjkR_I9grAVYY'
       })
     };
     return this.httpClient.get<Skill[]>(url + idInternship + '/skills', httpOptions);
@@ -377,7 +437,11 @@ export class ServerInternshipsService implements AbstractInternshipsService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3MjYzODAxNCwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjdkMDg4NDM5LTkzMjUtNDA2Yi1hNWQyLTJkOTAzYzQzMmVhYiIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.tgaxNfcl4SqHWM2FT30f5d_I4HFgAAnTbKwIU7VYFrY'
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp' +
+          '3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndya' +
+          'XRlIl0sImV4cCI6MTU3MjYzODAxNCwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6Ijdk' +
+          'MDg4NDM5LTkzMjUtNDA2Yi1hNWQyLTJkOTAzYzQzMmVhYiIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGl' +
+          'lbnRpZCJ9.tgaxNfcl4SqHWM2FT30f5d_I4HFgAAnTbKwIU7VYFrY'
       })
     };
     return this.httpClient.get<Internship[]>(url + idCompany, httpOptions);
@@ -388,7 +452,11 @@ export class ServerInternshipsService implements AbstractInternshipsService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3NjY5OTAzOCwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6ImJjMjEyM2Y2LWVmMTQtNDg0Zi1hZjdlLTliOGVjMzg1ODg2MSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.ekCWKdN7VuQbN9rOexqF07P0B1u2KsiroEOQdsT51Nk'
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3' +
+          'dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXR' +
+          'lIl0sImV4cCI6MTU3NjY5OTAzOCwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6ImJjMj' +
+          'EyM2Y2LWVmMTQtNDg0Zi1hZjdlLTliOGVjMzg1ODg2MSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllb' +
+          'nRpZCJ9.ekCWKdN7VuQbN9rOexqF07P0B1u2KsiroEOQdsT51Nk'
       })
     };
     return this.httpClient.get(url + idInternship + '/logo', httpOptions);
@@ -399,7 +467,11 @@ export class ServerInternshipsService implements AbstractInternshipsService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1NzY3MDYyMjksImF1dGhvcml0aWVzIjpbIkNPTVBBTlkiXSwianRpIjoiYTYzZDdlZWYtNTMzYy00MGQzLWE2YWYtNmFhZTM0YjI3MTY0IiwiY2xpZW50X2lkIjoidGVzdGp3dGNsaWVudGlkIn0.YgL9w9v1g6JvOg3_lspms7uMPCpBRMmjkR_I9grAVYY'
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3' +
+          'dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJd' +
+          'LCJleHAiOjE1NzY3MDYyMjksImF1dGhvcml0aWVzIjpbIkNPTVBBTlkiXSwianRpIjoiYTYzZDdlZWYtN' +
+          'TMzYy00MGQzLWE2YWYtNmFhZTM0YjI3MTY0IiwiY2xpZW50X2lkIjoidGVzdGp3dGNsaWVudGlkIn0.YgL' +
+          '9w9v1g6JvOg3_lspms7uMPCpBRMmjkR_I9grAVYY'
       })
     };
     return this.httpClient.get<Tag[]>(url + idInternship + '/tags', httpOptions);
@@ -410,7 +482,11 @@ export class ServerInternshipsService implements AbstractInternshipsService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3NjY5OTAzOCwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6ImJjMjEyM2Y2LWVmMTQtNDg0Zi1hZjdlLTliOGVjMzg1ODg2MSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.ekCWKdN7VuQbN9rOexqF07P0B1u2KsiroEOQdsT51Nk'
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJ' +
+          'lc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sIm' +
+          'V4cCI6MTU3NjY5OTAzOCwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6ImJjMjEyM2Y2LWVmM' +
+          'TQtNDg0Zi1hZjdlLTliOGVjMzg1ODg2MSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.ekCWKd' +
+          'N7VuQbN9rOexqF07P0B1u2KsiroEOQdsT51Nk'
       })
     };
     return this.httpClient.get<Company>(url + idInternship + '/company', httpOptions);
