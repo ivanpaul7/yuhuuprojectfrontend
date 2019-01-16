@@ -5,6 +5,7 @@ import {Role} from '../../../shared/model/Role';
 import {Applicant} from '../../../shared/model/Applicant';
 import {tap} from 'rxjs/operators';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import * as $ from 'node_modules/jquery/dist/jquery.js';
 
 @Injectable()
 export abstract class AbstractCompanyProfileService {
@@ -17,6 +18,8 @@ export abstract class AbstractCompanyProfileService {
   public abstract updateCompanyContact(comp: Company): Observable<Company>;
 
   public abstract updateCompanyEmail(comp: Company): Observable<Company>;
+
+  public abstract uploadPhoto(uploadData: FormData);
 }
 
 export class MockCompanyProfileService implements AbstractCompanyProfileService {
@@ -61,7 +64,7 @@ export class MockCompanyProfileService implements AbstractCompanyProfileService 
       },
       'photo': {
         'id': 9,
-        'url': null,
+        'url': 'https://aussiebet.com/wp-content/uploads/2018/01/betfair.png',
         'publicId': null,
         'path': 'https://aussiebet.com/wp-content/uploads/2018/01/betfair.png'
       },
@@ -88,6 +91,9 @@ export class MockCompanyProfileService implements AbstractCompanyProfileService 
   updateCompanyEmail(comp: Company): Observable<Company> {
     this.company = comp;
     return of(this.company);
+  }
+
+  uploadPhoto(uploadData: FormData) {
   }
 
 
@@ -182,5 +188,28 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
     );
     ;
   }
+
+  uploadPhoto(uploadData: FormData) {
+    return new Promise((resolve, reject) => {
+      const url = 'https://enigmatic-sierra-91538.herokuapp.com/api/company/' + this.company.id + '/photo';
+      $.ajax({
+        url: url,
+        headers: {
+          //todo change bearer
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1NzY3MDcxNjgsImF1dGhvcml0aWVzIjpbIkNPTVBBTlkiXSwianRpIjoiYjNjNTlmZDctMTlhNy00NDIzLWFjN2EtMTVkZDQxZmJiZTEyIiwiY2xpZW50X2lkIjoidGVzdGp3dGNsaWVudGlkIn0.e6QTmifb1YFYSYgZE37PfQQINrUS2hlWyLUssTnjAGk'
+        },
+        data: uploadData,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function (data) {
+          resolve(data);
+        },
+        error: function (request, status, error) {
+          reject(false);
+        }
+      });
+    });
+  };
 
 }

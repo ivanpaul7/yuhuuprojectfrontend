@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {Applicant} from '../../../../shared/model/Applicant';
@@ -7,13 +7,12 @@ import {MatDialog, MatListModule} from '@angular/material';
 import {StudentProfileEditBasicComponent} from '../../components/student-profile-edit-basic/student-profile-edit-basic.component';
 import {StudentProfileEditContactComponent} from '../../components/student-profile-edit-contact/student-profile-edit-contact.component';
 import {Education} from '../../../../shared/model/Education';
-import {EducationComponent} from '../../components/education/education.component';
+// tslint:disable-next-line:max-line-length
 import {StudentProfileEditEducationComponent} from '../../components/student-profile-edit-education/student-profile-edit-education.component';
 import {Skill} from '../../../../shared/model/Skill';
 import {StudentProfileEditSkillsComponent} from '../../components/student-profile-edit-skills/student-profile-edit-skills.component';
-import {PdfViewerModule} from 'ng2-pdf-viewer';
 import {StudentProfileCvViewComponent} from '../../components/student-profile-cv-view/student-profile-cv-view.component';
-import {Observable} from 'rxjs';
+
 
 @Component({
   selector: 'app-student-profile-page',
@@ -24,6 +23,13 @@ export class StudentProfilePageComponent implements OnInit {
   @Input() applicant: Applicant;
   @Input() educationList: Education[];
   @Input() skillsList: Skill[];
+  @ViewChild('file') file;
+  public fileTemp: File;
+
+
+  addFiles() {
+
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -145,10 +151,25 @@ export class StudentProfilePageComponent implements OnInit {
   }
 
 
-
-  onFileChanged(event) {
+  onPhotoFileChanged(event) {
     const uploadData = new FormData();
-    uploadData.append('file', event.target.files[0]);
-    this.studentProfileService.uploadPhoto(uploadData).subscribe();
+    uploadData.append('file', event.target.files[0], event.name);
+    this.studentProfileService.uploadPhoto(uploadData).then((data) => {
+      this.applicant.contact.photo = data;
+    }).catch(err => {
+      // todo
+      console.log('error fronted photo');
+    });
+  }
+
+  onCVFileChanged(event) {
+    const uploadData = new FormData();
+    uploadData.append('file', event.target.files[0], event.name);
+    this.studentProfileService.uploadCV(uploadData).then((data) => {
+      this.applicant.contact.cv = data;
+    }).catch(err => {
+      // todo
+      console.log('error fronted cv');
+    });
   }
 }

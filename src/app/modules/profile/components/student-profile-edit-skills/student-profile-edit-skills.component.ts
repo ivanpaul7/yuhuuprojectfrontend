@@ -3,6 +3,9 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Applicant} from '../../../../shared/model/Applicant';
 import {AbstractStudentProfileService} from '../../services/student-profile.service';
 import {Skill} from '../../../../shared/model/Skill';
+import {Observable} from 'rxjs';
+import {FormControl} from '@angular/forms';
+import {map, startWith} from 'rxjs/operators';
 
 @Component({
   selector: 'app-student-profile-edit-skills',
@@ -11,15 +14,23 @@ import {Skill} from '../../../../shared/model/Skill';
 })
 export class StudentProfileEditSkillsComponent implements OnInit {
   @Output() editSubmitEventEmitter = new EventEmitter();
-  startDatex = new Date(2010, 0, 1);
   applicant: Applicant;
   skill: Skill = {};
+  allSkills: Skill[] = [];
+  filteredOptions: Observable<Skill[]>;
+  myControl = new FormControl();
 
   constructor(
     private studentProfileService: AbstractStudentProfileService,
     public dialogRef: MatDialogRef<StudentProfileEditSkillsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.applicant = Object.assign({}, data.studentProfile);
+    studentProfileService.getListAllSkills().subscribe(
+      (data) => {
+        this.allSkills = data;
+      }
+    );
+
   }
 
   onNoClick() {
@@ -27,6 +38,17 @@ export class StudentProfileEditSkillsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
+  }
+
+  private _filter(value: string): Skill[] {
+    const filterValue = value.toLowerCase();
+
+    return this.allSkills.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
   onSaveClick() {
@@ -34,6 +56,8 @@ export class StudentProfileEditSkillsComponent implements OnInit {
       .subscribe(() => {
         this.editSubmitEventEmitter.emit();
         this.dialogRef.close();
+      }, (error) => {
+        //todo treat error
       });
   }
 

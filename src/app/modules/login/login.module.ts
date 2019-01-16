@@ -22,6 +22,7 @@ import {
   MatListModule,
   MatIconModule
 } from '@angular/material';
+import {SessionManagementService} from '../../shared/utils/session-management.service';
 
 @NgModule({
   imports: [
@@ -54,6 +55,7 @@ import {
       provide: AbstractRegisterService,
       useClass: environment.registerService
     },
+    SessionManagementService
   ]
 })
 export class LoginModule {

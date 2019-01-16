@@ -2,8 +2,11 @@
   <div class="d-none d-md-block col-md-2">
 
   </div>
-  <div class="col-12 col-md-8 contentArea">
-    <router-outlet></router-outlet>
+  <div class="col-12 col-md-8 pageArea">
+    <app-navbar [className]="getNavBarClass()"></app-navbar>
+    <div [className]="getContentAreaClass()">
+      <router-outlet></router-outlet>
+    </div>
   </div>
   <div class="d-none d-md-block col-md-2">
 
