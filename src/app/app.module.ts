@@ -47,22 +47,24 @@ export const appRoutes: Routes = [
   {path: 'internships', component: InternshipsPageComponent, pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent, pathMatch: 'full'},
   {
-    path: 'dashboard',
-    component: DashboardPageComponent,
-    loadChildren: './modules/dashboard/dashboard.module#DashboardModule'
-  },
-  {
     path: 'profile',
     component: CompanyProfilePageComponent,
     loadChildren: './modules/profile/profile.module#ProfileModule'
   },
   {path: 'register', component: RegisterPageComponent, pathMatch: 'full'},
-  {path: 'dashboard',
+  {
+    path: 'dashboard',
     component: DashboardPageComponent,
     children: [
       {path: 'applicantHome', component: ApplicantDashboardComponent},
       {path: 'companyHome', component: CompanyDashboardComponent}
-    ]}
+    ]
+  },
+  {
+    path: 'dashboard',
+    component: DashboardPageComponent,
+    loadChildren: './modules/dashboard/dashboard.module#DashboardModule'
+  },
 ];
 
 @NgModule({
@@ -132,14 +134,13 @@ export interface NavBarItem {
   path: string;
 }
 
-export const applicantNavBarItems: NavBarItem[] = [
+export let applicantNavBarItems: NavBarItem[] = [
   {title: 'ApplicantDashboardComponent', path: 'dashboard/applicantHome'},
   {title: 'Internship List', path: 'internships'},
   {title: 'Companies', path: 'companies'}
 ];
 
-export const companyNavBarItems: NavBarItem[] = [
+export let companyNavBarItems: NavBarItem[] = [
   {title: 'CompanyDashboardComponent', path: 'dashboard/companyHome'},
-
 ];
 

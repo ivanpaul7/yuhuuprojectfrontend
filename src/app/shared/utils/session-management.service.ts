@@ -5,6 +5,7 @@ import {Company} from '../model/Company';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Role} from '../model/Role';
 import {Applicant} from '../model/applicant';
+import {applicantNavBarItems, companyNavBarItems} from '../../app.module';
 
 @Injectable()
 export class SessionManagementService {
@@ -30,8 +31,9 @@ export class SessionManagementService {
       if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.APPLICANT) {
         this.getLoggedApplicantInfo().subscribe((applicant) => {
           this.specificId = applicant.id;
-          this.isLoginDataLoadingFinished.emit(true);
+          applicantNavBarItems.push({title: 'My profile', path: 'profile/student/' + this.currentLoggedUser.id});
           this.everythingLoaded = true;
+          this.isLoginDataLoadingFinished.emit(true);
         }, (error) => {
           console.log(error);
           this.isLoginDataLoadingFinished.emit(false);
@@ -39,8 +41,9 @@ export class SessionManagementService {
       } else if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.COMPANY) {
         this.getLoggedCompanyInfo().subscribe((company) => {
           this.specificId = company.id;
-          this.isLoginDataLoadingFinished.emit(true);
+          companyNavBarItems.push({title: 'My profile', path: 'profile/company/' + this.currentLoggedUser.id});
           this.everythingLoaded = true;
+          this.isLoginDataLoadingFinished.emit(true);
         }, (error) => {
           console.log(error);
           this.isLoginDataLoadingFinished.emit(false);
