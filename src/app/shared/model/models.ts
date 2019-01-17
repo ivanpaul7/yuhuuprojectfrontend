@@ -14,3 +14,4 @@ export * from './Role';
 export * from './Skill';
 export * from './Tag';
 export * from './User';
+export * from './ChatComment';

@@ -18,10 +18,6 @@ export class XYLineChartComponent implements OnInit {
   initChart(){
     var chart = c3.generate({
       bindto: '#chart',
-      // size: {
-      //   height: 220,
-      //   width: 600
-      // },
       data: {
         columns: [
           ['data1', 30, 200, 100, 400, 150, 250],

@@ -29,6 +29,7 @@ export class CompanyProfilePageComponent implements OnInit {
   }
 
   public getCompany(): void {
+    this.companyService.initialize();
     const id = +this.route.snapshot.paramMap.get('id');
     this.companyService.getCompany(id)
       .subscribe(profile => {
@@ -66,5 +67,16 @@ export class CompanyProfilePageComponent implements OnInit {
 
   navigateToCompanyInternships() {
     this.router.navigateByUrl('/internships?company=facebook');
+  }
+
+  onPhotoFileChanged(event) {
+    const uploadData = new FormData();
+    uploadData.append('file', event.target.files[0], event.name);
+    this.companyService.uploadPhoto(uploadData).then((data) => {
+      this.company.contact.photo=data;
+    }).catch(err => {
+      //todo
+      console.log("error fronted photo");
+    });
   }
 }

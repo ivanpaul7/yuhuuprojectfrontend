@@ -8,6 +8,21 @@ import {AlertModule} from '../alert/alert.module';
 import {RouterModule} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {AbstractRegisterService} from './services/register.service';
+import { FormsModule } from '@angular/forms';
+import {
+  MatButtonModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatDialogModule, MatDividerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
+  MatNativeDateModule,
+  MatDatepickerModule,
+  MatListModule,
+  MatIconModule
+} from '@angular/material';
+import {SessionManagementService} from '../../shared/utils/session-management.service';
 
 @NgModule({
   imports: [
@@ -15,6 +30,19 @@ import {AbstractRegisterService} from './services/register.service';
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
+    FormsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatDividerModule,
+    MatListModule,
+    MatIconModule,
   ],
   declarations: [LoginComponentComponent, RegisterComponentComponent],
   exports: [LoginComponentComponent, RegisterComponentComponent],
@@ -27,6 +55,7 @@ import {AbstractRegisterService} from './services/register.service';
       provide: AbstractRegisterService,
       useClass: environment.registerService
     },
+    SessionManagementService
   ]
 })
 export class LoginModule {

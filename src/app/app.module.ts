@@ -12,7 +12,8 @@ import {
   MatNativeDateModule,
   MatDatepickerModule,
   MatListModule,
-  MatIconModule
+  MatIconModule,
+  MatAutocompleteModule
 } from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserModule} from '@angular/platform-browser';
@@ -32,23 +33,40 @@ import {AlertModule} from './modules/alert/alert.module';
 import {CompanyProfilePageComponent} from './modules/profile/pages/company-profile-page/company-profile-page.component';
 import {AgmCoreModule} from '@agm/core';
 import {DatePipe} from '@angular/common';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {InternshipDetailsPageComponent} from './modules/internships/pages/internship-details-page/internship-details-page.component';
+import {CompaniesPageComponent} from './modules/companies/pages/companies-page/companies-page.component';
+import {CompaniesModule} from './modules/companies/companies.module';
+import {NavBarComponent} from './masterComponents/navbar/nav-bar.component';
+import {SessionManagementService} from './shared/utils/session-management.service';
+import {ApplicantDashboardComponent} from './modules/dashboard/components/applicantDashboard/applicant-dashboard.component';
+import {CompanyDashboardComponent} from './modules/dashboard/components/companyDashboard/company-dashboard.component';
 
-const appRoutes: Routes = [
+
+
+export const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
+  {path: 'internships', component: InternshipsPageComponent, pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent, pathMatch: 'full'},
-  {
-    path: 'dashboard',
-    component: DashboardPageComponent,
-    loadChildren: './modules/dashboard/dashboard.module#DashboardModule'
-  },
   {
     path: 'profile',
     component: CompanyProfilePageComponent,
     loadChildren: './modules/profile/profile.module#ProfileModule'
   },
   {path: 'register', component: RegisterPageComponent, pathMatch: 'full'},
+  {
+    path: 'dashboard',
+    component: DashboardPageComponent,
+    children: [
+      {path: 'applicantHome', component: ApplicantDashboardComponent},
+      {path: 'companyHome', component: CompanyDashboardComponent}
+    ]
+  },
+  {
+    path: 'dashboard',
+    component: DashboardPageComponent,
+    loadChildren: './modules/dashboard/dashboard.module#DashboardModule'
+  },
 ];
 
 @NgModule({
@@ -60,6 +78,8 @@ const appRoutes: Routes = [
     InternshipDetailsPageComponent,
     StudentProfilePageComponent,
     InternshipsPageComponent,
+    CompaniesPageComponent,
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,6 +88,7 @@ const appRoutes: Routes = [
     LoginModule,
     ProfileModule,
     InternshipsModule,
+    CompaniesModule,
     HttpClientModule,
     RouterModule.forRoot(
       appRoutes,
@@ -87,8 +108,9 @@ const appRoutes: Routes = [
     MatDatepickerModule,
     MatListModule,
     MatIconModule,
+    MatAutocompleteModule,
     ReactiveFormsModule,
-    //TODO update key with a real value (because it cost Paul'll update this later)
+    NgbModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYM'
     })
@@ -96,13 +118,30 @@ const appRoutes: Routes = [
   entryComponents: [],
   exports: [
     LoginModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     AlertModule,
-    DatePipe
+    DatePipe,
+    SessionManagementService,
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
 }
+
+export interface NavBarItem {
+  title: string;
+  path: string;
+}
+
+export let applicantNavBarItems: NavBarItem[] = [
+  {title: 'ApplicantDashboardComponent', path: 'dashboard/applicantHome'},
+  {title: 'Internship List', path: 'internships'},
+  {title: 'Companies', path: 'companies'}
+];
+
+export let companyNavBarItems: NavBarItem[] = [
+  {title: 'CompanyDashboardComponent', path: 'dashboard/companyHome'},
+];
+

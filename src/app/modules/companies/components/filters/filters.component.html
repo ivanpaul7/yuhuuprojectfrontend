@@ -1,0 +1,30 @@
+<form [formGroup]="filterForm" class="form-group">
+  <mat-expansion-panel>
+
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Filter companies
+      </mat-panel-title>
+      <mat-panel-description>
+        Cauta companie dupa un filtru
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <mat-chip-list #chipListCompany>
+        <mat-chip *ngFor="let filter of selectedNames" [selectable]="false" [removable]="removable" (removed)="removeName(filter)">
+          {{filter}}
+          <mat-icon matChipRemove *ngIf="removable">&times;</mat-icon>
+        </mat-chip>
+        <input #triggerCompany type="text" matInput placeholder="Filtrati dupa numele companiei" formControlName="companyFilter"
+               [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputFor]="chipListCompany" [matAutocomplete]="autoCompany">
+      </mat-chip-list>
+      <mat-autocomplete #autoCompany="matAutocomplete" (optionSelected)="selectedCompany($event)">
+        <mat-option *ngFor="let company of filteredNames" [value]="company">
+          {{company}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+  </mat-expansion-panel>
+</form>

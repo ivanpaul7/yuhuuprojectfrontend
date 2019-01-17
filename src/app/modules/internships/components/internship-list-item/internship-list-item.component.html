@@ -1,11 +1,11 @@
-<mat-card routerLinkActive="active" [routerLink]="[index]">
+<mat-card routerLinkActive="active" [routerLink]="[internship.id]">
   <mat-card-header>
     <div mat-card-avatar>
-      <img mat-card-sm-image src="{{internship.companyLogo}}" alt="{{internship.title}}">
+      <img mat-card-sm-image src="{{logo}}" alt="{{internship.title}}">
     </div>
-    <mat-card-title>{{ internship.title }}</mat-card-title>
-    <mat-card-subtitle>CompanyName</mat-card-subtitle>
-    <div class="header-text">
+    <mat-card-title>{{internship.title}}</mat-card-title>
+    <mat-card-subtitle>{{company !== undefined ? company.name : ''}}</mat-card-subtitle>
+    <div class="header-text additional-header">
       <div class="mat-card-subtitle date">
         Start date: {{internship.startDate}}
       </div>
@@ -13,18 +13,16 @@
         End date: {{internship.endDate}}
       </div>
     </div>
-
   </mat-card-header>
+
+  <hr>
+
   <mat-card-content>
     <p>
       {{ internship.description }}
     </p>
   </mat-card-content>
-  <mat-card-actions>
-    <a href="#">#tag1</a>
-    <a href="#">#tag2</a>
-    <a href="#">#tag3</a>
-
-
+  <mat-card-actions class="m-0">
+    <span *ngFor="let tag of tags">#{{tag.name}} </span>
   </mat-card-actions>
 </mat-card>

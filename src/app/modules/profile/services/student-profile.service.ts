@@ -2,36 +2,47 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {Applicant} from '../../../shared/model/Applicant';
-import {catchError, tap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 import {Education} from '../../../shared/model/Education';
 import {Skill} from '../../../shared/model/Skill';
 import {Role} from '../../../shared/model/Role';
-import {st} from '@angular/core/src/render3';
+import {Photo} from '../../../shared/model/Photo';
+import * as $ from 'node_modules/jquery/dist/jquery.js';
+import {SessionManagementService} from '../../../shared/utils/session-management.service';
 
 export abstract class AbstractStudentProfileService {
   applicant: Applicant;
   educations: Education[];
   skills: Skill[];
+  allSkills: Skill[];
+
+  public abstract initialize();
 
   public abstract getStudentProfile(id: number): Observable<Applicant> ;
 
-  public abstract updateStudentProfileBasic(studentProfile: Applicant): Observable<Applicant>
+  public abstract updateStudentProfileBasic(studentProfile: Applicant): Observable<Applicant>;
 
-  public abstract updateStudentProfileContact(applicant: Applicant): Observable<Applicant>
+  public abstract updateStudentProfileContact(applicant: Applicant): Observable<Applicant>;
 
-  public abstract updateStudentProfileEmail(applicant: Applicant): Observable<Applicant>
+  public abstract updateStudentProfileEmail(applicant: Applicant): Observable<Applicant>;
 
-  public abstract getEducationForApplicant(): Observable<Education[]>
+  public abstract getEducationForApplicant(): Observable<Education[]>;
 
-  public abstract addEducation(id: number, education: Education): Observable<Applicant>
+  public abstract addEducation(id: number, education: Education): Observable<Applicant>;
 
-  public abstract deleteEducation(id: number): Observable<Applicant>
+  public abstract deleteEducation(id: number): Observable<Applicant>;
 
-  public abstract getSkillsForApplicant(): Observable<Skill[]>
+  public abstract getSkillsForApplicant(): Observable<Skill[]>;
 
-  public abstract addSkill(skill: Skill): Observable<Applicant>
+  public abstract getListAllSkills(): Observable<Skill[]>;
 
-  public abstract deleteSkill(id: number): Observable<Applicant>
+  public abstract addSkill(skill: Skill): Observable<Applicant>;
+
+  public abstract deleteSkill(id: number): Observable<Applicant>;
+
+  public abstract uploadPhoto(uploadData: FormData);
+
+  public abstract uploadCV(uploadData: FormData);
 }
 
 
@@ -39,7 +50,7 @@ export abstract class AbstractStudentProfileService {
   providedIn: 'root'
 })
 export class MockStudentProfileService implements AbstractStudentProfileService {
-  mockId: number = 100;
+  mockId = 100;
   applicant: Applicant = {
     'id': 16,
     'user': {
@@ -58,7 +69,12 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
     'firstName': 'Liam',
     'lastName': 'Neeson',
     'birthday': new Date('1952-06-07'),
-    'description': 'Born in Northern Ireland in 1952, Liam Neeson began pursuing an acting career in the mid-1970s. His breakout role came with the Holocaust drama Schindler\'s List, for which he garnered an Academy Award nomination. Neeson also starred in Star Wars: Episode I and Kinsey, before claiming a string of action-hero roles in flicks like Taken. He has also supplied voice work for hit family films like The Chronicles of Narnia and The LEGO Movie. ',
+    'description': 'Born in Northern Ireland in 1952, Liam Neeson began pursuing an acting career ' +
+      'in the mid-1970s. His breakout role came with the Holocaust drama Schindler\'s List, ' +
+      'for which he garnered an Academy Award nomination. Neeson also starred in Star Wars: ' +
+      'Episode I and Kinsey, before claiming a string of action-hero roles in flicks like Taken. ' +
+      'He has also supplied voice work for hit family films like The Chronicles of Narnia and The ' +
+      'LEGO Movie. ',
     'contact': {
       'id': 20,
       'phoneNumber': '0758426882',
@@ -85,13 +101,13 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
         'id': 22,
         'url': 'http://res.cloudinary.com/yuhuubackend/image/upload/v1546683243/fuarlcqjs93dlhh6lupc.jpg',
         'publicId': null,
-        'path': null
+        'path': 'http://res.cloudinary.com/yuhuubackend/image/upload/v1546683243/fuarlcqjs93dlhh6lupc.jpg'
       },
       'cv': {
         'id': 23,
         'url': 'http://res.cloudinary.com/yuhuubackend/raw/upload/v1546682795/hsahlamrdhcpwgdmecl9',
         'publicId': null,
-        'path': null
+        'path': 'https://aussiebet.com/wp-content/uploads/2018/01/betfair.png'
       }
     }
   };
@@ -143,8 +159,38 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
       'name': 'C#'
     }
   ];
+  allSkills: Skill[] = [
+    {
+      'id': 23,
+      'name': 'Java'
+    },
+    {
+      'id': 24,
+      'name': 'C#'
+    },
+    {
+      'id': 25,
+      'name': 'Javascript'
+    },
+    {
+      'id': 26,
+      'name': 'Hadoop'
+    },
+    {
+      'id': 27,
+      'name': 'F#'
+    },
+    {
+      'id': 28,
+      'name': 'Go'
+    },
+    {
+      'id': 29,
+      'name': 'Erlang'
+    }
+  ];
 
-  //todo delete http :)
+  // todo delete http :)
   constructor(private http: HttpClient) {
   }
 
@@ -181,9 +227,9 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
   }
 
   deleteEducation(id: number): Observable<Applicant> {
-    var i = this.educations.length;
+    let i = this.educations.length;
     while (i--) {
-      if (this.educations[i].id == id) {
+      if (this.educations[i].id === id) {
         this.educations.splice(i, 1);
       }
     }
@@ -198,9 +244,9 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
   }
 
   deleteSkill(id: number): Observable<Applicant> {
-    var i = this.skills.length;
+    let i = this.skills.length;
     while (i--) {
-      if (this.skills[i].id == id) {
+      if (this.skills[i].id === id) {
         this.skills.splice(i, 1);
       }
     }
@@ -210,16 +256,24 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
   getSkillsForApplicant(): Observable<Skill[]> {
     return of(this.skills);
   }
+
+  uploadPhoto() {
+    // todo: for mock is not necessary
+  }
+
+  uploadCV(uploadData: FormData) {
+    // todo: for mock is not necessary
+  }
+
+  getListAllSkills(): Observable<Skill[]> {
+    return of(this.allSkills);
+  }
+
+  initialize() {
+    // todo: for mock is not necessary
+  }
 }
 
-//todo change bearer from logged user
-const httpOptions = {
-  headers: new HttpHeaders(
-    {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3MjYzNDY2MSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjU1MTgwZThkLWE4NDktNGQ4MS05MjgyLWZkZjA0MGNjNzMyMSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.zsrWgXhBTaEwLomy2KDX7xy-EFDAqx5GfXNMdaAdgJw'
-    })
-};
 
 @Injectable({
   providedIn: 'root'
@@ -228,15 +282,42 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   applicant: Applicant;
   educations: Education[];
   skills: Skill[];
+  allSkills: Skill[];
+  isUserLoggedIn: boolean;
+  httpOptions = {
+    headers: new HttpHeaders(
+      {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer x'
+      })
+  };
+  applicantID: number;
+  isApplicant: boolean;
 
   private url = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private sessionManager: SessionManagementService) {
+  }
+
+  initialize() {
+    if (this.sessionManager.isUserLoggedIn()) {
+      this.httpOptions = {
+        headers: new HttpHeaders(
+          {
+            'Content-Type': 'application/json',
+            'Authorization': '' + this.sessionManager.getToken()
+          })
+      };
+      this.applicantID = this.sessionManager.getLoggedUserId();
+      this.isApplicant = this.sessionManager.getLoggedUserRole() == Role.RoleStringEnum.APPLICANT;
+    } else {
+      //todo redirect to login :)
+    }
   }
 
   /** GET student profile by id. Will 404 if id not found */
   getStudentProfile(id: number): Observable<Applicant> {
-    return this.http.get<Applicant>(this.url + '/user/applicant/' + id, httpOptions).pipe(
+    return this.http.get<Applicant>(this.url + '/applicant/details/' + id, this.httpOptions).pipe(
       tap(
         data => {
           this.applicant = data;
@@ -249,7 +330,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   updateStudentProfileBasic(studentProfile: Applicant): Observable<Applicant> {
-    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id, studentProfile, httpOptions).pipe(
+    return this.http.put<Applicant>(this.url + '/applicant/' + studentProfile.id, studentProfile, this.httpOptions).pipe(
       tap(
         data => {
           this.applicant = data;
@@ -263,13 +344,13 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
 
   updateStudentProfileContact(studentProfile: Applicant): Observable<Applicant> {
     return this.http.put<Applicant>(
-      this.url + '/applicant/' + this.applicant.id+'/contact',
+      this.url + '/applicant/' + studentProfile.id + '/contact',
       studentProfile.contact,
-      httpOptions
+      this.httpOptions
     ).pipe(
       tap(
         data => {
-          this.applicant = data;
+          this.applicant.contact = data;
         },
         error => {
           console.log(error);
@@ -279,24 +360,27 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   updateStudentProfileEmail(studentProfile: Applicant): Observable<Applicant> {
+    if (this.applicant.user.email === studentProfile.user.email) {
+      return of(this.applicant);
+    }
     return this.http.put<Applicant>(
-      this.url + '/applicant/' + studentProfile.id+'/email',
-      {"email":studentProfile.user.email},
-      httpOptions
+      this.url + '/applicant/' + studentProfile.id + '/email',
+      {'email': studentProfile.user.email},
+      this.httpOptions
     ).pipe(
       tap(
         data => {
-          console.log("email ")
+          this.applicant.user = data;
         },
         error => {
           console.log(error);
         }
       )
-    );;
+    );
   }
 
   getEducationForApplicant(): Observable<Education[]> {
-    return this.http.get<Education[]>(this.url + '/applicant/' + this.applicant.id+'/educations', httpOptions).pipe(
+    return this.http.get<Education[]>(this.url + '/applicant/' + this.applicant.id + '/educations', this.httpOptions).pipe(
       tap(
         data => {
           this.educations = data;
@@ -308,7 +392,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   addEducation(id: number, education: Education): Observable<Applicant> {
-    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id+'/education', education, httpOptions).pipe(
+    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id + '/education', education, this.httpOptions).pipe(
       tap(
         data => {
         },
@@ -319,7 +403,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   deleteEducation(id: number): Observable<Applicant> {
-    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id+'/educations/'+id, httpOptions).pipe(
+    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id + '/educations/' + id, this.httpOptions).pipe(
       tap(
         data => {
         },
@@ -330,7 +414,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   addSkill(skill: Skill): Observable<Applicant> {
-    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id+'/skill', skill, httpOptions).pipe(
+    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id + '/skill', skill, this.httpOptions).pipe(
       tap(
         data => {
         },
@@ -341,7 +425,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   deleteSkill(id: number): Observable<Applicant> {
-    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id+'/skills/'+id, httpOptions).pipe(
+    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id + '/skills/' + id, this.httpOptions).pipe(
       tap(
         data => {
         },
@@ -352,7 +436,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   getSkillsForApplicant(): Observable<Skill[]> {
-    return this.http.get<Skill[]>(this.url + '/applicant/' + this.applicant.id+'/skills', httpOptions).pipe(
+    return this.http.get<Skill[]>(this.url + '/applicant/' + this.applicant.id + '/skills', this.httpOptions).pipe(
       tap(
         data => {
           this.skills = data;
@@ -363,6 +447,65 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
       )
     );
   }
+
+  getListAllSkills(): Observable<Skill[]> {
+    return this.http.get<Skill[]>(this.url + '/skill/all', this.httpOptions).pipe(
+      tap(
+        data => {
+          this.allSkills = data;
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
+  }
+
+
+  uploadPhoto(uploadData: FormData) {
+    return new Promise((resolve, reject) => {
+      const url = 'https://enigmatic-sierra-91538.herokuapp.com/api/applicant/' + this.applicant.id + '/photo';
+      $.ajax({
+        url: url,
+        headers: {
+          'Authorization': this.httpOptions.headers.get('Authorization')
+        },
+        data: uploadData,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function (data) {
+          resolve(data);
+        },
+        error: function (request, status, error) {
+          reject(false);
+        }
+      });
+    });
+  }
+
+  uploadCV(uploadData: FormData) {
+    return new Promise((resolve, reject) => {
+      const url = 'https://enigmatic-sierra-91538.herokuapp.com/api/applicant/' + this.applicant.id + '/cv';
+      $.ajax({
+        url: url,
+        headers: {
+          'Authorization': this.httpOptions.headers.get('Authorization'),
+        },
+        data: uploadData,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function (data) {
+          resolve(data);
+        },
+        error: function (request, status, error) {
+          reject(false);
+        }
+      });
+    });
+  }
+
 
   /**
    * Handle Http operation that failed.
