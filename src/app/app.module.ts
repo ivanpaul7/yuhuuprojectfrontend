@@ -42,6 +42,8 @@ import {SessionManagementService} from './shared/utils/session-management.servic
 import {ApplicantDashboardComponent} from './modules/dashboard/components/applicantDashboard/applicant-dashboard.component';
 import {CompanyDashboardComponent} from './modules/dashboard/components/companyDashboard/company-dashboard.component';
 
+
+
 export const appRoutes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'internships', component: InternshipsPageComponent, pathMatch: 'full'},

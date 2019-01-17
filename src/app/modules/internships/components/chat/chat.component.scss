@@ -81,7 +81,7 @@
   -o-animation-name: fade;
   animation-name: fade;
   z-index: 999;
-  animation-duration: 4s;
+  animation-duration: 6s;
   animation-fill-mode: forwards;
 }
 
@@ -94,6 +94,10 @@
 
 .repliesNone{
   display: none;
+}
+
+.flex{
+  display: flex;
 }
 
 .alertMessage{
