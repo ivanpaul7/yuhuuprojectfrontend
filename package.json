@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start mock": "ng serve --configuration=development --optimization=false",
-    "start server": "ng serve --configuration=production --optimization=false",
+    "start-mock": "ng serve --configuration=development --optimization=false",
+    "start-server": "ng serve --configuration=production --optimization=false",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
