@@ -6,6 +6,7 @@ import {Applicant} from '../../../shared/model/Applicant';
 import {tap} from 'rxjs/operators';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import * as $ from 'node_modules/jquery/dist/jquery.js';
+import {SessionManagementService} from '../../../shared/utils/session-management.service';
 
 @Injectable()
 export abstract class AbstractCompanyProfileService {
@@ -20,6 +21,8 @@ export abstract class AbstractCompanyProfileService {
   public abstract updateCompanyEmail(comp: Company): Observable<Company>;
 
   public abstract uploadPhoto(uploadData: FormData);
+
+  public abstract initialize();
 }
 
 export class MockCompanyProfileService implements AbstractCompanyProfileService {
@@ -96,17 +99,11 @@ export class MockCompanyProfileService implements AbstractCompanyProfileService 
   uploadPhoto(uploadData: FormData) {
   }
 
+  initialize() {
+  }
+
 
 }
-
-//todo change bearer from logged user
-const httpOptions = {
-  headers: new HttpHeaders(
-    {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1NzY3MDcxNjgsImF1dGhvcml0aWVzIjpbIkNPTVBBTlkiXSwianRpIjoiYjNjNTlmZDctMTlhNy00NDIzLWFjN2EtMTVkZDQxZmJiZTEyIiwiY2xpZW50X2lkIjoidGVzdGp3dGNsaWVudGlkIn0.e6QTmifb1YFYSYgZE37PfQQINrUS2hlWyLUssTnjAGk'
-    })
-};
 
 
 @Injectable({
@@ -115,17 +112,44 @@ const httpOptions = {
 export class ServerCompanyProfileService implements AbstractCompanyProfileService {
   company: Company;
   private url = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
+  companyID: number;
+  isCompany: boolean;
 
-  constructor(private http: HttpClient) {
+  httpOptions = {
+    headers: new HttpHeaders(
+      {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer x'
+      })
+  };
+
+  constructor(private http: HttpClient, private sessionManager: SessionManagementService) {
   }
 
+  initialize() {
+    if (this.sessionManager.isUserLoggedIn()) {
+      this.httpOptions = {
+        headers: new HttpHeaders(
+          {
+            'Content-Type': 'application/json',
+            'Authorization': '' + this.sessionManager.getToken()
+          })
+      };
+      this.companyID = this.sessionManager.getLoggedUserId();
+      this.isCompany = this.sessionManager.getLoggedUserRole() == Role.RoleStringEnum.COMPANY;
+    } else {
+      //todo redirect to login :)
+    }
+  }
+
+
   getCompany(id: number): Observable<Company> {
-    return this.http.get<Company>(this.url + '/user/company/' + id, httpOptions).pipe(
+    return this.http.get<Company>(this.url + '/company/details/' + id, this.httpOptions).pipe(
       tap(
         data => {
           this.company = data;
           //todo delete this after backend delivers the object properly :)
-          this.company.contact.cv={};
+          this.company.contact.cv = {};
         },
         error => {
           console.log(error);
@@ -137,7 +161,7 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
   updateCompanyBasicInfo(comp: Company): Observable<Company> {
     return this.http.put<Applicant>(this.url + '/company/' + this.company.id + '/profile',
       comp,
-      httpOptions
+      this.httpOptions
     ).pipe(
       tap(
         data => {
@@ -151,11 +175,10 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
   }
 
   updateCompanyContact(comp: Company): Observable<Company> {
-    //todo test for linkedin also
     return this.http.put<Applicant>(
       this.url + '/company/' + this.company.id + '/contact',
       comp,
-      httpOptions
+      this.httpOptions
     ).pipe(
       tap(
         data => {
@@ -169,17 +192,17 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
   }
 
   updateCompanyEmail(comp: Company): Observable<Company> {
-    if(this.company.user.email == comp.user.email)
+    if (this.company.user.email == comp.user.email)
       return of(this.company);
 
     return this.http.put<Applicant>(
       this.url + '/company/' + comp.id + '/email',
       {'email': comp.user.email},
-      httpOptions
+      this.httpOptions
     ).pipe(
       tap(
         data => {
-          this.company.user=data;
+          this.company.user = data;
         },
         error => {
           console.log(error);
@@ -195,8 +218,7 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
       $.ajax({
         url: url,
         headers: {
-          //todo change bearer
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1NzY3MDcxNjgsImF1dGhvcml0aWVzIjpbIkNPTVBBTlkiXSwianRpIjoiYjNjNTlmZDctMTlhNy00NDIzLWFjN2EtMTVkZDQxZmJiZTEyIiwiY2xpZW50X2lkIjoidGVzdGp3dGNsaWVudGlkIn0.e6QTmifb1YFYSYgZE37PfQQINrUS2hlWyLUssTnjAGk'
+          'Authorization': this.httpOptions.headers.get('Authorization')
         },
         data: uploadData,
         contentType: false,
@@ -211,5 +233,4 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
       });
     });
   };
-
 }
