@@ -29,6 +29,7 @@ export class CompanyProfilePageComponent implements OnInit {
   }
 
   public getCompany(): void {
+    this.companyService.initialize();
     const id = +this.route.snapshot.paramMap.get('id');
     this.companyService.getCompany(id)
       .subscribe(profile => {

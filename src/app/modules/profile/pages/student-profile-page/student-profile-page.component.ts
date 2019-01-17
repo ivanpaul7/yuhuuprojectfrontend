@@ -35,7 +35,7 @@ export class StudentProfilePageComponent implements OnInit {
     private route: ActivatedRoute,
     private studentProfileService: AbstractStudentProfileService,
     private location: Location,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {
   }
 
@@ -44,6 +44,7 @@ export class StudentProfilePageComponent implements OnInit {
   }
 
   public getStudentProfile(): void {
+    this.studentProfileService.initialize();
     const id = +this.route.snapshot.paramMap.get('id');
     this.studentProfileService.getStudentProfile(id)
       .subscribe(profile => {

@@ -109,9 +109,8 @@ export const appRoutes: Routes = [
     MatAutocompleteModule,
     ReactiveFormsModule,
     NgbModule,
-    // TODO update key with a real value (because it cost Paul'll update this later)
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYMs'
+      apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYM'
     })
   ],
   entryComponents: [],

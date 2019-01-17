@@ -31,7 +31,7 @@ export class SessionManagementService {
       if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.APPLICANT) {
         this.getLoggedApplicantInfo().subscribe((applicant) => {
           this.specificId = applicant.id;
-          applicantNavBarItems.push({title: 'My profile', path: 'profile/student/' + this.currentLoggedUser.id});
+          applicantNavBarItems.push({title: 'My profile', path: 'profile/student/' + this.specificId});
           this.everythingLoaded = true;
           this.isLoginDataLoadingFinished.emit(true);
         }, (error) => {
@@ -41,7 +41,7 @@ export class SessionManagementService {
       } else if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.COMPANY) {
         this.getLoggedCompanyInfo().subscribe((company) => {
           this.specificId = company.id;
-          companyNavBarItems.push({title: 'My profile', path: 'profile/company/' + this.currentLoggedUser.id});
+          companyNavBarItems.push({title: 'My profile', path: 'profile/company/' + this.specificId});
           this.everythingLoaded = true;
           this.isLoginDataLoadingFinished.emit(true);
         }, (error) => {
