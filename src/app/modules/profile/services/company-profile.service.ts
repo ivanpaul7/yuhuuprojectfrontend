@@ -23,6 +23,8 @@ export abstract class AbstractCompanyProfileService {
   public abstract uploadPhoto(uploadData: FormData);
 
   public abstract initialize();
+
+  public abstract isHisProfile(): boolean;
 }
 
 export class MockCompanyProfileService implements AbstractCompanyProfileService {
@@ -102,6 +104,10 @@ export class MockCompanyProfileService implements AbstractCompanyProfileService 
   initialize() {
   }
 
+  isHisProfile(): boolean {
+    return false;
+  }
+
 
 }
 
@@ -114,7 +120,7 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
   private url = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
   companyID: number;
   isCompany: boolean;
-
+  isUsersProfile: boolean = true;
   httpOptions = {
     headers: new HttpHeaders(
       {
@@ -144,6 +150,9 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
 
 
   getCompany(id: number): Observable<Company> {
+    if ((!this.isCompany) || id === this.companyID) {
+      this.isUsersProfile = false;
+    }
     return this.http.get<Company>(this.url + '/company/details/' + id, this.httpOptions).pipe(
       tap(
         data => {
@@ -233,4 +242,8 @@ export class ServerCompanyProfileService implements AbstractCompanyProfileServic
       });
     });
   };
+
+  isHisProfile(): boolean {
+    return this.isUsersProfile;
+  }
 }

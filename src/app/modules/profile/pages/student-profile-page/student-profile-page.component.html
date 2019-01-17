@@ -27,14 +27,16 @@
         <div class="col-md-6">
           <div class="row">
             <div class="col-sm-12">
-              <button mat-raised-button class="edit-button" (click)="openBasicEditDialog()">Edit</button>
+              <button mat-raised-button *ngIf="isHisProfile" class="edit-button" (click)="openBasicEditDialog()">Edit
+              </button>
             </div>
             <div class="col-sm-12">
               <!--Photo upload-->
               <input class="input-file"
                      type="file" (change)="onPhotoFileChanged($event)"
                      #fileInput>
-              <button mat-raised-button class="edit-button upload-button" (click)="fileInput.click()">
+              <button mat-raised-button *ngIf="isHisProfile" class="edit-button upload-button"
+                      (click)="fileInput.click()">
                 <mat-icon>add_a_photo</mat-icon>
                 Upload Photo
               </button>
@@ -44,7 +46,8 @@
               <input class="input-file"
                      type="file" (change)="onCVFileChanged($event)"
                      #fileInput>
-              <button mat-raised-button class="edit-button upload-button" (click)="fileInput.click()">
+              <button mat-raised-button *ngIf="isHisProfile" class="edit-button upload-button"
+                      (click)="fileInput.click()">
                 <mat-icon>attach_file</mat-icon>
                 Upload CV
               </button>
@@ -72,7 +75,7 @@
         </mat-card-title>
       </div>
       <div class="float-right">
-        <button mat-raised-button (click)="openContactEditDialog()">Edit</button>
+        <button mat-raised-button *ngIf="isHisProfile" (click)="openContactEditDialog()">Edit</button>
       </div>
     </mat-card-header>
     <mat-card-content>
@@ -171,7 +174,7 @@
         </mat-card-title>
       </div>
       <div class="float-right">
-        <button mat-icon-button color="primary" (click)="openAddEducationDialog()">
+        <button mat-icon-button color="primary" *ngIf="isHisProfile" (click)="openAddEducationDialog()">
           <mat-icon>add_circle</mat-icon>
         </button>
       </div>
@@ -201,7 +204,7 @@
         </mat-card-title>
       </div>
       <div class="float-right">
-        <button mat-icon-button color="primary" (click)="openAddSkillDialog()">
+        <button mat-icon-button color="primary" *ngIf="isHisProfile" (click)="openAddSkillDialog()">
           <mat-icon>add_circle</mat-icon>
         </button>
       </div>

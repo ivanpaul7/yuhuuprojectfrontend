@@ -24,6 +24,8 @@ export class StudentProfilePageComponent implements OnInit {
   @Input() educationList: Education[];
   @Input() skillsList: Skill[];
   @ViewChild('file') file;
+  isHisProfile=false;
+
   public fileTemp: File;
 
 
@@ -52,7 +54,7 @@ export class StudentProfilePageComponent implements OnInit {
         this.getEducation();
         this.getSkills();
       });
-
+    this.isHisProfile=this.studentProfileService.isHisProfile();
   }
 
   public getEducation() {
