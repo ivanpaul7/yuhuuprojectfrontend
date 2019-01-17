@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Internship} from '../../../shared/model/internships.model';
 import {ChatComment} from '../../../shared/model/chatComment';
-import {AbstractInternshipDetailsService} from './internship-details.service';
 import {Observable, of} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Applicant} from '../../../shared/model/applicant';
+
 
 @Injectable()
 export abstract class AbstractChatService {
