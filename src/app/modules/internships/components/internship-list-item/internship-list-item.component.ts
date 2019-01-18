@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Internship } from '../../../../shared/model/Internship';
-import { AbstractInternshipsService } from '../../services/internships.service';
-import { Company, Tag } from 'src/app/shared/model/models';
+import {Component, Input, OnInit} from '@angular/core';
+import {Internship} from '../../../../shared/model/InternshipEnums';
+import {AbstractInternshipsService} from '../../services/internships.service';
+import {Company, Tag} from 'src/app/shared/model/models';
 
 @Component({
   selector: 'app-internship-list-item',
@@ -14,16 +14,23 @@ export class InternshipListItemComponent implements OnInit {
   company: Company;
   tags: Tag[];
 
-  constructor(private intershipsService: AbstractInternshipsService) { }
+  constructor(private intershipsService: AbstractInternshipsService) {
+  }
 
   ngOnInit() {
     if (this.internship) {
-      this.intershipsService.getInternshipLogo(this.internship.id).subscribe(
-        (data) => this.logo = data.url,
-        error => console.log(error)
-      );
+      // this.intershipsService.getInternshipLogo(this.internship.id).subscribe(
+      //   (data) =>
+      //   error => console.log(error)
+      // );
       this.intershipsService.getInternshipCompany(this.internship.id).subscribe(
-        (data: Company) => this.company = data,
+        (data: Company) => {
+          console.log(data);
+          //console.log(data.contact.photo.url);
+          this.company = data;
+          this.logo = data.contact.photo.url;
+        },
+
         error => console.log(error)
       );
       this.intershipsService.getInternshipTags(this.internship.id).subscribe(

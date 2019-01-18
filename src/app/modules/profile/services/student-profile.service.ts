@@ -43,6 +43,8 @@ export abstract class AbstractStudentProfileService {
   public abstract uploadPhoto(uploadData: FormData);
 
   public abstract uploadCV(uploadData: FormData);
+
+  public abstract isHisProfile(): boolean;
 }
 
 
@@ -272,6 +274,10 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
   initialize() {
     // todo: for mock is not necessary
   }
+
+  isHisProfile(): boolean {
+    return false;
+  }
 }
 
 
@@ -293,6 +299,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   };
   applicantID: number;
   isApplicant: boolean;
+  isUsersProfile: boolean = true;
 
   private url = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
 
@@ -317,6 +324,10 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
 
   /** GET student profile by id. Will 404 if id not found */
   getStudentProfile(id: number): Observable<Applicant> {
+    if ((!this.isApplicant) || id === this.applicantID) {
+      this.isUsersProfile = false;
+    }
+
     return this.http.get<Applicant>(this.url + '/applicant/details/' + id, this.httpOptions).pipe(
       tap(
         data => {
@@ -530,5 +541,9 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   /** Console log errors */
   private log(message: string) {
     console.log(`StudentProfileService: ${message}`);
+  }
+
+  isHisProfile(): boolean {
+    return this.isUsersProfile;
   }
 }

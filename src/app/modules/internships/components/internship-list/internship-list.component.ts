@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Internship, JoinCompany, JoinSkill } from '../../../../shared/model/Internship';
-import { AbstractInternshipsService } from '../../services/internships.service';
-import { Company, Skill } from 'src/app/shared/model/models';
+import {Component, OnInit} from '@angular/core';
+import {Internship, JoinCompany, JoinSkill} from '../../../../shared/model/InternshipEnums';
+import {AbstractInternshipsService} from '../../services/internships.service';
+import {Company, Skill} from 'src/app/shared/model/models';
+import {StudentProfileEditBasicComponent} from '../../../profile/components/student-profile-edit-basic/student-profile-edit-basic.component';
+import {AddInternshipComponent} from '../add-internship/add-internship.component';
+import {MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-internship-list',
@@ -12,8 +15,9 @@ export class InternshipListComponent implements OnInit {
   internships: Internship[] = [];
   companiesJoin: JoinCompany[] = [];
   skillsJoin: JoinSkill[] = [];
+  isHisProfile = true;
 
-  constructor(private internshipsService: AbstractInternshipsService) {
+  constructor(private internshipsService: AbstractInternshipsService, public dialog: MatDialog) {
     this.internshipsService.getInternships().subscribe(
       (data: Internship[]) => {
         this.internships = data;
@@ -57,8 +61,6 @@ export class InternshipListComponent implements OnInit {
     if (companyFilters.length !== 0) {
       this.internships = this.internships.filter((internship) => {
         const company = this.companiesJoin.find((join) => join.idInternship === internship.id);
-        console.log(company);
-        console.log(companyFilters.map((comp) => comp.id).indexOf(company.idCompany) > -1);
         return companyFilters.map((comp) => comp.id).indexOf(company.idCompany) > -1;
       });
     }
@@ -76,4 +78,16 @@ export class InternshipListComponent implements OnInit {
     }
   }
 
+  openAddInternshipDialog() {
+    const dialogRef = this.dialog.open(AddInternshipComponent, {
+      width: '90%',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+
+    dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
+      //todo refresh list
+    });
+  }
 }

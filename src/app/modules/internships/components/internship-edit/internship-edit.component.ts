@@ -1,8 +1,8 @@
 import {Component, OnInit, EventEmitter, Inject, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import { AbstractInternshipDetailsService } from '../../services/internship-details.service';
+import {AbstractInternshipDetailsService} from '../../services/internship-details.service';
 import {DatePipe} from '@angular/common';
-import { Internship } from 'src/app/shared/model/Internship';
+import {Internship} from 'src/app/shared/model/InternshipEnums';
 
 @Component({
   selector: 'app-internship-edit',
@@ -27,6 +27,7 @@ export class InternshipEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initialize();
   }
 
   onSaveClick() {
@@ -38,4 +39,7 @@ export class InternshipEditComponent implements OnInit {
     //   });
   }
 
+  private initialize() {
+    this.internshipService.initialize();
+  }
 }

@@ -4,7 +4,7 @@
   <div #warningAlert class="alertMessage alert alert-warning" role="alert">
     Can't post an empty comment!
   </div>
-<textarea placeholder="Write a comment..." class="col-10" [value]="comment" (input)="comment = $event.target.value" id="textArea" rows="3" cols="80"  >
+<textarea placeholder="Write a comment..." class="col-10" [value]="comment" (input)="comment = $event.target.value" id="textArea" rows="3" cols="80"  maxlength="200">
 
 </textarea>
   <br>
@@ -20,14 +20,14 @@
       </div>
       <div class="divButtons ">
         <div>
-        <button class="button" (click)="moreComments($event)"> Replies</button>
+        <button  class="button" (click)="moreComments($event)"> Replies</button>
         </div>
         <div class="flex">
-        <button class="buttonImage" (click)="like(comment)">
+        <button  mat-icon-button class="buttonImage" (click)="like(comment)">
           <mat-icon>thumb_up</mat-icon>
         </button>
         <div class="number">{{comment.likes}}</div>
-        <button class="buttonDislike" (click)="dislike(comment)">
+        <button mat-icon-button class="buttonDislike" (click)="dislike(comment)">
           <mat-icon>thumb_down</mat-icon>
         </button>
         <div class="number">{{comment.dislikes}}</div>
@@ -38,14 +38,14 @@
         <div class="nameReply"><b> {{comment2.name}} </b></div>
         <div class="replies col-10">
           <div class="message2">
-            {{comment2.text}} {{comment2.id}}
+            {{comment2.text}}
           </div>
           <div class="divButtons2">
-            <button class="buttonImage" (click)="like(comment2)">
+            <button mat-icon-button class="buttonImage" (click)="like(comment2)">
               <mat-icon>thumb_up</mat-icon>
             </button>
             <div class="number">{{comment2.likes}}</div>
-            <button class="buttonDislike" (click)="dislike(comment2)">
+            <button mat-icon-button class="buttonDislike" (click)="dislike(comment2)">
               <mat-icon>thumb_down</mat-icon>
             </button>
             <div class="number">{{comment2.dislikes}}</div>
@@ -54,8 +54,8 @@
         <br>
         <br>
       </ng-container>
-      <textarea class="replyComment col-10" [value]="replyCom" (input)="replyCom = $event.target.value" id="textArea2" rows="3" cols="80"></textarea>
-        <button class="buttonReply" (click)="reply(comment)"> Reply</button>
+      <textarea class="replyComment col-10" [value]="replyCom" (input)="replyCom = $event.target.value" id="textArea2" rows="3" cols="80" maxlength="100"></textarea>
+        <button  class="buttonReply" (click)="reply(comment)"> Reply</button>
     </div>
     </div>
   </ng-container>

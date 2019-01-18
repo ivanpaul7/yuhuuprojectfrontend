@@ -1,5 +1,5 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {User} from '../model/user';
 import {Company} from '../model/Company';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -25,14 +25,14 @@ export class SessionManagementService {
   public setToken(token: string) {
     token = 'Bearer ' + token;
     this.token = token;
-    localStorage.setItem('token', token);
     this.getLoggedUser().subscribe((user) => {
       this.currentLoggedUser = user;
       if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.APPLICANT) {
         this.getLoggedApplicantInfo().subscribe((applicant) => {
           this.specificId = applicant.id;
-          applicantNavBarItems.push({title: 'My profile', path: 'profile/student/' + this.specificId});
+          this.addMyProfileButtonToNavBar();
           this.everythingLoaded = true;
+          this.persistInLocalStorage();
           this.isLoginDataLoadingFinished.emit(true);
         }, (error) => {
           console.log(error);
@@ -41,8 +41,9 @@ export class SessionManagementService {
       } else if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.COMPANY) {
         this.getLoggedCompanyInfo().subscribe((company) => {
           this.specificId = company.id;
-          companyNavBarItems.push({title: 'My profile', path: 'profile/company/' + this.specificId});
+          this.addMyProfileButtonToNavBar();
           this.everythingLoaded = true;
+          this.persistInLocalStorage();
           this.isLoginDataLoadingFinished.emit(true);
         }, (error) => {
           console.log(error);
@@ -55,6 +56,52 @@ export class SessionManagementService {
       console.log(error);
       this.isLoginDataLoadingFinished.emit(false);
     });
+  }
+
+  private persistInLocalStorage() {
+    localStorage.setItem('token', this.token);
+    localStorage.setItem('currentLoggedUser', JSON.stringify(this.currentLoggedUser));
+    localStorage.setItem('everythingLoaded', JSON.stringify(this.everythingLoaded));
+    localStorage.setItem('specificId', JSON.stringify(this.specificId));
+  }
+
+  public retrieveFromLocalStorage() {
+    this.token = localStorage.getItem('token');
+    this.currentLoggedUser = JSON.parse(localStorage.getItem('currentLoggedUser'));
+    this.everythingLoaded = JSON.parse(localStorage.getItem('everythingLoaded'));
+    this.specificId = JSON.parse(localStorage.getItem('specificId'));
+    if (this.currentLoggedUser != null) {
+      this.addMyProfileButtonToNavBar();
+      this.isLoginDataLoadingFinished.emit(true);
+    } else {
+      this.isLoginDataLoadingFinished.emit(false);
+    }
+  }
+
+  private addMyProfileButtonToNavBar() {
+    if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.APPLICANT) {
+      if (applicantNavBarItems.length === 4) {
+        applicantNavBarItems.splice(applicantNavBarItems.length - 1, 1);
+      }
+      applicantNavBarItems.push({title: 'My profile', path: 'profile/student/' + this.specificId});
+
+    } else if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.COMPANY) {
+      if (companyNavBarItems.length === 2) {
+        companyNavBarItems.splice(applicantNavBarItems.length - 1, 1);
+      }
+      companyNavBarItems.push({title: 'My profile', path: 'profile/company/' + this.specificId});
+    }
+  }
+
+  public clearLocalStorage() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('currentLoggedUser');
+    localStorage.removeItem('everythingLoaded');
+    localStorage.removeItem('specificId');
+    this.token = null;
+    this.currentLoggedUser = null;
+    this.specificId = null;
+    this.everythingLoaded = false;
   }
 
   public isUserLoggedIn(): boolean {
