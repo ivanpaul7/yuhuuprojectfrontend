@@ -11,17 +11,17 @@ import {SessionManagementService} from '../../../shared/utils/session-management
 
 export abstract class AbstractInternshipsService {
   companyFilters: Company[] = [];
-  skillFilters: Skill[] = [];
+  skillFilters: string[] = [];
   companySubject = new Subject<Company[]>();
-  skillSubject = new Subject<Skill[]>();
+  skillSubject = new Subject<string[]>();
 
   public abstract initialize();
 
   public abstract getInternships();
 
-  public abstract getAllInternshipDTOs():Observable<InternshipDTO[]>;
+  public abstract getAllInternshipDTOs(): Observable<InternshipDTO[]>;
 
-  public abstract getSkills(): Observable<Skill[]>;
+  public abstract getSkills(): Observable<string[]>;
 
   public abstract getCompanies(): Observable<Company[]>;
 
@@ -37,15 +37,15 @@ export abstract class AbstractInternshipsService {
 
   public abstract setCompanyFilters(filters: Company[]);
 
-  public abstract setSkillFilters(filters: Skill[]);
+  public abstract setSkillFilters(filters: string[]);
 }
 
 @Injectable()
 export class MockInternshipsService implements AbstractInternshipsService {
   companyFilters: Company[] = [];
-  skillFilters: Skill[] = [];
+  skillFilters: string[] = [];
   companySubject = new Subject<Company[]>();
-  skillSubject = new Subject<Skill[]>();
+  skillSubject = new Subject<string[]>();
   private internships: Internship[] = [
     {
       deadline: new Date(),
@@ -97,23 +97,25 @@ export class MockInternshipsService implements AbstractInternshipsService {
     },
   ];
 
-  private skills: Skill[] = [
-    {
-      id: 1,
-      name: 'HTML'
-    },
-    {
-      id: 2,
-      name: 'CSS'
-    },
-    {
-      id: 3,
-      name: 'Java'
-    },
-    {
-      id: 4,
-      name: 'C++'
-    }
+  private skills: string[] = [
+    // {
+    //   id: 1,
+    //   name: 'HTML'
+    // },
+    // {
+    //   id: 2,
+    //   name: 'CSS'
+    // },
+    // {
+    //   id: 3,
+    //   name: 'Java'
+    // },
+    // {
+    //   id: 4,
+    //   name: 'C++'
+    // }
+    'HTML',  'CSS' , 'Java', 'C++'
+
   ];
 
   private companies: Company[] = [
@@ -353,7 +355,7 @@ export class MockInternshipsService implements AbstractInternshipsService {
 
   }
 
-  setSkillFilters(filters: Skill[]) {
+  setSkillFilters(filters: string[]) {
     this.skillFilters = filters;
     this.skillSubject.next(this.skillFilters);
   }
@@ -373,12 +375,13 @@ export class MockInternshipsService implements AbstractInternshipsService {
 @Injectable()
 export class ServerInternshipsService implements AbstractInternshipsService {
   companyFilters: Company[] = [];
-  skillFilters: Skill[] = [];
+  skillFilters: string[] = [];
   internshipSubject: ReplaySubject<Internship[]>;
   internshipDTOSubject: ReplaySubject<InternshipDTO[]>;
   companySubject = new Subject<Company[]>();
   companyList = new Subject<Company[]>();
-  skillSubject = new Subject<Skill[]>();
+  skillList = new Subject<string[]>();
+  skillSubject = new Subject<string[]>();
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -421,7 +424,14 @@ export class ServerInternshipsService implements AbstractInternshipsService {
         tap(
           data => {
             this.internshipDTOSubject.next(data);
-            this.companyList.next(data.map((internshipDTO)=>internshipDTO.company));
+            let skills: Skill[] = [];
+            data.forEach((internshipDTO) => {
+              skills = skills.concat(internshipDTO.skills);
+            });
+            let mySet = new Set(skills.map((skill) => skill.name));
+            let array = Array.from(mySet);
+            this.skillList.next(array);
+            this.companyList.next(data.map((internshipDTO) => internshipDTO.company));
           },
           error => {
             console.log(error);
@@ -472,18 +482,19 @@ export class ServerInternshipsService implements AbstractInternshipsService {
   }
 
   getSkills() {
-    const url = 'http://enigmatic-sierra-91538.herokuapp.com/api/skill/all';
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp' +
-          '3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndya' +
-          'XRlIl0sImV4cCI6MTU3NTkzNzQ2MCwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6ImI' +
-          'wMDdjZTYwLWIyYWMtNDFiYi04ZjM0LTM4YzU0OWE1NmViZCIsImNsaWVudF9pZCI6InRlc3Rqd3Rj' +
-          'bGllbnRpZCJ9.3vQ0cLxYBbuB-2Lmf-rgsLWEdfBb3LdfDCb9169l8CU'
-      })
-    };
-    return this.httpClient.get<Skill[]>(url, httpOptions);
+    // const url = 'http://enigmatic-sierra-91538.herokuapp.com/api/skill/all';
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json',
+    //     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp' +
+    //       '3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndya' +
+    //       'XRlIl0sImV4cCI6MTU3NTkzNzQ2MCwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6ImI' +
+    //       'wMDdjZTYwLWIyYWMtNDFiYi04ZjM0LTM4YzU0OWE1NmViZCIsImNsaWVudF9pZCI6InRlc3Rqd3Rj' +
+    //       'bGllbnRpZCJ9.3vQ0cLxYBbuB-2Lmf-rgsLWEdfBb3LdfDCb9169l8CU'
+    //   })
+    // };
+    // return this.httpClient.get<Skill[]>(url, httpOptions);
+    return this.skillList.asObservable();
   }
 
   getInternshipSkills(idInternship: number) {
@@ -567,7 +578,7 @@ export class ServerInternshipsService implements AbstractInternshipsService {
     this.companySubject.next(this.companyFilters);
   }
 
-  setSkillFilters(filters: Skill[]) {
+  setSkillFilters(filters: string[]) {
     this.skillFilters = filters;
     this.skillSubject.next(this.skillFilters);
   }

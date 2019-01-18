@@ -17,7 +17,8 @@ export class InternshipListComponent implements OnInit {
   // companiesJoin: JoinCompany[] = [];
   skillsJoin: JoinSkill[] = [];
   isHisProfile = true;
-
+  skillFilters: string[];
+  companyFilters: Company[];
   internshipDTOs : InternshipDTO[];
 
   constructor(private internshipsService: AbstractInternshipsService, public dialog: MatDialog) {
@@ -51,27 +52,35 @@ export class InternshipListComponent implements OnInit {
 
   ngOnInit() {
     this.internshipsService.companySubject.subscribe(
-      (data: Company[]) => this.filterByCompanies(data),
+      (data: Company[]) => this.companyFilters=data,
       error => console.log(error)
     );
     this.internshipsService.skillSubject.subscribe(
-      (data: Skill[]) => this.filterBySkills(data),
+      (data: string[]) => this.skillFilters=data,
       error => console.log(error)
     );
   }
 
-  filterByCompanies(companyFilters: Company[]) {
+   public get filteredInternships() {
     this.internshipsService.getAllInternshipDTOs().subscribe(
       (data: InternshipDTO[]) => {
         this.internshipDTOs = data;
       });
-    if (companyFilters.length !== 0) {
+    if (this.companyFilters.length !== 0) {
       this.internshipDTOs = this.internshipDTOs.filter((internship) => {
-        // const company = this.companiesJoin.find((join) => join.idInternship === internship.id);
-
-        return companyFilters.map((comp) => comp.id).indexOf(internship.company.id) > -1;
+        return this.companyFilters.map((comp) => comp.id).indexOf(internship.company.id) > -1;
       });
     }
+    if (this.skillFilters.length !== 0) {
+      this.internshipDTOs = this.internshipDTOs.filter((internship) => {
+        // const skillsFiltered = this.skillsJoin.find((join) => join.idInternship === internship.id);
+        const internshipSkills = internship.skills.map((skill) => skill.name);
+        return this.skillFilters.filter(
+          (skill) => internshipSkills.indexOf(skill) > -1)
+          .length === this.internshipsService.skillFilters.length;
+      });
+    }
+    return this.internshipDTOs;
   }
 
 
