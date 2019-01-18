@@ -34,6 +34,7 @@ import {AbstractChatService} from './services/chat.service';
 import {SessionManagementService} from '../../shared/utils/session-management.service';
 import {AddInternshipComponent} from './components/add-internship/add-internship.component';
 import {ApplicantsManagementComponent} from './components/applicants-management/applicants-management.component';
+import {RequestMessageSenderComponent} from './components/request-message-sender/request-message-sender.component';
 
 @NgModule({
   imports: [
@@ -59,10 +60,11 @@ import {ApplicantsManagementComponent} from './components/applicants-management/
     MatListModule,
     NgbModule
   ],
-  entryComponents: [InternshipEditComponent, AddInternshipComponent],
+  entryComponents: [InternshipEditComponent, AddInternshipComponent, RequestMessageSenderComponent],
   declarations: [InternshipListComponent,
     InternshipListItemComponent, FiltersComponent,
-    InternshipDetailsComponent, InternshipEditComponent, ChatComponent, AddInternshipComponent, ApplicantsManagementComponent],
+    InternshipDetailsComponent, InternshipEditComponent, ChatComponent,
+    AddInternshipComponent, ApplicantsManagementComponent, RequestMessageSenderComponent],
   exports: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, ChatComponent],
   providers: [
     {

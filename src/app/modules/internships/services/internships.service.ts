@@ -2,7 +2,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import * as moment from 'moment';
 import {Observable, of, ReplaySubject, Subject} from 'rxjs';
-import {Applicant, Company, Education, Internship} from 'src/app/shared/model/models';
+import {Company, Internship} from 'src/app/shared/model/models';
 import {Skill} from 'src/app/shared/model/Skill';
 import {Tag} from 'src/app/shared/model/Tag';
 import {InternshipDTO} from '../../../shared/model/InternshipDTO';
@@ -98,7 +98,7 @@ export class MockInternshipsService implements AbstractInternshipsService {
   ];
 
   private skills: string[] = [
-    'HTML',  'CSS' , 'Java', 'C++'
+    'HTML', 'CSS', 'Java', 'C++'
 
   ];
 
@@ -384,12 +384,12 @@ export class ServerInternshipsService implements AbstractInternshipsService {
   }
 
   initialize() {
-    //todo
+    // todo
   }
 
 
   getAllInternshipDTOs(): Observable<InternshipDTO[]> {
-   
+
 
     if (this.internshipDTOSubject) {
       return this.internshipDTOSubject.asObservable();
@@ -403,8 +403,8 @@ export class ServerInternshipsService implements AbstractInternshipsService {
             data.forEach((internshipDTO) => {
               skills = skills.concat(internshipDTO.skills);
             });
-            let mySet = new Set(skills.map((skill) => skill.name));
-            let array = Array.from(mySet);
+            const mySet = new Set(skills.map((skill) => skill.name));
+            const array = Array.from(mySet);
             this.skillList.next(array);
             this.companyList.next(data.map((internshipDTO) => internshipDTO.company));
           },
@@ -441,11 +441,11 @@ export class ServerInternshipsService implements AbstractInternshipsService {
 
   getCompanies() {
     return this.companyList.asObservable();
-    
+
   }
 
   getSkills() {
-    
+
     return this.skillList.asObservable();
   }
 

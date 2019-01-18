@@ -4,6 +4,9 @@ import {Applicant} from '../../../../shared/model/applicant';
 import {InternshipRequest} from '../../../../shared/model/InternshipRequest';
 import {IntershipStatusRequestStringEnum} from '../../../../shared/model/IntershipStatusRequest';
 import {Router} from '@angular/router';
+import {MatDialog} from '@angular/material';
+import {InternshipEditComponent} from '../internship-edit/internship-edit.component';
+import {RequestMessageSenderComponent} from '../request-message-sender/request-message-sender.component';
 
 @Component({
   selector: 'app-applicants-management',
@@ -18,7 +21,8 @@ export class ApplicantsManagementComponent implements OnInit {
   requestsList: InternshipRequest[] = [];
 
   constructor(private internshipService: AbstractInternshipDetailsService,
-              private router: Router) {
+              private router: Router,
+              public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -39,12 +43,28 @@ export class ApplicantsManagementComponent implements OnInit {
     }
   }
 
-  valueChanged(request: InternshipRequest, newStatus: any) {
-    if (newStatus === 'ACCEPTED') {
-      this.internshipService.changeRequestStatus(request.id, 'ni mail', 'content', this.internshipStatus.ACCEPTED).subscribe();
+  valueChanged(request: InternshipRequest, newStatusString: any) {
+
+    let newStatus = this.internshipStatus.PENDING;
+
+    if (newStatusString === 'ACCEPTED') {
+      newStatus = this.internshipStatus.ACCEPTED;
     } else {
-      this.internshipService.changeRequestStatus(request.id, 'ni mail', 'content', this.internshipStatus.REJECTED).subscribe();
+      newStatus = this.internshipStatus.REJECTED;
     }
+
+    const dialogRef = this.dialog.open(RequestMessageSenderComponent, {
+      width: '50%',
+      data: {
+        requestId: request.id,
+        newStatus: newStatus
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('closed');
+    });
+
   }
 
   goToCandidateProfile(applicantId: number) {
