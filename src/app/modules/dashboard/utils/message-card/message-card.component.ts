@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Skill} from '../../../../shared/model/Skill';
+import {MessageCardService} from './service/message-card.service';
+import {Internship} from '../../../../shared/model/Internship';
 
 @Component({
   selector: 'app-message-card',
@@ -7,11 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessageCard implements OnInit {
 
-  public numberToDisplay:number = 7;
-  public tagToDisplay:string = '#smecherie';
-  constructor() {
+  @Input() internships: Internship[] =[];
+  @Input() skillList :string;
 
+  constructor() {
   }
+
 
   ngOnInit() {
   }

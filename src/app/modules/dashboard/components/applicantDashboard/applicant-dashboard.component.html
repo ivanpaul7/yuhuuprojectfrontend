@@ -1,22 +1,40 @@
+
+<div class="container">
+  <div class="row ">
+    <div class="row1 col-12  col-sm-8  box">
+    </div>
+    <div class="row1 img1 col-12 col-sm-4 box ">
+
+    </div>
+  </div>
+  <div class="row ">
+    <div class="row2 col-sm-5 col-12 box">
+    </div>
+    <div class="row2 col-sm-7 col-12 box">
+
+    </div>
+  </div>
+</div>
+
 <div class="container">
   <div class="component-main-content">
     <div class="row">
       <div class="col-sm-8">
-        <app-message-card></app-message-card>
+        <app-message-card [internships]="this.internshipList" [skillList]="this.skillsAsString"></app-message-card>
       </div>
 
       <div class="col-sm-4">
-        <app-mini-profile></app-mini-profile>
+        <app-mini-profile [applicant]="this.applicant"></app-mini-profile>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-3">
-        <app-business-list></app-business-list>
+        <app-business-list [companies]="this.companies" ></app-business-list>
       </div>
       <div class="col-sm-9">
         <div class="card">
           <div class="card-body">
-            <app-xyline-chart></app-xyline-chart>
+            <app-xyline-chart [data]="this.chartData"></app-xyline-chart>
           </div>
         </div>
       </div>
@@ -26,7 +44,7 @@
       <div class="col-sm-4">
         <div class="card">
           <div class="card-body">
-            <app-pie-chart></app-pie-chart>
+            <app-pie-chart [data]="this.pieChartData"></app-pie-chart>
           </div>
         </div>
       </div>

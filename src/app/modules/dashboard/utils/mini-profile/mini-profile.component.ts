@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Applicant} from '../../../../shared/model/applicant';
 
 @Component({
   selector: 'app-mini-profile',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MiniProfile implements OnInit {
   public nameToDisplay:string="Rares Beltechi";
+  @Input() applicant:Applicant;
 
   constructor() { }
 

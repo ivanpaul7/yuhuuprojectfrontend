@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges, ViewEncapsulation} from '@angular/core';
 import * as c3 from 'c3';
 
 @Component({
@@ -7,23 +7,42 @@ import * as c3 from 'c3';
   styleUrls: ['./xyline-chart.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class XYLineChartComponent implements OnInit {
+export class XYLineChartComponent implements OnInit, OnChanges {
 
-  constructor() { }
+  @Input() data;
 
-  ngOnInit() {
-    this.initChart();
+  constructor() {
+    this.data = [['x', 'Bitdefender', 'Rares'], [['pv', 43, 90]]];
   }
 
-  initChart(){
+  ngOnInit() {
+    this.initChart(this.data);
+  }
+
+  initChart(data) {
     var chart = c3.generate({
       bindto: '#chart',
       data: {
-        columns: [
-          ['data1', 30, 200, 100, 400, 150, 250],
-          ['data2', 50, 20, 10, 40, 15, 25]
-        ]
+        x: 'x',
+        columns: data,
+        type: 'bar'
+      },
+      legend: {
+        show: false
+      },
+      axis: {
+        x: {
+          type: 'category',
+          tick: {
+            rotate: 75,
+            multiline: false
+          }
+        }
       }
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.initChart(changes['data'].currentValue);
   }
 }

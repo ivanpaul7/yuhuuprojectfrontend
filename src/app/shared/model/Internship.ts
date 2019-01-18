@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-import * as models from './models';
 import { Skill } from './Skill';
 
 export interface Internship {

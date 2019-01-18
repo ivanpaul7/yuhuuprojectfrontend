@@ -3,7 +3,7 @@ import {ChatComment} from '../../../shared/model/chatComment';
 import {Observable, of} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
-import {Internship} from '../../../shared/model/internships.model';
+import {Internship} from '../../../shared/model/Internship';
 
 import {AbstractInternshipDetailsService} from './internship-details.service';
 
