@@ -147,7 +147,7 @@ export interface NavBarItem {
 
 export let applicantNavBarItems: NavBarItem[] = [
   {title: 'ApplicantDashboardComponent', path: 'dashboard/applicantHome'},
-  {title: 'InternshipEnums List', path: 'internships'},
+  {title: 'Internship List', path: 'internships'},
   {title: 'Companies', path: 'companies'},
 ];
 
