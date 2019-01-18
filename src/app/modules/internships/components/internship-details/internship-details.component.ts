@@ -6,7 +6,8 @@ import {Tag} from 'src/app/shared/model/Tag';
 import {MatDialog} from '@angular/material';
 import {InternshipEditComponent} from '../internship-edit/internship-edit.component';
 import {AbstractInternshipDetailsService} from '../../services/internship-details.service';
-
+import {MatSnackBar} from '@angular/material';
+import {Action} from 'rxjs/internal/scheduler/Action';
 
 @Component({
   selector: 'app-internship-details',
@@ -21,7 +22,7 @@ export class InternshipDetailsComponent implements OnInit {
   @Input() internshipSkills: Skill[];
 
 
-  constructor(public dialog: MatDialog, private internshipDetailsService: AbstractInternshipDetailsService) {
+  constructor(public dialog: MatDialog, private internshipDetailsService: AbstractInternshipDetailsService, public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -41,6 +42,13 @@ export class InternshipDetailsComponent implements OnInit {
 
   applyForInternship(id: number) {
     this.internshipDetailsService.applyToInternship(id).subscribe(() => {
+      this.snackBar.open("Success. You applied to the internship", 'CLOSE', {
+        duration: 2000,
+      });
+    }, () => {
+      this.snackBar.open("Error. Please try again later", 'CLOSE', {
+        duration: 2000,
+      });
     });
   }
 

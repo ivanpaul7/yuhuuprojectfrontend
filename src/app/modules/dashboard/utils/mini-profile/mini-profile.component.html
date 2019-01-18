@@ -1,18 +1,17 @@
-<div class="card hovercard">
+<div class="card hovercard w-100 h-100">
   <div class="cardheader">
 
   </div>
   <div class="avatar">
-    <img alt="" src="../../../../../assets/img/dashboard/face-1.jpg">
+    <img alt="" src="{{applicant.contact.photo.url}}">
   </div>
   <div class="info">
     <div class="title">
-      <a target="_blank" href="#">{{nameToDisplay}}</a>
+      <a href="./profile/student/{{applicant.id}}" >{{applicant.firstName +' '+ applicant.lastName}}</a>
     </div>
-    <div class="desc">Passionate designer</div>
   </div>
   <div class="bottom">
-    <a class="btn btn-primary btn-sm" href="https://linkedin.com">
+    <a class="btn btn-primary btn-sm" href="{{applicant.contact.linkedinLink}}">
       <i class="fa fa-linkedin"></i>
     </a>
     <a class="btn btn-danger btn-sm" rel="publisher"
@@ -20,7 +19,7 @@
       <i class="fa fa-google-plus"></i>
     </a>
     <a class="btn btn-primary btn-sm" rel="publisher"
-       href="https://plus.google.com/shahnuralam">
+       href="{{applicant.contact.facebookLink}}">
       <i class="fa fa-facebook"></i>
     </a>
 

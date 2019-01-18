@@ -17,6 +17,7 @@ export class CompanyListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.companyService.initialize();
     this.companyService.getCompanies()
       .subscribe(company => {
         this.unfilteredCompaniesList = company;
@@ -37,5 +38,9 @@ export class CompanyListComponent implements OnInit {
 
   goToDetailedCompany(companyId: number) {
     this.router.navigate(['./profile/company/' + companyId]);
+  }
+
+  incrementView(companyId: number) {
+    this.companyService.selectCompany(companyId).subscribe();
   }
 }
