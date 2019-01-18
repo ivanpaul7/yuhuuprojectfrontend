@@ -5,6 +5,7 @@ import {Skill} from 'src/app/shared/model/Skill';
 import {Tag} from 'src/app/shared/model/Tag';
 import {MatDialog} from '@angular/material';
 import {InternshipEditComponent} from '../internship-edit/internship-edit.component';
+import {AbstractInternshipDetailsService} from '../../services/internship-details.service';
 
 
 @Component({
@@ -20,10 +21,11 @@ export class InternshipDetailsComponent implements OnInit {
   @Input() internshipSkills: Skill[];
 
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private internshipDetailsService: AbstractInternshipDetailsService) {
   }
 
   ngOnInit() {
+    this.intialize();
   }
 
   public openEditDialog() {
@@ -35,5 +37,14 @@ export class InternshipDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       console.log('closed');
     });
+  }
+
+  applyForInternship(id: number) {
+    this.internshipDetailsService.applyToInternship(id).subscribe(() => {
+    });
+  }
+
+  private intialize() {
+    this.internshipDetailsService.initialize();
   }
 }

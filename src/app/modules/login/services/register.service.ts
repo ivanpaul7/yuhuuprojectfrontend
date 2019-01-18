@@ -48,8 +48,6 @@ export class ServerRegisterService implements AbstractRegisterService {
         'username': username
       },
       'applicant': {
-        // todo delete
-        'birthday': '1950-12-27',
         'firstName': firstName,
         'lastName': lastName
       }

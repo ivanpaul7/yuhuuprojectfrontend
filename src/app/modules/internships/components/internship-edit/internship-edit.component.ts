@@ -27,6 +27,7 @@ export class InternshipEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initialize();
   }
 
   onSaveClick() {
@@ -38,4 +39,7 @@ export class InternshipEditComponent implements OnInit {
     //   });
   }
 
+  private initialize() {
+    this.internshipService.initialize();
+  }
 }
