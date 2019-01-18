@@ -5,6 +5,7 @@ import {Company, Skill} from 'src/app/shared/model/models';
 import {StudentProfileEditBasicComponent} from '../../../profile/components/student-profile-edit-basic/student-profile-edit-basic.component';
 import {AddInternshipComponent} from '../add-internship/add-internship.component';
 import {MatDialog} from '@angular/material';
+import {InternshipDTO} from '../../../../shared/model/InternshipDTO';
 
 @Component({
   selector: 'app-internship-list',
@@ -17,29 +18,35 @@ export class InternshipListComponent implements OnInit {
   skillsJoin: JoinSkill[] = [];
   isHisProfile = true;
 
+  internshipDTOs : InternshipDTO[];
+
   constructor(private internshipsService: AbstractInternshipsService, public dialog: MatDialog) {
-    this.internshipsService.getInternships().subscribe(
-      (data: Internship[]) => {
-        this.internships = data;
-        for (const internship of data) {
-          this.internshipsService.getInternshipCompany(internship.id).subscribe(
-            (company: Company) => this.companiesJoin.push({
-              idInternship: internship.id,
-              idCompany: company.id
-            }),
-            error => console.log(error)
-          );
-          this.internshipsService.getInternshipSkills(internship.id).subscribe(
-            (skill: Skill[]) => this.skillsJoin.push({
-              idInternship: internship.id,
-              skills: skill
-            }),
-            error => console.log(error)
-          );
-        }
-      },
-      error => console.log(error)
-    );
+    this.internshipsService.getAllInternshipDTOs().subscribe(data => {
+      this.internshipDTOs=data;
+    });
+
+    // this.internshipsService.getInternships().subscribe(
+    //   (data: Internship[]) => {
+    //     this.internships = data;
+    //     for (const internship of data) {
+    //       this.internshipsService.getInternshipCompany(internship.id).subscribe(
+    //         (company: Company) => this.companiesJoin.push({
+    //           idInternship: internship.id,
+    //           idCompany: company.id
+    //         }),
+    //         error => console.log(error)
+    //       );
+    //       this.internshipsService.getInternshipSkills(internship.id).subscribe(
+    //         (skill: Skill[]) => this.skillsJoin.push({
+    //           idInternship: internship.id,
+    //           skills: skill
+    //         }),
+    //         error => console.log(error)
+    //       );
+    //     }
+    //   },
+    //   error => console.log(error)
+    // );
   }
 
   ngOnInit() {

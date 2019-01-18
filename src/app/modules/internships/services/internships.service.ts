@@ -1,10 +1,13 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import * as moment from 'moment';
-import {of, ReplaySubject, Subject} from 'rxjs';
-import {Company, Internship} from 'src/app/shared/model/models';
+import {Observable, of, ReplaySubject, Subject} from 'rxjs';
+import {Applicant, Company, Education, Internship} from 'src/app/shared/model/models';
 import {Skill} from 'src/app/shared/model/Skill';
 import {Tag} from 'src/app/shared/model/Tag';
+import {InternshipDTO} from '../../../shared/model/InternshipDTO';
+import {tap} from 'rxjs/operators';
+import {SessionManagementService} from '../../../shared/utils/session-management.service';
 
 export abstract class AbstractInternshipsService {
   companyFilters: Company[] = [];
@@ -12,7 +15,11 @@ export abstract class AbstractInternshipsService {
   companySubject = new Subject<Company[]>();
   skillSubject = new Subject<Skill[]>();
 
+  public abstract initialize();
+
   public abstract getInternships();
+
+  public abstract getAllInternshipDTOs():Observable<InternshipDTO[]>;
 
   public abstract getSkills();
 
@@ -350,6 +357,13 @@ export class MockInternshipsService implements AbstractInternshipsService {
     this.skillFilters = filters;
     this.skillSubject.next(this.skillFilters);
   }
+
+  initialize() {
+  }
+
+  getAllInternshipDTOs(): Observable<InternshipDTO[]> {
+    return undefined;
+  }
 }
 
 @Injectable()
@@ -359,8 +373,39 @@ export class ServerInternshipsService implements AbstractInternshipsService {
   internshipSubject: ReplaySubject<Internship[]>;
   companySubject = new Subject<Company[]>();
   skillSubject = new Subject<Skill[]>();
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhd' +
+        'WQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwi' +
+        'c2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3NjY5OTAzOCwiYXV0aG9yaXRp' +
+        'ZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6ImJjMjEyM2Y2LWVmMTQtNDg0Zi1hZjdlLTli' +
+        'OGVjMzg1ODg2MSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.ekCWKdN7VuQ' +
+        'bN9rOexqF07P0B1u2KsiroEOQdsT51Nk'
+    })
+  };
 
-  constructor(private httpClient: HttpClient) {
+  private url = 'https://enigmatic-sierra-91538.herokuapp.com/api';
+
+  constructor(private httpClient: HttpClient, private sessionManager: SessionManagementService) {
+  }
+
+  initialize() {
+    //todo
+  }
+
+
+  getAllInternshipDTOs(): Observable<InternshipDTO[]> {
+    return this.httpClient.get<InternshipDTO[]>(this.url + '/internship/allinternships', this.httpOptions).pipe(
+      tap(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
   }
 
   getInternships() {
@@ -387,17 +432,17 @@ export class ServerInternshipsService implements AbstractInternshipsService {
 
   getCompanies() {
     const url = 'http://enigmatic-sierra-91538.herokuapp.com/api/company/all';
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidG' +
-          'VzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVh' +
-          'ZCIsIndyaXRlIl0sImV4cCI6MTU3NDgyNDEwNSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl' +
-          '0sImp0aSI6IjZkY2RmYzk1LTc4YzMtNDE3MS1iZGM5LTc2MjJlOTViNmRlMCIsImNsaWVudF9pZ' +
-          'CI6InRlc3Rqd3RjbGllbnRpZCJ9.n7vWD-ZyLxWBf2Dr4wTKKI4uCFF7KFknDoP900Nharg'
-      })
-    };
-    return this.httpClient.get<Company[]>(url, httpOptions);
+    // const httpOptions = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json',
+    //     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidG' +
+    //       'VzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVh' +
+    //       'ZCIsIndyaXRlIl0sImV4cCI6MTU3NDgyNDEwNSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl' +
+    //       '0sImp0aSI6IjZkY2RmYzk1LTc4YzMtNDE3MS1iZGM5LTc2MjJlOTViNmRlMCIsImNsaWVudF9pZ' +
+    //       'CI6InRlc3Rqd3RjbGllbnRpZCJ9.n7vWD-ZyLxWBf2Dr4wTKKI4uCFF7KFknDoP900Nharg'
+    //   })
+    // };
+    return this.httpClient.get<Company[]>(url, this.httpOptions);
   }
 
   getSkills() {
