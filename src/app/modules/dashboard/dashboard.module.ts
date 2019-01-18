@@ -9,9 +9,10 @@ import {BusinessList} from './utils/business-list/business-list.component';
 import {XYLineChartComponent} from './utils/xyline-chart/xyline-chart.component';
 import {PieChartComponent} from './utils/pie-chart/pie-chart.component';
 import {appRoutes} from '../../app.module';
+import {AbstractInternshipsService} from '../internships/services/internships.service';
+import {environment} from '../../../environments/environment';
 import {InternshipsListForApplicantComponent} from './components/internships-list-for-applicant/internships-list-for-applicant.component';
 import {AbstractIntershipsForDashboardServicesService} from './services/interships-services.service';
-import {environment} from '../../../environments/environment';
 import {
   MatButtonModule,
   MatCardModule,
