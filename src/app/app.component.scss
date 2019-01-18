@@ -1,8 +1,18 @@
-.contentArea {
+.pageArea {
   background-color: #dae0ea;
 }
 
+.contentArea {
+  padding-top: 50px;
+
+}
+
 .gridContainer {
-  height: 100%;
+  min-height: 100%;
   margin: 0;
+}
+
+.hiddenNavBar {
+  position: absolute;
+  display: none;
 }

@@ -2,12 +2,15 @@ import {Injectable} from '@angular/core';
 import {Company} from '../../../shared/model/company';
 import {Photo} from '../../../shared/model/Photo';
 import {Contact} from '../../../shared/model/Contact';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 
 @Injectable()
 export abstract class AbstractCompaniesService {
 
-  public abstract getCompanies(): Company[];
+  public abstract getCompanies(): Observable<Company[]>;
 
   public abstract getNameFilters(): string[];
 
@@ -59,8 +62,8 @@ export class MockCompaniesService implements AbstractCompaniesService {
   constructor() {
   }
 
-  public getCompanies(): Company[] {
-    return this.companies.slice();
+  public getCompanies(): Observable<Company[]> {
+    return of(this.companies.slice());
   }
 
   getCompanyLogo() {
@@ -80,21 +83,58 @@ export class MockCompaniesService implements AbstractCompaniesService {
   }
 }
 
+// todo change bearer from logged user
+const httpOptions = {
+  headers: new HttpHeaders(
+    {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291' +
+        'cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1Nzcz' +
+        'MDA1NTksImF1dGhvcml0aWVzIjpbIkNPTVBBTlkiXSwianRpIjoiZWYwNTMyMTItNTBjMy00NjBlLTljMGMtZjQ1M' +
+        'jhhMzIyODljIiwiY2xpZW50X2lkIjoidGVzdGp3dGNsaWVudGlkIn0.AKPOfkqYQ5bvDkbVGBMYXDJzvJIaOukYWLhsnZckmTo'
+    })
+};
+
+@Injectable({
+  providedIn: 'root'
+})
 export class ServerCompaniesService implements AbstractCompaniesService {
+  companies: Company[];
 
-  public getCompanies(): Company[] {
-    return null;
+  private companiesName: string[] = [];
+  nameFilters: string[] = [];
+
+  private url = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
+
+  constructor(private http: HttpClient) {
   }
 
-  public getNameFilters(): string[] {
-    return null;
+  public getCompanies(): Observable<Company[]> {
+    return this.http.get<Company[]>(this.url + '/company/all', httpOptions).pipe(
+      tap(
+        data => {
+          this.companies = data;
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
   }
 
-  public getCompanyName(): string[] {
-    return null;
+  getCompanyName() {
+    for (let i = 0; i < this.companies.length; i++) {
+      this.companiesName.push(this.companies[i].name);
+    }
+    return this.companiesName.slice();
   }
 
   setNameFilters(filters: string[]) {
+    this.nameFilters = filters;
+  }
+
+  public getNameFilters(): string[] {
+    return this.nameFilters;
   }
 }
 

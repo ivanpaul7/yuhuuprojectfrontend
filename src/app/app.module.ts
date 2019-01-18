@@ -12,7 +12,8 @@ import {
   MatNativeDateModule,
   MatDatepickerModule,
   MatListModule,
-  MatIconModule
+  MatIconModule,
+  MatAutocompleteModule
 } from '@angular/material';
 import {MatDialogModule} from '@angular/material/dialog';
 import {BrowserModule} from '@angular/platform-browser';
@@ -36,22 +37,42 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {InternshipDetailsPageComponent} from './modules/internships/pages/internship-details-page/internship-details-page.component';
 import {CompaniesPageComponent} from './modules/companies/pages/companies-page/companies-page.component';
 import {CompaniesModule} from './modules/companies/companies.module';
+import {NavBarComponent} from './masterComponents/navbar/nav-bar.component';
+import {SessionManagementService} from './shared/utils/session-management.service';
+import {ApplicantDashboardComponent} from './modules/dashboard/components/applicantDashboard/applicant-dashboard.component';
+import {CompanyDashboardComponent} from './modules/dashboard/components/companyDashboard/company-dashboard.component';
+import {NotificationManagerComponent} from './shared/utils/component/notification-manager/notification-manager.component';
+import {ProgressSpinnerComponent} from './shared/utils/component/progress-spinner/progress-spinner.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {AuthGuard} from './modules/guard/auth-guard.service';
 
-const appRoutes: Routes = [
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
-  {path: 'internships', component: InternshipsPageComponent, pathMatch: 'full'},
+
+
+export const appRoutes: Routes = [
   {path: 'login', component: LoginPageComponent, pathMatch: 'full'},
-  {
-    path: 'dashboard',
-    component: DashboardPageComponent,
-    loadChildren: './modules/dashboard/dashboard.module#DashboardModule'
-  },
   {
     path: 'profile',
     component: CompanyProfilePageComponent,
-    loadChildren: './modules/profile/profile.module#ProfileModule'
+    loadChildren: './modules/profile/profile.module#ProfileModule',
+    canActivate: [AuthGuard]
   },
   {path: 'register', component: RegisterPageComponent, pathMatch: 'full'},
+  {
+    path: 'dashboard',
+    component: DashboardPageComponent,
+    children: [
+      {path: 'applicantHome', component: ApplicantDashboardComponent},
+      {path: 'companyHome', component: CompanyDashboardComponent}
+    ],
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'dashboard',
+    component: DashboardPageComponent,
+    loadChildren: './modules/dashboard/dashboard.module#DashboardModule',
+    canActivate: [AuthGuard]
+  },
+  {path: '**', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -64,6 +85,9 @@ const appRoutes: Routes = [
     StudentProfilePageComponent,
     InternshipsPageComponent,
     CompaniesPageComponent,
+    NavBarComponent,
+    NotificationManagerComponent,
+    ProgressSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -92,23 +116,42 @@ const appRoutes: Routes = [
     MatDatepickerModule,
     MatListModule,
     MatIconModule,
+    MatAutocompleteModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     NgbModule,
-    // TODO update key with a real value (because it cost Paul'll update this later)
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYMs'
+      apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYM'
     })
   ],
   entryComponents: [],
   exports: [
     LoginModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     AlertModule,
-    DatePipe
+    DatePipe,
+    SessionManagementService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
 }
+
+export interface NavBarItem {
+  title: string;
+  path: string;
+}
+
+export let applicantNavBarItems: NavBarItem[] = [
+  {title: 'ApplicantDashboardComponent', path: 'dashboard/applicantHome'},
+  {title: 'Internship List', path: 'internships'},
+  {title: 'Companies', path: 'companies'},
+];
+
+export let companyNavBarItems: NavBarItem[] = [
+  {title: 'CompanyDashboardComponent', path: 'dashboard/companyHome'},
+];
+
