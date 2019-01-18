@@ -1,12 +1,12 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {Location} from '@angular/common';
-import {Company} from '../../../../shared/model/Company';
-import {AbstractCompanyProfileService} from '../../services/company-profile.service';
-import {MatDialog, MatListModule} from '@angular/material';
-import {Router} from '@angular/router';
-import {CompanyProfileEditBasicComponent} from '../../components/company-profile-edit-basic/company-profile-edit-basic.component';
-import {CompanyProfileEditContactComponent} from '../../components/company-profile-edit-contact/company-profile-edit-contact.component';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { Company } from '../../../../shared/model/Company';
+import { AbstractCompanyProfileService } from '../../services/company-profile.service';
+import { MatDialog, MatListModule } from '@angular/material';
+import { Router } from '@angular/router';
+import { CompanyProfileEditBasicComponent } from '../../components/company-profile-edit-basic/company-profile-edit-basic.component';
+import { CompanyProfileEditContactComponent } from '../../components/company-profile-edit-contact/company-profile-edit-contact.component';
 
 @Component({
   selector: 'app-company-profile-page',
@@ -36,13 +36,13 @@ export class CompanyProfilePageComponent implements OnInit {
       .subscribe(profile => {
         this.company = profile;
       });
-    this.isHisProfile=this.companyService.isHisProfile();
+    this.isHisProfile = this.companyService.isHisProfile();
   }
 
   openBasicEditDialog() {
     const dialogRef = this.dialog.open(CompanyProfileEditBasicComponent, {
       width: '90%',
-      data: {companyProfile: this.company}
+      data: { companyProfile: this.company }
     });
 
     dialogRef.afterClosed().subscribe(() => {
@@ -56,7 +56,7 @@ export class CompanyProfilePageComponent implements OnInit {
   openContactEditDialog() {
     const dialogRef = this.dialog.open(CompanyProfileEditContactComponent, {
       width: '90%',
-      data: {companyProfile: this.company}
+      data: { companyProfile: this.company }
     });
 
     dialogRef.afterClosed().subscribe(() => {
@@ -68,7 +68,7 @@ export class CompanyProfilePageComponent implements OnInit {
   }
 
   navigateToCompanyInternships() {
-    this.router.navigateByUrl('/internships?company='+this.company.name);
+    this.router.navigate(['/internships'], { queryParams: { company: this.company.name } });
   }
 
   onPhotoFileChanged(event) {
