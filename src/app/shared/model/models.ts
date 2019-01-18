@@ -12,6 +12,7 @@ export * from './RegisterCompanyRequest';
 export * from './ResponseEntity';
 export * from './Role';
 export * from './Skill';
+export * from './Requirement';
 export * from './Tag';
 export * from './User';
 export * from './ChatComment';

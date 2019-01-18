@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Add skill</h1>
+<div mat-dialog-content>
+  <div class="main-container container">
+    <mat-form-field>
+      <input [(ngModel)]="skill.name"  value="{{skill.name}}" type="text" placeholder="skill" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name">
+          {{option.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+</div>
+<div class="float-right" mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button (click)="onSaveClick()">Save</button>
+</div>

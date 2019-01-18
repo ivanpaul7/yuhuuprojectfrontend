@@ -31,6 +31,8 @@ import { InternshipEditComponent } from './components/internship-edit/internship
 import { ChatComponent } from './components/chat/chat.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {AbstractChatService} from './services/chat.service';
+import { InternshipEditSkillComponent } from './components/internship-edit-skill/internship-edit-skill.component';
+import { InternshipEditRequirementComponent } from './components/internship-edit-requirement/internship-edit-requirement.component';
 
 @NgModule({
   imports: [
@@ -56,8 +58,8 @@ import {AbstractChatService} from './services/chat.service';
     MatListModule,
     NgbModule
   ],
-  entryComponents: [InternshipEditComponent],
-  declarations: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, InternshipEditComponent, ChatComponent],
+  entryComponents: [InternshipEditComponent, InternshipEditSkillComponent, InternshipEditRequirementComponent, InternshipEditRequirementComponent],
+  declarations: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, InternshipEditComponent, ChatComponent, InternshipEditSkillComponent, InternshipEditRequirementComponent],
   exports: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, ChatComponent],
   providers: [
     {

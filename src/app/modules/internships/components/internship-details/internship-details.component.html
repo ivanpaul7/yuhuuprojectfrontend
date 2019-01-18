@@ -31,7 +31,7 @@
         </mat-card-title>
       </div>
       <div class="float-right">
-        <button mat-icon-button color="primary">
+        <button mat-icon-button color="primary" (click)="openAddSkill()">
           <mat-icon>add_circle</mat-icon>
         </button>
       </div>
@@ -43,7 +43,7 @@
             <p>{{skill.name}}</p>
           </div>
           <div class="float-right skill-button">
-            <button mat-icon-button color="warn" >
+            <button mat-icon-button color="warn" (click) ="deleteSkill(skill.id)" >
               <mat-icon>delete_outline</mat-icon>
             </button>
           </div>
@@ -60,19 +60,19 @@
         </mat-card-title>
       </div>
       <div class="float-right">
-        <button mat-icon-button color="primary">
+        <button mat-icon-button color="primary" (click)="openAddRequirement()">
           <mat-icon>add_circle</mat-icon>
         </button>
       </div>
     </mat-card-header>
     <mat-card-content>
       <mat-list>
-        <mat-list-item *ngFor="let skill of internshipSkills; let lastItem = last;">
+        <mat-list-item *ngFor="let requirement of internshipRequirements; let lastItem = last;">
           <div class="card-title-wrapper skill-item">
-            <p>{{skill.name}}</p>
+            <p>{{requirement.name}}</p>
           </div>
           <div class="float-right skill-button">
-            <button mat-icon-button color="warn">
+            <button mat-icon-button color="warn" (click)="deleteRequirement(requirement.id)">
               <mat-icon>delete_outline</mat-icon>
             </button>
           </div>
@@ -81,33 +81,3 @@
       </mat-list>
     </mat-card-content>
   </mat-card>
-  <mat-card class="mat-card">
-    <mat-card-header>
-      <div class="card-title-wrapper">
-        <mat-card-title>
-          <h2>Attributes</h2>
-        </mat-card-title>
-      </div>
-      <div class="float-right">
-        <button mat-icon-button color="primary">
-          <mat-icon>add_circle</mat-icon>
-        </button>
-      </div>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-list>
-        <mat-list-item *ngFor="let skill of internshipSkills; let lastItem = last;">
-          <div class="card-title-wrapper skill-item">
-            <p>{{skill.name}}</p>
-          </div>
-          <div class="float-right skill-button">
-            <button mat-icon-button color="warn">
-              <mat-icon>delete_outline</mat-icon>
-            </button>
-          </div>
-          <mat-divider *ngIf="!lastItem"></mat-divider>
-        </mat-list-item>
-      </mat-list>
-    </mat-card-content>
-  </mat-card>
-   

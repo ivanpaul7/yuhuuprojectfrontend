@@ -6,6 +6,9 @@ import {Tag} from 'src/app/shared/model/Tag';
 import {MatDialog} from '@angular/material';
 import {InternshipEditComponent} from '../internship-edit/internship-edit.component';
 import {AbstractInternshipDetailsService} from '../../services/internship-details.service';
+import { InternshipEditSkillComponent } from '../internship-edit-skill/internship-edit-skill.component';
+import { Requirement } from 'src/app/shared/model/models';
+import { InternshipEditRequirementComponent } from '../internship-edit-requirement/internship-edit-requirement.component';
 
 
 @Component({
@@ -19,6 +22,8 @@ export class InternshipDetailsComponent implements OnInit {
   @Input() internshipLogo: Photo;
   @Input() internshipTags: Tag[];
   @Input() internshipSkills: Skill[];
+  @Input() internshipRequirements: Requirement[];
+
 
 
   constructor(public dialog: MatDialog, private internshipDetailsService: AbstractInternshipDetailsService) {
@@ -50,4 +55,53 @@ export class InternshipDetailsComponent implements OnInit {
   private intialize() {
     this.internshipDetailsService.initialize();
   }
+
+  openAddSkill() {
+    const dialogRef = this.dialog.open(InternshipEditSkillComponent, {
+      width: '90%',
+      data: {internship: this.internshipDetails}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+
+    dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
+      this.internshipDetailsService.getInternshipSkills(this.internshipDetails.id.toString()).subscribe((skills) => {
+        this.internshipSkills = skills;
+      });
+    });
+  }
+
+  deleteSkill(id: number) {
+    this.internshipDetailsService.deleteSkill(this.internshipDetails, id).subscribe(() => {""
+      this.internshipDetailsService.getInternshipSkills(this.internshipDetails.id.toString()).subscribe((skills) => {
+        this.internshipSkills = skills;
+      });
+    });
+  }
+
+  openAddRequirement() {
+    const dialogRef = this.dialog.open(InternshipEditRequirementComponent, {
+      width: '90%',
+      data: {internship: this.internshipDetails}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+
+    dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
+      this.internshipDetailsService.getInternshipRequirements(this.internshipDetails.id.toString()).subscribe((requirements) => {
+        this.internshipRequirements = requirements;
+      });
+    });
+  }
+
+  deleteRequirement(id: number) {
+    this.internshipDetailsService.deleteRequirement(this.internshipDetails, id).subscribe(() => {""
+      this.internshipDetailsService.getInternshipRequirements(this.internshipDetails.id.toString()).subscribe((requirements) => {
+        this.internshipRequirements = requirements;
+      });
+    });
+  }
+
 }
