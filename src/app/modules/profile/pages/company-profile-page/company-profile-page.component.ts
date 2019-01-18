@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {Company} from '../../../../shared/model/Company';
 import {AbstractCompanyProfileService} from '../../services/company-profile.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatListModule} from '@angular/material';
 import {Router} from '@angular/router';
 import {CompanyProfileEditBasicComponent} from '../../components/company-profile-edit-basic/company-profile-edit-basic.component';
 import {CompanyProfileEditContactComponent} from '../../components/company-profile-edit-contact/company-profile-edit-contact.component';
@@ -15,6 +15,7 @@ import {CompanyProfileEditContactComponent} from '../../components/company-profi
 })
 export class CompanyProfilePageComponent implements OnInit {
   @Input() company: Company;
+  isHisProfile = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,6 +36,7 @@ export class CompanyProfilePageComponent implements OnInit {
       .subscribe(profile => {
         this.company = profile;
       });
+    this.isHisProfile=this.companyService.isHisProfile();
   }
 
   openBasicEditDialog() {

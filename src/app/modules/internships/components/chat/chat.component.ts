@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, Pipe, PipeTransform, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, forwardRef, Inject, Input, OnInit, Pipe, PipeTransform, ViewChild} from '@angular/core';
 import {ChatComment} from '../../../../shared/model/chatComment';
 import {AbstractChatService} from '../../services/chat.service';
 import {MatButtonModule} from '@angular/material';
