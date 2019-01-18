@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Internship} from '../../../../shared/model/InternshipEnums';
 
 @Component({
   selector: 'app-message-card',
@@ -7,11 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessageCard implements OnInit {
 
-  public numberToDisplay:number = 7;
-  public tagToDisplay:string = '#smecherie';
-  constructor() {
+  @Input() internships: Internship[] =[];
+  @Input() skillList :string;
 
+  constructor() {
   }
+
 
   ngOnInit() {
   }
