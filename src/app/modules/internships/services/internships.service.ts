@@ -21,9 +21,9 @@ export abstract class AbstractInternshipsService {
 
   public abstract getAllInternshipDTOs():Observable<InternshipDTO[]>;
 
-  public abstract getSkills();
+  public abstract getSkills(): Observable<Skill[]>;
 
-  public abstract getCompanies();
+  public abstract getCompanies(): Observable<Company[]>;
 
   public abstract getInternshipSkills(idInternship: number);
 
@@ -364,6 +364,10 @@ export class MockInternshipsService implements AbstractInternshipsService {
   getAllInternshipDTOs(): Observable<InternshipDTO[]> {
     return undefined;
   }
+
+  getAllInternshipDTOsLocal(): Observable<InternshipDTO[]> {
+    return undefined;
+  }
 }
 
 @Injectable()
@@ -371,7 +375,9 @@ export class ServerInternshipsService implements AbstractInternshipsService {
   companyFilters: Company[] = [];
   skillFilters: Skill[] = [];
   internshipSubject: ReplaySubject<Internship[]>;
+  internshipDTOSubject: ReplaySubject<InternshipDTO[]>;
   companySubject = new Subject<Company[]>();
+  companyList = new Subject<Company[]>();
   skillSubject = new Subject<Skill[]>();
   httpOptions = {
     headers: new HttpHeaders({
@@ -396,16 +402,35 @@ export class ServerInternshipsService implements AbstractInternshipsService {
 
 
   getAllInternshipDTOs(): Observable<InternshipDTO[]> {
-    return this.httpClient.get<InternshipDTO[]>(this.url + '/internship/allinternships', this.httpOptions).pipe(
-      tap(
-        data => {
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        }
-      )
-    );
+    // return this.httpClient.get<InternshipDTO[]>(this.url + '/internship/allinternships', this.httpOptions).pipe(
+    //   tap(
+    //     data => {
+    //       this.companyList.next(data.map((internshipDTO)=>internshipDTO.company));
+    //     },
+    //     error => {
+    //       console.log(error);
+    //     }
+    //   )
+    // );
+
+    if (this.internshipDTOSubject) {
+      return this.internshipDTOSubject.asObservable();
+    } else {
+      this.internshipDTOSubject = new ReplaySubject(1);
+      return this.httpClient.get<InternshipDTO[]>(this.url + '/internship/allinternships', this.httpOptions).pipe(
+        tap(
+          data => {
+            this.internshipDTOSubject.next(data);
+            this.companyList.next(data.map((internshipDTO)=>internshipDTO.company));
+          },
+          error => {
+            console.log(error);
+          }
+        )
+      );
+      // return this.internshipDTOSubject.asObservable();
+    }
+
   }
 
   getInternships() {
@@ -431,7 +456,8 @@ export class ServerInternshipsService implements AbstractInternshipsService {
   }
 
   getCompanies() {
-    const url = 'http://enigmatic-sierra-91538.herokuapp.com/api/company/all';
+    return this.companyList.asObservable();
+    // const url = 'http://enigmatic-sierra-91538.herokuapp.com/api/company/all';
     // const httpOptions = {
     //   headers: new HttpHeaders({
     //     'Content-Type': 'application/json',
@@ -442,7 +468,7 @@ export class ServerInternshipsService implements AbstractInternshipsService {
     //       'CI6InRlc3Rqd3RjbGllbnRpZCJ9.n7vWD-ZyLxWBf2Dr4wTKKI4uCFF7KFknDoP900Nharg'
     //   })
     // };
-    return this.httpClient.get<Company[]>(url, this.httpOptions);
+    // return this.httpClient.get<Company[]>(url, this.httpOptions);
   }
 
   getSkills() {

@@ -14,7 +14,7 @@ import {InternshipDTO} from '../../../../shared/model/InternshipDTO';
 })
 export class InternshipListComponent implements OnInit {
   internships: Internship[] = [];
-  companiesJoin: JoinCompany[] = [];
+  // companiesJoin: JoinCompany[] = [];
   skillsJoin: JoinSkill[] = [];
   isHisProfile = true;
 
@@ -61,14 +61,15 @@ export class InternshipListComponent implements OnInit {
   }
 
   filterByCompanies(companyFilters: Company[]) {
-    this.internshipsService.getInternships().subscribe(
-      (data: Internship[]) => {
-        this.internships = data;
+    this.internshipsService.getAllInternshipDTOs().subscribe(
+      (data: InternshipDTO[]) => {
+        this.internshipDTOs = data;
       });
     if (companyFilters.length !== 0) {
-      this.internships = this.internships.filter((internship) => {
-        const company = this.companiesJoin.find((join) => join.idInternship === internship.id);
-        return companyFilters.map((comp) => comp.id).indexOf(company.idCompany) > -1;
+      this.internshipDTOs = this.internshipDTOs.filter((internship) => {
+        // const company = this.companiesJoin.find((join) => join.idInternship === internship.id);
+
+        return companyFilters.map((comp) => comp.id).indexOf(internship.company.id) > -1;
       });
     }
   }
