@@ -1,11 +1,13 @@
-import { ServerInternshipsService } from 'src/app/modules/internships/services/internships.service';
-import { ServerCompaniesService } from '../app/modules/companies/services/companies.service';
-import { ServerCompanyDetailsService } from '../app/modules/companies/services/company-details.service';
-import { ServerInternshipDetailsService } from '../app/modules/internships/services/internship-details.service';
-import { ServerLoginService } from '../app/modules/login/services/login.service';
-import { ServerRegisterService } from '../app/modules/login/services/register.service';
-import { ServerCompanyProfileService } from '../app/modules/profile/services/company-profile.service';
-import { ServerStudentProfileService } from '../app/modules/profile/services/student-profile.service';
+import {ServerInternshipsService} from 'src/app/modules/internships/services/internships.service';
+import {ServerCompaniesService} from '../app/modules/companies/services/companies.service';
+import {ServerCompanyDetailsService} from '../app/modules/companies/services/company-details.service';
+import {ServerInternshipDetailsService} from '../app/modules/internships/services/internship-details.service';
+import {ServerLoginService} from '../app/modules/login/services/login.service';
+import {ServerRegisterService} from '../app/modules/login/services/register.service';
+import {ServerCompanyProfileService} from '../app/modules/profile/services/company-profile.service';
+import {ServerStudentProfileService} from '../app/modules/profile/services/student-profile.service';
+import {ServerChatService} from '../app/modules/internships/services/chat.service';
+import {ServerInternshipServiceForDashboardService} from '../app/modules/dashboard/services/interships-services.service';
 
 export const environment = {
   production: true,
@@ -19,5 +21,7 @@ export const environment = {
   internshipDetailsService: ServerInternshipDetailsService,
   internshipsService: ServerInternshipsService,
   companiesService: ServerCompaniesService,
-  companyDetailsService: ServerCompanyDetailsService
+  companyDetailsService: ServerCompanyDetailsService,
+  chatService: ServerChatService,
+  internshipServiceForDashboardService: ServerInternshipServiceForDashboardService,
 };

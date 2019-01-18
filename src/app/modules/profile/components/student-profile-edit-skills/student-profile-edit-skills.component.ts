@@ -30,7 +30,6 @@ export class StudentProfileEditSkillsComponent implements OnInit {
         this.allSkills = data;
       }
     );
-
   }
 
   onNoClick() {

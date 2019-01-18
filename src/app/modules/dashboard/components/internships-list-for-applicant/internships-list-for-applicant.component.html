@@ -1,0 +1,28 @@
+<div class="w-100 h-100">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div class="card-title-wrapper">
+        <mat-card-title>
+          <h3>My internships requests</h3>
+        </mat-card-title>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let internship of internshipList; let lastItem = last;">
+          <div class="card-title-wrapper internship" (click)="redirectToInternshipPage(internship.internship.id)">
+            <div class="row">
+              <div class="col-sm-8">
+                <h5>{{internship.internship.title}}</h5>
+              </div>
+              <div class="col-sm-4 status {{internship.internshipRequestStatus}}">
+                {{internship.internshipRequestStatus}}
+              </div>
+            </div>
+          </div>
+          <mat-divider *ngIf="!lastItem"></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</div>

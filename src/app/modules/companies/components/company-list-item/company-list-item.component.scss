@@ -17,6 +17,12 @@ mat-card {
   border-radius: 0;
 }
 
+.top-gradient-div {
+  background: #000046;
+  background: -webkit-linear-gradient(to right, #87CEEB,  	#E6E6FA);
+  background: linear-gradient(to right, #87CEEB,  	#E6E6FA);
+}
+
 mat-card:hover {
   background-color: lightblue;
 }

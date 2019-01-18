@@ -1,35 +1,27 @@
 <div class="container">
-  <div class="component-main-content">
-    <div class="row">
-      <div class="col-sm-8">
-        <app-message-card></app-message-card>
-      </div>
-
-      <div class="col-sm-4">
-        <app-mini-profile></app-mini-profile>
-      </div>
+  <div class="row ">
+    <div class="row1 col-12  col-sm-8  box">
+      <app-message-card [internships]="this.internshipList" [skillList]="this.skillsAsString"></app-message-card>
     </div>
-    <div class="row">
-      <div class="col-sm-3">
-        <app-business-list></app-business-list>
-      </div>
-      <div class="col-sm-9">
-        <div class="card">
-          <div class="card-body">
-            <app-xyline-chart></app-xyline-chart>
-          </div>
-        </div>
-      </div>
+    <div class="row1 img1 col-12 col-sm-4 box ">
+      <app-mini-profile [applicant]="this.applicant"></app-mini-profile>
     </div>
-    <div class="row">
-      <div class="col-sm-8"></div>
-      <div class="col-sm-4">
-        <div class="card">
-          <div class="card-body">
-            <app-pie-chart></app-pie-chart>
-          </div>
-        </div>
-      </div>
+  </div>
+  <div class="row ">
+    <div class="row2 col-sm-5 col-12 box">
+      <app-business-list [companies]="this.companies"></app-business-list>
+    </div>
+    <div class="row2 col-sm-7 col-12 box">
+      <app-xyline-chart [data]="this.chartData"></app-xyline-chart>
+    </div>
+  </div>
+  <div class="row">
+    <div class="row1 col-12 col-sm-8 box">
+      <app-internships-list-for-applicant></app-internships-list-for-applicant>
+    </div>
+    <div class="row1 img1 col-12 col-sm-4 box">
+      <app-pie-chart [data]="this.pieChartData"></app-pie-chart>
     </div>
   </div>
 </div>
+

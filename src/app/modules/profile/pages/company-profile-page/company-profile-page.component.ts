@@ -4,7 +4,7 @@ import {Location} from '@angular/common';
 import {Company} from '../../../../shared/model/Company';
 import {AbstractCompanyProfileService} from '../../services/company-profile.service';
 import {MatDialog, MatListModule} from '@angular/material';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import {CompanyProfileEditBasicComponent} from '../../components/company-profile-edit-basic/company-profile-edit-basic.component';
 import {CompanyProfileEditContactComponent} from '../../components/company-profile-edit-contact/company-profile-edit-contact.component';
 
@@ -15,6 +15,7 @@ import {CompanyProfileEditContactComponent} from '../../components/company-profi
 })
 export class CompanyProfilePageComponent implements OnInit {
   @Input() company: Company;
+  isHisProfile = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,11 +30,13 @@ export class CompanyProfilePageComponent implements OnInit {
   }
 
   public getCompany(): void {
+    this.companyService.initialize();
     const id = +this.route.snapshot.paramMap.get('id');
     this.companyService.getCompany(id)
       .subscribe(profile => {
         this.company = profile;
       });
+    this.isHisProfile=this.companyService.isHisProfile();
   }
 
   openBasicEditDialog() {
@@ -42,7 +45,7 @@ export class CompanyProfilePageComponent implements OnInit {
       data: {companyProfile: this.company}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
     });
 
     dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
@@ -56,7 +59,7 @@ export class CompanyProfilePageComponent implements OnInit {
       data: {companyProfile: this.company}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
     });
 
     dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
@@ -65,17 +68,17 @@ export class CompanyProfilePageComponent implements OnInit {
   }
 
   navigateToCompanyInternships() {
-    this.router.navigateByUrl('/internships?company=facebook');
+    this.router.navigateByUrl('/internships?company='+this.company.name);
   }
 
   onPhotoFileChanged(event) {
     const uploadData = new FormData();
     uploadData.append('file', event.target.files[0], event.name);
     this.companyService.uploadPhoto(uploadData).then((data) => {
-      this.company.contact.photo=data;
-    }).catch(err => {
-      //todo
-      console.log("error fronted photo");
+      this.company.contact.photo = data;
+    }).catch(() => {
+      // todo
+      console.log('error fronted photo');
     });
   }
 }

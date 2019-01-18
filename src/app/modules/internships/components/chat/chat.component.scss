@@ -6,7 +6,15 @@
   height: 80px;
   margin-right: 100px;
   word-wrap: break-word;
-  overflow:scroll;
+  overflow:hidden;
+  padding: 5px;
+  border-radius: 15px;
+
+}
+
+.invisible-scrollbar::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
 
 .message2{
@@ -15,14 +23,14 @@
 }
 
 .name{
-  font-size: 15px;
+  font-size: 13px;
   font-style: italic;
   margin-left:40px;
   margin-top: 10px;
 }
 
 .nameReply{
-  font-size: 15px;
+  font-size: 13px;
   font-style: italic;
   margin-left:80px;
   margin-top: 10px;
@@ -43,15 +51,18 @@
 }
 
 .number{
-  margin: 6px 10px 0 6px;
+  margin: 11px 10px 0 6px;
 }
 
 .buttonDislike{
   margin-top:5px;
+  width: 30px;
 
 }
 .buttonImage{
   margin-top:5px;
+  max-width: 10px;
+  margin-right:13px;
 }
 
 
@@ -61,8 +72,9 @@
   margin-top:10px;
   margin-left: 60px;
   border: 1px solid black;
-  height: 50px;
-
+  height: 60px;
+  padding: 5px;
+  border-radius: 15px;
 
 }
 
@@ -81,7 +93,7 @@
   -o-animation-name: fade;
   animation-name: fade;
   z-index: 999;
-  animation-duration: 4s;
+  animation-duration: 6s;
   animation-fill-mode: forwards;
 }
 
@@ -94,6 +106,10 @@
 
 .repliesNone{
   display: none;
+}
+
+.flex{
+  display: flex;
 }
 
 .alertMessage{

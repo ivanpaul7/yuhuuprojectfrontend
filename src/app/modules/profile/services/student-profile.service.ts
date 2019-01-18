@@ -8,12 +8,15 @@ import {Skill} from '../../../shared/model/Skill';
 import {Role} from '../../../shared/model/Role';
 import {Photo} from '../../../shared/model/Photo';
 import * as $ from 'node_modules/jquery/dist/jquery.js';
+import {SessionManagementService} from '../../../shared/utils/session-management.service';
 
 export abstract class AbstractStudentProfileService {
   applicant: Applicant;
   educations: Education[];
   skills: Skill[];
   allSkills: Skill[];
+
+  public abstract initialize();
 
   public abstract getStudentProfile(id: number): Observable<Applicant> ;
 
@@ -40,6 +43,8 @@ export abstract class AbstractStudentProfileService {
   public abstract uploadPhoto(uploadData: FormData);
 
   public abstract uploadCV(uploadData: FormData);
+
+  public abstract isHisProfile(): boolean;
 }
 
 
@@ -265,20 +270,16 @@ export class MockStudentProfileService implements AbstractStudentProfileService 
   getListAllSkills(): Observable<Skill[]> {
     return of(this.allSkills);
   }
+
+  initialize() {
+    // todo: for mock is not necessary
+  }
+
+  isHisProfile(): boolean {
+    return false;
+  }
 }
 
-// todo change bearer from logged user
-const httpOptions = {
-  headers: new HttpHeaders(
-    {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsid' +
-        'GVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmV' +
-        'hZCIsIndyaXRlIl0sImV4cCI6MTU3MjYzNDY2MSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl' +
-        '0sImp0aSI6IjU1MTgwZThkLWE4NDktNGQ4MS05MjgyLWZkZjA0MGNjNzMyMSIsImNsaWVudF9pZ' +
-        'CI6InRlc3Rqd3RjbGllbnRpZCJ9.zsrWgXhBTaEwLomy2KDX7xy-EFDAqx5GfXNMdaAdgJw'
-    })
-};
 
 @Injectable({
   providedIn: 'root'
@@ -288,15 +289,46 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   educations: Education[];
   skills: Skill[];
   allSkills: Skill[];
+  isUserLoggedIn: boolean;
+  httpOptions = {
+    headers: new HttpHeaders(
+      {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer x'
+      })
+  };
+  applicantID: number;
+  isApplicant: boolean;
+  isUsersProfile: boolean = true;
 
   private url = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private sessionManager: SessionManagementService) {
+  }
+
+  initialize() {
+    if (this.sessionManager.isUserLoggedIn()) {
+      this.httpOptions = {
+        headers: new HttpHeaders(
+          {
+            'Content-Type': 'application/json',
+            'Authorization': '' + this.sessionManager.getToken()
+          })
+      };
+      this.applicantID = this.sessionManager.getLoggedUserId();
+      this.isApplicant = this.sessionManager.getLoggedUserRole() == Role.RoleStringEnum.APPLICANT;
+    } else {
+      //todo redirect to login :)
+    }
   }
 
   /** GET student profile by id. Will 404 if id not found */
   getStudentProfile(id: number): Observable<Applicant> {
-    return this.http.get<Applicant>(this.url + '/user/applicant/' + id, httpOptions).pipe(
+    if ((!this.isApplicant) || id === this.applicantID) {
+      this.isUsersProfile = false;
+    }
+
+    return this.http.get<Applicant>(this.url + '/applicant/details/' + id, this.httpOptions).pipe(
       tap(
         data => {
           this.applicant = data;
@@ -309,7 +341,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   updateStudentProfileBasic(studentProfile: Applicant): Observable<Applicant> {
-    return this.http.put<Applicant>(this.url + '/applicant/' + studentProfile.id, studentProfile, httpOptions).pipe(
+    return this.http.put<Applicant>(this.url + '/applicant/' + studentProfile.id, studentProfile, this.httpOptions).pipe(
       tap(
         data => {
           this.applicant = data;
@@ -325,7 +357,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
     return this.http.put<Applicant>(
       this.url + '/applicant/' + studentProfile.id + '/contact',
       studentProfile.contact,
-      httpOptions
+      this.httpOptions
     ).pipe(
       tap(
         data => {
@@ -345,7 +377,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
     return this.http.put<Applicant>(
       this.url + '/applicant/' + studentProfile.id + '/email',
       {'email': studentProfile.user.email},
-      httpOptions
+      this.httpOptions
     ).pipe(
       tap(
         data => {
@@ -359,7 +391,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   getEducationForApplicant(): Observable<Education[]> {
-    return this.http.get<Education[]>(this.url + '/applicant/' + this.applicant.id + '/educations', httpOptions).pipe(
+    return this.http.get<Education[]>(this.url + '/applicant/' + this.applicant.id + '/educations', this.httpOptions).pipe(
       tap(
         data => {
           this.educations = data;
@@ -371,7 +403,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   addEducation(id: number, education: Education): Observable<Applicant> {
-    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id + '/education', education, httpOptions).pipe(
+    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id + '/education', education, this.httpOptions).pipe(
       tap(
         data => {
         },
@@ -382,7 +414,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   deleteEducation(id: number): Observable<Applicant> {
-    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id + '/educations/' + id, httpOptions).pipe(
+    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id + '/educations/' + id, this.httpOptions).pipe(
       tap(
         data => {
         },
@@ -393,7 +425,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   addSkill(skill: Skill): Observable<Applicant> {
-    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id + '/skill', skill, httpOptions).pipe(
+    return this.http.put<Applicant>(this.url + '/applicant/' + this.applicant.id + '/skill', skill, this.httpOptions).pipe(
       tap(
         data => {
         },
@@ -404,7 +436,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   deleteSkill(id: number): Observable<Applicant> {
-    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id + '/skills/' + id, httpOptions).pipe(
+    return this.http.delete<Applicant>(this.url + '/applicant/' + this.applicant.id + '/skills/' + id, this.httpOptions).pipe(
       tap(
         data => {
         },
@@ -415,7 +447,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   getSkillsForApplicant(): Observable<Skill[]> {
-    return this.http.get<Skill[]>(this.url + '/applicant/' + this.applicant.id + '/skills', httpOptions).pipe(
+    return this.http.get<Skill[]>(this.url + '/applicant/' + this.applicant.id + '/skills', this.httpOptions).pipe(
       tap(
         data => {
           this.skills = data;
@@ -428,7 +460,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   }
 
   getListAllSkills(): Observable<Skill[]> {
-    return this.http.get<Skill[]>(this.url + '/skill/all', httpOptions).pipe(
+    return this.http.get<Skill[]>(this.url + '/skill/all', this.httpOptions).pipe(
       tap(
         data => {
           this.allSkills = data;
@@ -447,12 +479,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
       $.ajax({
         url: url,
         headers: {
-          // todo change bearer
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ' +
-            'hdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50I' +
-            'iwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3Njk2ODI5MywiYXV0aG9yaXRpZ' +
-            'XMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjM1MTdkZDFjLWQwZTEtNDMwYy04MmI4LTQxYjlm' +
-            'MzA0YzEyYSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.UTXR57P-XQQjgDdHeIjAajADLWCPkov4JjwjO5JkwhE',
+          'Authorization': this.httpOptions.headers.get('Authorization')
         },
         data: uploadData,
         contentType: false,
@@ -474,13 +501,7 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
       $.ajax({
         url: url,
         headers: {
-          // todo change bearer
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJh' +
-            'dWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW5' +
-            '0Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3Njk2ODI5MywiYXV' +
-            '0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjM1MTdkZDFjLWQwZTEtNDM' +
-            'wYy04MmI4LTQxYjlmMzA0YzEyYSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnR' +
-            'pZCJ9.UTXR57P-XQQjgDdHeIjAajADLWCPkov4JjwjO5JkwhE',
+          'Authorization': this.httpOptions.headers.get('Authorization'),
         },
         data: uploadData,
         contentType: false,
@@ -520,5 +541,9 @@ export class ServerStudentProfileService implements AbstractStudentProfileServic
   /** Console log errors */
   private log(message: string) {
     console.log(`StudentProfileService: ${message}`);
+  }
+
+  isHisProfile(): boolean {
+    return this.isUsersProfile;
   }
 }

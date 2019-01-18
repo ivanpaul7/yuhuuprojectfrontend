@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {SessionManagementService} from '../../../../shared/utils/session-management.service';
 import {Role} from '../../../../shared/model/Role';
 import {applicantNavBarItems, companyNavBarItems} from '../../../../app.module';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-login-component',
@@ -16,6 +17,7 @@ export class LoginComponentComponent implements OnInit, OnDestroy {
   loading = false;
   submitted = false;
   loginForm: FormGroup;
+  loginProcessFinishedSubscription: Subscription;
 
   public username = '';
   public password = '';
@@ -27,23 +29,28 @@ export class LoginComponentComponent implements OnInit, OnDestroy {
               private alertService: AlertService,
               private formBuilder: FormBuilder,
               private sessionManagementService: SessionManagementService) {
+    this.redirectToDashboard();
     this.loginService = loginService;
-    this.loginService.loginProcessFinished.subscribe((isValid: boolean) => {
+    this.loginProcessFinishedSubscription = this.loginService.loginProcessFinished.subscribe((isValid: boolean) => {
       this.loading = false;
       if (isValid) {
-        if (this.sessionManagementService.isUserLoggedIn()) {
-          if (this.sessionManagementService.getLoggedUserRole() === Role.RoleStringEnum.APPLICANT) {
-            this.router.navigateByUrl('/dashboard/' + applicantNavBarItems[0].path);
-          } else {
-            this.router.navigateByUrl('/dashboard/' + companyNavBarItems[0].path);
-          }
-        }
+        this.redirectToDashboard();
       } else {
         this.alertService.error('Login error', true);
       }
     }, (error) => {
       console.log(error);
     });
+  }
+
+  redirectToDashboard() {
+    if (this.sessionManagementService.isUserLoggedIn()) {
+      if (this.sessionManagementService.getLoggedUserRole() === Role.RoleStringEnum.APPLICANT) {
+        this.router.navigateByUrl('/dashboard/' + applicantNavBarItems[0].path);
+      } else {
+        this.router.navigateByUrl('/dashboard/' + companyNavBarItems[0].path);
+      }
+    }
   }
 
   ngOnInit() {
@@ -80,6 +87,6 @@ export class LoginComponentComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.loginService.loginProcessFinished.unsubscribe();
+    this.loginProcessFinishedSubscription.unsubscribe();
   }
 }

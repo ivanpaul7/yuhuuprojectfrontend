@@ -1,1 +1,39 @@
+<div class="container">
+  <div class="row ">
+    <div class="row1 col-12  col-sm-8  box">
+      <app-company-chart></app-company-chart>
+    </div>
+    <div class="row1 img1 col-12 col-sm-4 box ">
+      <img class="image" src="{{logo}}" >
+      <a (click) = "goToCompany()">{{company.name}}</a>
+    </div>
+  </div>
+  <div class="row ">
+    <div class="row2 img2 col-sm-5 col-12 box">
+    </div>
+    <div class="row4 col-sm-7 col-12 box">
+      <a (click) = "goToApplicant()">
+      <div class="intern">
+        <img class="image2" src="{{photo1}}">
+        {{name1}}  <br>  Age: {{age1}}
+        <div></div>
+      </div>
 
+      </a>
+      <a (click) = "goToApplicant2()">
+      <div class="intern">
+        <img class="image2" src="{{photo2}}">
+        {{name2}} <br>  Age: {{age2}}
+        <div></div>
+      </div>
+      </a>
+      <a (click) = "goToApplicant3()">
+      <div class="intern">
+        <img class="image2" src="{{photo3}}">
+        {{name3}}  <br>  Age: {{age3}}
+        <div></div>
+      </div>
+      </a>
+    </div>
+  </div>
+</div>

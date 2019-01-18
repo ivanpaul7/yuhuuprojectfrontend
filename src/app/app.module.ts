@@ -41,28 +41,38 @@ import {NavBarComponent} from './masterComponents/navbar/nav-bar.component';
 import {SessionManagementService} from './shared/utils/session-management.service';
 import {ApplicantDashboardComponent} from './modules/dashboard/components/applicantDashboard/applicant-dashboard.component';
 import {CompanyDashboardComponent} from './modules/dashboard/components/companyDashboard/company-dashboard.component';
+import {NotificationManagerComponent} from './shared/utils/component/notification-manager/notification-manager.component';
+import {ProgressSpinnerComponent} from './shared/utils/component/progress-spinner/progress-spinner.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {AuthGuard} from './modules/guard/auth-guard.service';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+
 
 export const appRoutes: Routes = [
-  {path: '', redirectTo: 'login', pathMatch: 'full'},
-  {path: 'internships', component: InternshipsPageComponent, pathMatch: 'full'},
   {path: 'login', component: LoginPageComponent, pathMatch: 'full'},
-  {
-    path: 'dashboard',
-    component: DashboardPageComponent,
-    loadChildren: './modules/dashboard/dashboard.module#DashboardModule'
-  },
   {
     path: 'profile',
     component: CompanyProfilePageComponent,
-    loadChildren: './modules/profile/profile.module#ProfileModule'
+    loadChildren: './modules/profile/profile.module#ProfileModule',
+    canActivate: [AuthGuard]
   },
   {path: 'register', component: RegisterPageComponent, pathMatch: 'full'},
-  {path: 'dashboard',
+  {
+    path: 'dashboard',
     component: DashboardPageComponent,
     children: [
       {path: 'applicantHome', component: ApplicantDashboardComponent},
       {path: 'companyHome', component: CompanyDashboardComponent}
-    ]}
+    ],
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'dashboard',
+    component: DashboardPageComponent,
+    loadChildren: './modules/dashboard/dashboard.module#DashboardModule',
+    canActivate: [AuthGuard]
+  },
+  {path: '**', redirectTo: '/login', pathMatch: 'full', canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -76,6 +86,8 @@ export const appRoutes: Routes = [
     InternshipsPageComponent,
     CompaniesPageComponent,
     NavBarComponent,
+    NotificationManagerComponent,
+    ProgressSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -105,11 +117,12 @@ export const appRoutes: Routes = [
     MatListModule,
     MatIconModule,
     MatAutocompleteModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     NgbModule,
-    // TODO update key with a real value (because it cost Paul'll update this later)
+    ChartsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYMs'
+      apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYM'
     })
   ],
   entryComponents: [],
@@ -121,6 +134,7 @@ export const appRoutes: Routes = [
     AlertModule,
     DatePipe,
     SessionManagementService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
@@ -132,14 +146,13 @@ export interface NavBarItem {
   path: string;
 }
 
-export const applicantNavBarItems: NavBarItem[] = [
+export let applicantNavBarItems: NavBarItem[] = [
   {title: 'ApplicantDashboardComponent', path: 'dashboard/applicantHome'},
   {title: 'Internship List', path: 'internships'},
-  {title: 'Companies', path: 'companies'}
+  {title: 'Companies', path: 'companies'},
 ];
 
-export const companyNavBarItems: NavBarItem[] = [
+export let companyNavBarItems: NavBarItem[] = [
   {title: 'CompanyDashboardComponent', path: 'dashboard/companyHome'},
-
 ];
 

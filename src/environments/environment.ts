@@ -1,11 +1,13 @@
-import { MockCompaniesService } from 'src/app/modules/companies/services/companies.service';
-import { MockCompanyDetailsService } from 'src/app/modules/companies/services/company-details.service';
-import { MockInternshipsService } from 'src/app/modules/internships/services/internships.service';
-import { MockInternshipDetailsService } from '../app/modules/internships/services/internship-details.service';
-import { MockLoginService } from '../app/modules/login/services/login.service';
-import { MockRegisterService } from '../app/modules/login/services/register.service';
-import { MockCompanyProfileService } from '../app/modules/profile/services/company-profile.service';
-import { MockStudentProfileService } from '../app/modules/profile/services/student-profile.service';
+import {MockCompaniesService} from 'src/app/modules/companies/services/companies.service';
+import {MockCompanyDetailsService} from 'src/app/modules/companies/services/company-details.service';
+import {MockInternshipsService} from 'src/app/modules/internships/services/internships.service';
+import {MockInternshipDetailsService} from '../app/modules/internships/services/internship-details.service';
+import {MockLoginService} from '../app/modules/login/services/login.service';
+import {MockRegisterService} from '../app/modules/login/services/register.service';
+import {MockCompanyProfileService} from '../app/modules/profile/services/company-profile.service';
+import {MockStudentProfileService} from '../app/modules/profile/services/student-profile.service';
+import {MockChatService} from '../app/modules/internships/services/chat.service';
+import {MockInternshipServiceForDashboardService} from '../app/modules/dashboard/services/interships-services.service';
 
 export const environment = {
   production: false,
@@ -19,5 +21,7 @@ export const environment = {
   internshipDetailsService: MockInternshipDetailsService,
   internshipsService: MockInternshipsService,
   companiesService: MockCompaniesService,
-  companyDetailsService: MockCompanyDetailsService
+  companyDetailsService: MockCompanyDetailsService,
+  chatService: MockChatService,
+  internshipServiceForDashboardService: MockInternshipServiceForDashboardService,
 };
