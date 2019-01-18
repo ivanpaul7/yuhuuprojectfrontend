@@ -36,8 +36,6 @@ export class FiltersComponent implements OnInit {
               if (params['company'] !== undefined) {
                 this.selectedCompanies = this.selectedCompanies.concat(decodeURI(params['company'])
                   .split(',').map((name: string) => this.companies.find((company) => company.name === name)));
-                console.log(decodeURI(params['company']));
-                console.log(this.selectedCompanies);
               }
               this.setFilters();
               this.router.navigate(['internships']);
