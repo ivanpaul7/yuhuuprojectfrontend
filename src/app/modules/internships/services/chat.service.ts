@@ -6,6 +6,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AbstractInternshipDetailsService} from './internship-details.service';
 
 import {Applicant} from '../../../shared/model/applicant';
+import {SessionManagementService} from '../../../shared/utils/session-management.service';
 
 @Injectable()
 export abstract class AbstractChatService {
@@ -25,17 +26,13 @@ export class ServerChatService implements AbstractChatService {
 
   private url = 'https://enigmatic-sierra-91538.herokuapp.com/api/comment/';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private sessionManagementService: SessionManagementService) {
   }
 
   httpOptions = {
     headers: new HttpHeaders(
       {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3d' +
-          'HJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIs' +
-          'InNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1NzY3MDcxNjgsImF1dGhvcml0aWVzIjpbIkNP' +
-          'TVBBTlkiXSwianRpIjoiYjNjNTlmZDctMTlhNy00NDIzLWFjN2EtMTVkZDQxZmJiZTEyIiwiY2xpZW50X2lk' +
-          'IjoidGVzdGp3dGNsaWVudGlkIn0.e6QTmifb1YFYSYgZE37PfQQINrUS2hlWyLUssTnjAGk'
+        'Authorization': this.sessionManagementService.getToken()
       })
   };
 

@@ -9,6 +9,8 @@ import { BusinessList } from './utils/business-list/business-list.component';
 import { XYLineChartComponent } from './utils/xyline-chart/xyline-chart.component';
 import { PieChartComponent } from './utils/pie-chart/pie-chart.component';
 import {appRoutes} from '../../app.module';
+import {AbstractInternshipsService} from '../internships/services/internships.service';
+import {environment} from '../../../environments/environment';
 
 @NgModule({
   imports: [
@@ -30,7 +32,12 @@ import {appRoutes} from '../../app.module';
     MiniProfile,
     BusinessList,
     XYLineChartComponent,
-    RouterModule]
+    RouterModule],
+  providers: [
+    {
+      provide: CompanyDashboardComponent
+    }
+    ]
 })
 export class DashboardModule {
 }
