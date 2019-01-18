@@ -35,6 +35,7 @@ import {SessionManagementService} from '../../shared/utils/session-management.se
 import {AddInternshipComponent} from './components/add-internship/add-internship.component';
 import {ApplicantsManagementComponent} from './components/applicants-management/applicants-management.component';
 import {RequestMessageSenderComponent} from './components/request-message-sender/request-message-sender.component';
+import {MatSnackBarModule} from '@angular/material/typings/esm5/snack-bar';
 
 @NgModule({
   imports: [
@@ -58,6 +59,7 @@ import {RequestMessageSenderComponent} from './components/request-message-sender
     MatNativeDateModule,
     MatDatepickerModule,
     MatListModule,
+    MatSnackBarModule,
     NgbModule
   ],
   entryComponents: [InternshipEditComponent, AddInternshipComponent, RequestMessageSenderComponent],

@@ -26,8 +26,11 @@ export class StudentProfileEditContactComponent implements OnInit {
   }
 
   onSaveClick() {
+    console.log(this.applicant);
     this.studentProfileService.updateStudentProfileContact(this.applicant)
       .subscribe(() => {
+        this.updateEmail();
+      }, ()=>{
         this.updateEmail();
       });
   }
@@ -35,6 +38,9 @@ export class StudentProfileEditContactComponent implements OnInit {
   updateEmail(){
     this.studentProfileService.updateStudentProfileEmail(this.applicant)
       .subscribe(() => {
+        this.editSubmitEventEmitter.emit();
+        this.dialogRef.close();
+      }, ()=>{
         this.editSubmitEventEmitter.emit();
         this.dialogRef.close();
       });

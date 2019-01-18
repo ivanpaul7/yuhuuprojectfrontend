@@ -2,7 +2,8 @@
   <div class="top-gradient-div">
     <div class="row">
       <div class="col-sm-12 image-wrapper">
-        <img src={{applicant.contact.photo.url}} alt="..." class="profile-pic">
+        <img ng-show="applicant.contact.photo.url" src={{applicant.contact.photo.url}} alt="..." class="profile-pic"
+             onerror="this.onerror=null;this.src='https://i0.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1';">
       </div>
     </div>
   </div>
