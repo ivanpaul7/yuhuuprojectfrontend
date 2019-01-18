@@ -50,7 +50,6 @@ export class InternshipListComponent implements OnInit {
     }
     if (this.skillFilters.length !== 0) {
       this.internshipDTOs = this.internshipDTOs.filter((internship) => {
-        // const skillsFiltered = this.skillsJoin.find((join) => join.idInternship === internship.id);
         const internshipSkills = internship.skills.map((skill) => skill.name);
         return this.skillFilters.filter(
           (skill) => internshipSkills.indexOf(skill) > -1)
