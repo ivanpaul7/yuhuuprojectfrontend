@@ -5,6 +5,7 @@ import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/m
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Company, Skill } from 'src/app/shared/model/models';
 import { AbstractInternshipsService } from '../../services/internships.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-filters',
@@ -21,6 +22,7 @@ export class FiltersComponent implements OnInit {
   selectedSkills: string[] = [];
   @ViewChild('triggerCompany', { read: MatAutocompleteTrigger }) triggerCompany: MatAutocompleteTrigger;
   @ViewChild('triggerSkill', { read: MatAutocompleteTrigger }) triggerSkill: MatAutocompleteTrigger;
+  routerSub: Subscription;
   timeout;
 
   constructor(private internshipsService: AbstractInternshipsService,
@@ -34,8 +36,10 @@ export class FiltersComponent implements OnInit {
           .subscribe(
             (params: Params) => {
               if (params['company'] !== undefined) {
-                this.selectedCompanies = this.selectedCompanies.concat(decodeURI(params['company'])
-                  .split(',').map((name: string) => this.companies.find((company) => company.name === name)));
+                this.selectedCompanies.push(this.companies.find((company) => company.name === decodeURI(params['company'])));
+                console.log(this.companies.find((company) => company.name === decodeURI(params['company'])));
+                // this.selectedCompanies = this.selectedCompanies.concat(decodeURI(params['company'])
+                //   .split(',').map((name: string) => this.companies.find((company) => company.name === name)));
               }
               this.setFilters();
               this.router.navigate(['internships']);
