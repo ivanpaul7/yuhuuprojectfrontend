@@ -6,10 +6,14 @@ import {catchError, tap} from 'rxjs/operators';
 import {Photo} from 'src/app/shared/model/Photo';
 import {Tag} from 'src/app/shared/model/Tag';
 import {Skill} from 'src/app/shared/model/Skill';
+import {SessionManagementService} from '../../../shared/utils/session-management.service';
+import {Role} from '../../../shared/model/Role';
 
 
 @Injectable()
 export abstract class AbstractInternshipDetailsService {
+  public abstract initialize();
+
   public abstract getInternship(internshipID: string): Observable<Internship>;
 
   public abstract getInternshipLogo(internshipID: string): Observable<Photo>;
@@ -17,77 +21,65 @@ export abstract class AbstractInternshipDetailsService {
   public abstract getInternshipTags(internshipID: string): Observable<Tag[]>;
 
   public abstract getInternshipSkills(internshipID: string): Observable<Skill[]>;
+
+  public abstract applyToInternship(int: number): Observable<Internship>;
 }
 
 export class ServerInternshipDetailsService implements AbstractInternshipDetailsService {
+  applicantID: number;
+  isApplicant: boolean;
+  isUsersProfile: boolean = true;
+
+
+  httpOptions = {
+    headers: new HttpHeaders(
+      {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer x'
+      })
+  };
   private url = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private sessionManager: SessionManagementService) {
+  }
+
+  initialize() {
+    if (this.sessionManager.isUserLoggedIn()) {
+      this.httpOptions = {
+        headers: new HttpHeaders(
+          {
+            'Content-Type': 'application/json',
+            'Authorization': '' + this.sessionManager.getToken()
+          })
+      };
+      this.applicantID = this.sessionManager.getLoggedUserId();
+      this.isApplicant = this.sessionManager.getLoggedUserRole() == Role.RoleStringEnum.APPLICANT;
+    } else {
+      //todo redirect to login :)
+    }
+
   }
 
   public getInternship(internshipID: string): Observable<Internship> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmN' +
-            'laWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3MjYzN' +
-            'DY2MSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjU1MTgwZThkLWE4NDktNGQ4MS05MjgyLWZkZjA0' +
-            'MGNjNzMyMSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.zsrWgXhBTaEwLomy2KDX7xy-EFDAqx5GfXNMdaAdgJw'
-        })
-    };
-
-    return this.http.get<Internship>(this.url + '/internship/details/' + internshipID, httpOptions).pipe(
+    return this.http.get<Internship>(this.url + '/internship/details/' + internshipID, this.httpOptions).pipe(
       tap(() => console.log(`fetched Internship id#${internshipID}`)),
       catchError(this.handleError<Internship>(`getInternship failed ${internshipID}`)));
   }
 
   public getInternshipLogo(internshipID: string): Observable<Photo> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291' +
-            'cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3' +
-            'MjYzNDY2MSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjU1MTgwZThkLWE4NDktNGQ4MS05Mjgy' +
-            'LWZkZjA0MGNjNzMyMSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.zsrWgXhBTaEwLomy2KDX7xy-EFD' +
-            'Aqx5GfXNMdaAdgJw'
-        })
-    };
-    return this.http.get<Photo>(this.url + '/internship/' + internshipID + '/logo', httpOptions).pipe(
+    return this.http.get<Photo>(this.url + '/internship/' + internshipID + '/logo', this.httpOptions).pipe(
       tap(() => console.log(`fetched InternshipLogo id#${internshipID}`)),
       catchError(this.handleError<Photo>(`getInternshipLogo failed ${internshipID}`)));
   }
 
   public getInternshipTags(internshipID: string): Observable<Tag[]> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291c' +
-            'mNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3' +
-            'MjYzNDY2MSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjU1MTgwZThkLWE4NDktNGQ4MS05Mjgy' +
-            'LWZkZjA0MGNjNzMyMSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.zsrWgXhBTaEwLomy2KDX7xy-EFD' +
-            'Aqx5GfXNMdaAdgJw'
-        })
-    };
-    return this.http.get<Tag[]>(this.url + '/internship/' + internshipID + '/tags', httpOptions).pipe(
+    return this.http.get<Tag[]>(this.url + '/internship/' + internshipID + '/tags', this.httpOptions).pipe(
       tap(() => console.log(`fetched InternshipLogo id#${internshipID}`)),
       catchError(this.handleError<Tag[]>(`getInternshipLogo failed ${internshipID}`)));
   }
 
   public getInternshipSkills(internshipID: string): Observable<Skill[]> {
-    const httpOptions = {
-      headers: new HttpHeaders(
-        {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNl' +
-            'aWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3MjYzNDY' +
-            '2MSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjU1MTgwZThkLWE4NDktNGQ4MS05MjgyLWZkZjA0MG' +
-            'NjNzMyMSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.zsrWgXhBTaEwLomy2KDX7xy-EFDAqx5GfXNMdaAdgJw'
-        })
-    };
-    return this.http.get<Skill[]>(this.url + '/internship/' + internshipID + '/skills', httpOptions).pipe(
+    return this.http.get<Skill[]>(this.url + '/internship/' + internshipID + '/skills', this.httpOptions).pipe(
       tap(() => console.log(`fetched InternshipLogo id#${internshipID}`)),
       catchError(this.handleError<Skill[]>(`getInternshipLogo failed ${internshipID}`)));
   }
@@ -106,6 +98,22 @@ export class ServerInternshipDetailsService implements AbstractInternshipDetails
       return of(result as T);
     };
   }
+
+  applyToInternship(id: number): Observable<Internship> {
+    console.log("yyyyy");
+    return this.http.post<Internship>(this.url + '/internship/' + id + '/apply', {}, this.httpOptions).pipe(
+      tap(
+        () => {
+        
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
+  }
+
+
 }
 
 export class MockInternshipDetailsService implements AbstractInternshipDetailsService {
@@ -137,5 +145,12 @@ export class MockInternshipDetailsService implements AbstractInternshipDetailsSe
 
   public getInternshipSkills(internshipID: string): Observable<Skill[]> {
     throw new Error('Method not implemented.');
+  }
+
+  applyToInternship(int: number): Observable<Internship> {
+    return of({});
+  }
+
+  initialize() {
   }
 }

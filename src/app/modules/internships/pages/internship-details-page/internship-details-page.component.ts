@@ -26,10 +26,14 @@ export class InternshipDetailsPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initialize();
     this.details.getInternship(this.internshipID).subscribe(internship => this.internshipDetails = internship);
     this.details.getInternshipLogo(this.internshipID).subscribe(internshipLogo => this.internshipLogo = internshipLogo);
     this.details.getInternshipTags(this.internshipID).subscribe(internshipTags => this.internshipTags = internshipTags);
     this.details.getInternshipSkills(this.internshipID).subscribe(internshipSkils => this.internshipSkills = internshipSkils);
   }
 
+  private initialize() {
+    this.details.initialize();
+  }
 }
