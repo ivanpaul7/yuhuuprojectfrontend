@@ -33,6 +33,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AbstractChatService} from './services/chat.service';
 import {SessionManagementService} from '../../shared/utils/session-management.service';
 import {AddInternshipComponent} from './components/add-internship/add-internship.component';
+import {MatSnackBarModule} from '@angular/material/typings/esm5/snack-bar';
 
 @NgModule({
   imports: [
@@ -56,6 +57,7 @@ import {AddInternshipComponent} from './components/add-internship/add-internship
     MatNativeDateModule,
     MatDatepickerModule,
     MatListModule,
+    MatSnackBarModule,
     NgbModule
   ],
   entryComponents: [InternshipEditComponent, AddInternshipComponent],
