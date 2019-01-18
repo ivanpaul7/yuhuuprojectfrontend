@@ -5,6 +5,8 @@ import {Company, Skill} from 'src/app/shared/model/models';
 import {StudentProfileEditBasicComponent} from '../../../profile/components/student-profile-edit-basic/student-profile-edit-basic.component';
 import {AddInternshipComponent} from '../add-internship/add-internship.component';
 import {MatDialog} from '@angular/material';
+import {InternshipDTO} from '../../../../shared/model/InternshipDTO';
+import {logger} from 'codelyzer/util/logger';
 
 @Component({
   selector: 'app-internship-list',
@@ -13,70 +15,50 @@ import {MatDialog} from '@angular/material';
 })
 export class InternshipListComponent implements OnInit {
   internships: Internship[] = [];
-  companiesJoin: JoinCompany[] = [];
-  skillsJoin: JoinSkill[] = [];
   isHisProfile = true;
+  skillFilters: string[] = [];
+  companyFilters: Company[] = [];
+  internshipDTOs : InternshipDTO[];
 
   constructor(private internshipsService: AbstractInternshipsService, public dialog: MatDialog) {
-    this.internshipsService.getInternships().subscribe(
-      (data: Internship[]) => {
-        this.internships = data;
-        for (const internship of data) {
-          this.internshipsService.getInternshipCompany(internship.id).subscribe(
-            (company: Company) => this.companiesJoin.push({
-              idInternship: internship.id,
-              idCompany: company.id
-            }),
-            error => console.log(error)
-          );
-          this.internshipsService.getInternshipSkills(internship.id).subscribe(
-            (skill: Skill[]) => this.skillsJoin.push({
-              idInternship: internship.id,
-              skills: skill
-            }),
-            error => console.log(error)
-          );
-        }
-      },
-      error => console.log(error)
-    );
+    this.internshipsService.getAllInternshipDTOs().subscribe(data => {
+      this.internshipDTOs=data;
+    });
   }
 
   ngOnInit() {
     this.internshipsService.companySubject.subscribe(
-      (data: Company[]) => this.filterByCompanies(data),
+      (data: Company[]) => this.companyFilters=data,
       error => console.log(error)
     );
     this.internshipsService.skillSubject.subscribe(
-      (data: Skill[]) => this.filterBySkills(data),
+      (data: string[]) => this.skillFilters=data,
       error => console.log(error)
     );
   }
 
-  filterByCompanies(companyFilters: Company[]) {
-    this.internshipsService.getInternships().subscribe(
-      (data: Internship[]) => {
-        this.internships = data;
+   public get filteredInternships() {
+
+    this.internshipsService.getAllInternshipDTOs().subscribe(
+      (data: InternshipDTO[]) => {
+        this.internshipDTOs = data;
       });
-    if (companyFilters.length !== 0) {
-      this.internships = this.internships.filter((internship) => {
-        const company = this.companiesJoin.find((join) => join.idInternship === internship.id);
-        return companyFilters.map((comp) => comp.id).indexOf(company.idCompany) > -1;
+    if (this.companyFilters.length !== 0) {
+      this.internshipDTOs = this.internshipDTOs.filter((internship) => {
+        return this.companyFilters.map((comp) => comp.id).indexOf(internship.company.id) > -1;
       });
     }
-  }
-
-
-  filterBySkills(skillFilters: Skill[]) {
-    if (skillFilters.length !== 0) {
-      this.internships = this.internships.filter((internship) => {
-        const skillsFiltered = this.skillsJoin.find((join) => join.idInternship === internship.id);
-        return skillsFiltered.skills.filter(
-          (skill) => skillFilters.map((sk) => sk.id).indexOf(skill.id) > -1)
+    if (this.skillFilters.length !== 0) {
+      this.internshipDTOs = this.internshipDTOs.filter((internship) => {
+        const internshipSkills = internship.skills.map((skill) => skill.name);
+        return this.skillFilters.filter(
+          (skill) => internshipSkills.indexOf(skill) > -1)
           .length === this.internshipsService.skillFilters.length;
       });
     }
+    return this.internshipDTOs;
   }
+
 
   openAddInternshipDialog() {
     const dialogRef = this.dialog.open(AddInternshipComponent, {

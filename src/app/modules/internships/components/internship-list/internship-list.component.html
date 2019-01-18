@@ -5,4 +5,4 @@
 </div>
 <h2>Internship List!</h2>
 <app-filters></app-filters>
-<app-internship-list-item *ngFor="let internshipEl of internships" [internship]="internshipEl"></app-internship-list-item>
+<app-internship-list-item *ngFor="let internshipEl of filteredInternships" [tags]="internshipEl.skills" [internship]="internshipEl.internship" [company]="internshipEl.company"></app-internship-list-item>
