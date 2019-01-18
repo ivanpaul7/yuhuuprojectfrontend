@@ -98,22 +98,6 @@ export class MockInternshipsService implements AbstractInternshipsService {
   ];
 
   private skills: string[] = [
-    // {
-    //   id: 1,
-    //   name: 'HTML'
-    // },
-    // {
-    //   id: 2,
-    //   name: 'CSS'
-    // },
-    // {
-    //   id: 3,
-    //   name: 'Java'
-    // },
-    // {
-    //   id: 4,
-    //   name: 'C++'
-    // }
     'HTML',  'CSS' , 'Java', 'C++'
 
   ];
@@ -405,16 +389,7 @@ export class ServerInternshipsService implements AbstractInternshipsService {
 
 
   getAllInternshipDTOs(): Observable<InternshipDTO[]> {
-    // return this.httpClient.get<InternshipDTO[]>(this.url + '/internship/allinternships', this.httpOptions).pipe(
-    //   tap(
-    //     data => {
-    //       this.companyList.next(data.map((internshipDTO)=>internshipDTO.company));
-    //     },
-    //     error => {
-    //       console.log(error);
-    //     }
-    //   )
-    // );
+   
 
     if (this.internshipDTOSubject) {
       return this.internshipDTOSubject.asObservable();
@@ -438,7 +413,6 @@ export class ServerInternshipsService implements AbstractInternshipsService {
           }
         )
       );
-      // return this.internshipDTOSubject.asObservable();
     }
 
   }
@@ -467,33 +441,11 @@ export class ServerInternshipsService implements AbstractInternshipsService {
 
   getCompanies() {
     return this.companyList.asObservable();
-    // const url = 'http://enigmatic-sierra-91538.herokuapp.com/api/company/all';
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     'Content-Type': 'application/json',
-    //     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidG' +
-    //       'VzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVh' +
-    //       'ZCIsIndyaXRlIl0sImV4cCI6MTU3NDgyNDEwNSwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl' +
-    //       '0sImp0aSI6IjZkY2RmYzk1LTc4YzMtNDE3MS1iZGM5LTc2MjJlOTViNmRlMCIsImNsaWVudF9pZ' +
-    //       'CI6InRlc3Rqd3RjbGllbnRpZCJ9.n7vWD-ZyLxWBf2Dr4wTKKI4uCFF7KFknDoP900Nharg'
-    //   })
-    // };
-    // return this.httpClient.get<Company[]>(url, this.httpOptions);
+    
   }
 
   getSkills() {
-    // const url = 'http://enigmatic-sierra-91538.herokuapp.com/api/skill/all';
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     'Content-Type': 'application/json',
-    //     'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp' +
-    //       '3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndya' +
-    //       'XRlIl0sImV4cCI6MTU3NTkzNzQ2MCwiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6ImI' +
-    //       'wMDdjZTYwLWIyYWMtNDFiYi04ZjM0LTM4YzU0OWE1NmViZCIsImNsaWVudF9pZCI6InRlc3Rqd3Rj' +
-    //       'bGllbnRpZCJ9.3vQ0cLxYBbuB-2Lmf-rgsLWEdfBb3LdfDCb9169l8CU'
-    //   })
-    // };
-    // return this.httpClient.get<Skill[]>(url, httpOptions);
+    
     return this.skillList.asObservable();
   }
 
