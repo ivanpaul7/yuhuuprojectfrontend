@@ -30,7 +30,7 @@ export class SessionManagementService {
       if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.APPLICANT) {
         this.getLoggedApplicantInfo().subscribe((applicant) => {
           this.specificId = applicant.id;
-          applicantNavBarItems.push({title: 'My profile', path: 'profile/student/' + this.specificId});
+          this.addMyProfileButtonToNavBar();
           this.everythingLoaded = true;
           this.persistInLocalStorage();
           this.isLoginDataLoadingFinished.emit(true);
@@ -41,7 +41,7 @@ export class SessionManagementService {
       } else if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.COMPANY) {
         this.getLoggedCompanyInfo().subscribe((company) => {
           this.specificId = company.id;
-          companyNavBarItems.push({title: 'My profile', path: 'profile/company/' + this.specificId});
+          this.addMyProfileButtonToNavBar();
           this.everythingLoaded = true;
           this.persistInLocalStorage();
           this.isLoginDataLoadingFinished.emit(true);
@@ -71,15 +71,25 @@ export class SessionManagementService {
     this.everythingLoaded = JSON.parse(localStorage.getItem('everythingLoaded'));
     this.specificId = JSON.parse(localStorage.getItem('specificId'));
     if (this.currentLoggedUser != null) {
-      if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.APPLICANT) {
-        applicantNavBarItems.push({title: 'My profile', path: 'profile/student/' + this.currentLoggedUser.id});
-        this.isLoginDataLoadingFinished.emit(true);
-      } else if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.COMPANY) {
-        companyNavBarItems.push({title: 'My profile', path: 'profile/company/' + this.currentLoggedUser.id});
-        this.isLoginDataLoadingFinished.emit(true);
-      }
+      this.addMyProfileButtonToNavBar();
+      this.isLoginDataLoadingFinished.emit(true);
     } else {
       this.isLoginDataLoadingFinished.emit(false);
+    }
+  }
+
+  private addMyProfileButtonToNavBar() {
+    if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.APPLICANT) {
+      if (applicantNavBarItems.length === 4) {
+        applicantNavBarItems.splice(applicantNavBarItems.length - 1, 1);
+      }
+      applicantNavBarItems.push({title: 'My profile', path: 'profile/student/' + this.specificId});
+
+    } else if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.COMPANY) {
+      if (companyNavBarItems.length === 2) {
+        companyNavBarItems.splice(applicantNavBarItems.length - 1, 1);
+      }
+      companyNavBarItems.push({title: 'My profile', path: 'profile/company/' + this.specificId});
     }
   }
 
