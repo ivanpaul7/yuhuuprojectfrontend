@@ -1,18 +1,19 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Company, Skill } from 'src/app/shared/model/models';
 import { AbstractInternshipsService } from '../../services/internships.service';
-import {Subscription} from 'rxjs';
+import { Subscription } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss']
 })
-export class FiltersComponent implements OnInit {
+export class FiltersComponent implements OnInit, OnDestroy {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   filterForm: FormGroup;
   removable = true;
@@ -29,7 +30,7 @@ export class FiltersComponent implements OnInit {
     private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.internshipsService.getCompanies().subscribe(
+    this.routerSub = this.internshipsService.getCompanies().subscribe(
       (data: Company[]) => {
         this.companies = data;
         this.route.queryParams
@@ -37,16 +38,16 @@ export class FiltersComponent implements OnInit {
             (params: Params) => {
               if (params['company'] !== undefined) {
                 this.selectedCompanies.push(this.companies.find((company) => company.name === decodeURI(params['company'])));
-                console.log(this.companies.find((company) => company.name === decodeURI(params['company'])));
                 // this.selectedCompanies = this.selectedCompanies.concat(decodeURI(params['company'])
                 //   .split(',').map((name: string) => this.companies.find((company) => company.name === name)));
               }
               this.setFilters();
               this.router.navigate(['internships']);
             });
-        },
+      },
       error => console.log(error)
     );
+
     this.internshipsService.getSkills().subscribe(
       (data: string[]) => this.skills = data,
       error => console.log(error)
@@ -118,5 +119,7 @@ export class FiltersComponent implements OnInit {
     this.internshipsService.setCompanyFilters(this.selectedCompanies);
     this.internshipsService.setSkillFilters(this.selectedSkills);
   }
+
+  ngOnDestroy() {}
 
 }

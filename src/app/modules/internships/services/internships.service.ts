@@ -1,13 +1,13 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import {Observable, of, ReplaySubject, Subject} from 'rxjs';
-import {Applicant, Company, Education, Internship} from 'src/app/shared/model/models';
-import {Skill} from 'src/app/shared/model/Skill';
-import {Tag} from 'src/app/shared/model/Tag';
-import {InternshipDTO} from '../../../shared/model/InternshipDTO';
-import {tap} from 'rxjs/operators';
-import {SessionManagementService} from '../../../shared/utils/session-management.service';
+import { Observable, of, ReplaySubject, Subject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { Company, Internship } from 'src/app/shared/model/models';
+import { Skill } from 'src/app/shared/model/Skill';
+import { Tag } from 'src/app/shared/model/Tag';
+import { InternshipDTO } from '../../../shared/model/InternshipDTO';
+import { SessionManagementService } from '../../../shared/utils/session-management.service';
 
 export abstract class AbstractInternshipsService {
   companyFilters: Company[] = [];
@@ -38,6 +38,8 @@ export abstract class AbstractInternshipsService {
   public abstract setCompanyFilters(filters: Company[]);
 
   public abstract setSkillFilters(filters: string[]);
+
+  public abstract fetchAllInternshipDTOs(): Observable<InternshipDTO[]>;
 }
 
 @Injectable()
@@ -98,7 +100,7 @@ export class MockInternshipsService implements AbstractInternshipsService {
   ];
 
   private skills: string[] = [
-    'HTML',  'CSS' , 'Java', 'C++'
+    'HTML', 'CSS', 'Java', 'C++'
 
   ];
 
@@ -354,6 +356,10 @@ export class MockInternshipsService implements AbstractInternshipsService {
   getAllInternshipDTOsLocal(): Observable<InternshipDTO[]> {
     return undefined;
   }
+
+  fetchAllInternshipDTOs(): Observable<InternshipDTO[]> {
+    return undefined;
+  }
 }
 
 @Injectable()
@@ -363,9 +369,9 @@ export class ServerInternshipsService implements AbstractInternshipsService {
   internshipSubject: ReplaySubject<Internship[]>;
   internshipDTOSubject: ReplaySubject<InternshipDTO[]>;
   companySubject = new Subject<Company[]>();
-  companyList = new Subject<Company[]>();
-  skillList = new Subject<string[]>();
   skillSubject = new Subject<string[]>();
+  companyList = new ReplaySubject<Company[]>(1);
+  skillList = new ReplaySubject<string[]>(1);
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -387,15 +393,18 @@ export class ServerInternshipsService implements AbstractInternshipsService {
     //todo
   }
 
+  fetchAllInternshipDTOs(): Observable<InternshipDTO[]> {
+    this.httpClient.get<InternshipDTO[]>(this.url + '/internship/allinternships', this.httpOptions).subscribe(data =>
+      this.internshipDTOSubject.next(data));
+    return this.internshipDTOSubject.asObservable();
+  }
 
   getAllInternshipDTOs(): Observable<InternshipDTO[]> {
-   
-
     if (this.internshipDTOSubject) {
       return this.internshipDTOSubject.asObservable();
     } else {
       this.internshipDTOSubject = new ReplaySubject(1);
-      return this.httpClient.get<InternshipDTO[]>(this.url + '/internship/allinternships', this.httpOptions).pipe(
+      return this.fetchAllInternshipDTOs().pipe(
         tap(
           data => {
             this.internshipDTOSubject.next(data);
@@ -403,8 +412,8 @@ export class ServerInternshipsService implements AbstractInternshipsService {
             data.forEach((internshipDTO) => {
               skills = skills.concat(internshipDTO.skills);
             });
-            let mySet = new Set(skills.map((skill) => skill.name));
-            let array = Array.from(mySet);
+            const mySet = new Set(skills.map((skill) => skill.name));
+            const array = Array.from(mySet);
             this.skillList.next(array);
             this.companyList.next(data.map((internshipDTO) => internshipDTO.company));
           },
@@ -414,7 +423,6 @@ export class ServerInternshipsService implements AbstractInternshipsService {
         )
       );
     }
-
   }
 
   getInternships() {
@@ -439,13 +447,12 @@ export class ServerInternshipsService implements AbstractInternshipsService {
     }
   }
 
-  getCompanies() {
+  getCompanies(): Observable<Company[]> {
+    console.log(this.companyList.asObservable());
     return this.companyList.asObservable();
-    
   }
 
-  getSkills() {
-    
+  getSkills(): Observable<string[]> {
     return this.skillList.asObservable();
   }
 
