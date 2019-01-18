@@ -10,8 +10,7 @@
  * Do not edit the class manually.
  */
 
-import {Internship} from './Internship';
-import {Applicant} from './models';
+import {Applicant, Internship} from './models';
 import {IntershipStatusRequestStringEnum} from './IntershipStatusRequest';
 
 export interface InternshipRequest {
