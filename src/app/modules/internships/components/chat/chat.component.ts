@@ -1,6 +1,7 @@
 import {ChangeDetectorRef, Component, ElementRef, Input, OnInit, Pipe, PipeTransform, ViewChild} from '@angular/core';
 import {ChatComment} from '../../../../shared/model/chatComment';
 import {AbstractChatService} from '../../services/chat.service';
+import {MatButtonModule} from '@angular/material';
 
 
 @Component({
@@ -127,6 +128,7 @@ export class ChatComponent implements OnInit {
         (<HTMLScriptElement> reply.item(i)).style.display = 'block';
       }
     }
+
   }
 
 
