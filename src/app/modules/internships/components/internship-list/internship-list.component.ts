@@ -39,11 +39,11 @@ export class InternshipListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.internshipsService.companySubject.subscribe(
+    this.internshipsService.companyFilterSubject.subscribe(
       (data: Company[]) => this.filterByCompanies(data),
       error => console.log(error)
     );
-    this.internshipsService.skillSubject.subscribe(
+    this.internshipsService.skillFilterSubject.subscribe(
       (data: Skill[]) => this.filterBySkills(data),
       error => console.log(error)
     );
@@ -74,6 +74,10 @@ export class InternshipListComponent implements OnInit {
           .length === this.internshipsService.skillFilters.length;
       });
     }
+  }
+
+  openAddPanel() {
+    
   }
 
 }

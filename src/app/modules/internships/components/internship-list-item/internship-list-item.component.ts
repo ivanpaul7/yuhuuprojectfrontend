@@ -19,7 +19,8 @@ export class InternshipListItemComponent implements OnInit {
   ngOnInit() {
     if (this.internship) {
       this.intershipsService.getInternshipLogo(this.internship.id).subscribe(
-        (data) => this.logo = data.url,
+        (data) => {console.log(data);
+          this.logo = data.url;},
         error => console.log(error)
       );
       this.intershipsService.getInternshipCompany(this.internship.id).subscribe(

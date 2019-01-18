@@ -23,6 +23,7 @@
     </p>
   </mat-card-content>
   <mat-card-actions class="m-0">
-    <span *ngFor="let tag of tags">#{{tag.name}} </span>
+    <span>Tags: </span>
+    <span *ngFor="let tag of tags">{{tag.name}} </span>
   </mat-card-actions>
 </mat-card>

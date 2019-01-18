@@ -16,7 +16,8 @@ import {
   MatIconModule,
   MatInputModule,
   MatButtonModule,
-  MatDialogModule, MatDividerModule,
+  MatDialogModule,
+  MatDividerModule,
   MatSelectModule,
   MatNativeDateModule,
   MatDatepickerModule,
@@ -30,6 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { InternshipEditComponent } from './components/internship-edit/internship-edit.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { InternshipAddComponent } from './components/internship-add/internship-add.component';
 
 @NgModule({
   imports: [
@@ -56,8 +58,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule
   ],
   entryComponents: [InternshipEditComponent],
-  declarations: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, InternshipEditComponent, ChatComponent],
-  exports: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, ChatComponent],
+  declarations: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, InternshipEditComponent, ChatComponent, InternshipAddComponent],
+  exports: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, ChatComponent, InternshipAddComponent],
   providers: [
     {
       provide: AbstractInternshipsService,

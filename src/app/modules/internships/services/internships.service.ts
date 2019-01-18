@@ -1,18 +1,18 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Injectable} from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import {of, ReplaySubject, Subject} from 'rxjs';
-import {Company} from 'src/app/shared/model/models';
-import {Skill} from 'src/app/shared/model/Skill';
-import {Tag} from 'src/app/shared/model/Tag';
-import {Internship} from '../../../shared/model/Internship';
+import { of, ReplaySubject, Subject } from 'rxjs';
+import { Company } from 'src/app/shared/model/models';
+import { Skill } from 'src/app/shared/model/Skill';
+import { Tag } from 'src/app/shared/model/Tag';
+import { Internship } from '../../../shared/model/Internship';
 
 
 export abstract class AbstractInternshipsService {
   companyFilters: Company[] = [];
   skillFilters: Skill[] = [];
-  companySubject = new Subject<Company[]>();
-  skillSubject = new Subject<Skill[]>();
+  companyFilterSubject = new Subject<Company[]>();
+  skillFilterSubject = new Subject<Skill[]>();
 
   public abstract getInternships();
 
@@ -39,8 +39,8 @@ export abstract class AbstractInternshipsService {
 export class MockInternshipsService implements AbstractInternshipsService {
   companyFilters: Company[] = [];
   skillFilters: Skill[] = [];
-  companySubject = new Subject<Company[]>();
-  skillSubject = new Subject<Skill[]>();
+  companyFilterSubject = new Subject<Company[]>();
+  skillFilterSubject = new Subject<Skill[]>();
   private internships: Internship[] = [
     {
       deadline: new Date(),
@@ -344,13 +344,13 @@ export class MockInternshipsService implements AbstractInternshipsService {
 
   setCompanyFilters(filters: Company[]) {
     this.companyFilters = filters;
-    this.companySubject.next(this.companyFilters);
+    this.companyFilterSubject.next(this.companyFilters);
 
   }
 
   setSkillFilters(filters: Skill[]) {
     this.skillFilters = filters;
-    this.skillSubject.next(this.skillFilters);
+    this.skillFilterSubject.next(this.skillFilters);
   }
 }
 
@@ -359,8 +359,11 @@ export class ServerInternshipsService implements AbstractInternshipsService {
   companyFilters: Company[] = [];
   skillFilters: Skill[] = [];
   internshipSubject: ReplaySubject<Internship[]>;
-  companySubject = new Subject<Company[]>();
-  skillSubject = new Subject<Skill[]>();
+  skillsSubject: ReplaySubject<Skill[]>;
+  companiesSubject: ReplaySubject<Skill[]>;
+  logoSubject: ReplaySubject<Object>;
+  companyFilterSubject = new Subject<Company[]>();
+  skillFilterSubject = new Subject<Skill[]>();
 
   constructor(private httpClient: HttpClient) {
   }
@@ -399,7 +402,13 @@ export class ServerInternshipsService implements AbstractInternshipsService {
           'CI6InRlc3Rqd3RjbGllbnRpZCJ9.n7vWD-ZyLxWBf2Dr4wTKKI4uCFF7KFknDoP900Nharg'
       })
     };
-    return this.httpClient.get<Company[]>(url, httpOptions);
+    if (this.companiesSubject) {
+      return this.companiesSubject.asObservable();
+    } else {
+      this.companiesSubject = new ReplaySubject(1);
+      this.httpClient.get<Company[]>(url, httpOptions).subscribe(data => this.companiesSubject.next(data));
+      return this.companiesSubject.asObservable();
+    }
   }
 
   getSkills() {
@@ -414,7 +423,13 @@ export class ServerInternshipsService implements AbstractInternshipsService {
           'bGllbnRpZCJ9.3vQ0cLxYBbuB-2Lmf-rgsLWEdfBb3LdfDCb9169l8CU'
       })
     };
-    return this.httpClient.get<Skill[]>(url, httpOptions);
+    if (this.skillsSubject) {
+      return this.skillsSubject.asObservable();
+    } else {
+      this.skillsSubject = new ReplaySubject(1);
+      this.httpClient.get<Skill[]>(url, httpOptions).subscribe(data => this.skillsSubject.next(data));
+      return this.skillsSubject.asObservable();
+    }
   }
 
   getInternshipSkills(idInternship: number) {
@@ -494,12 +509,12 @@ export class ServerInternshipsService implements AbstractInternshipsService {
 
   setCompanyFilters(filters: Company[]) {
     this.companyFilters = filters;
-    this.companySubject.next(this.companyFilters);
+    this.companyFilterSubject.next(this.companyFilters);
   }
 
   setSkillFilters(filters: Skill[]) {
     this.skillFilters = filters;
-    this.skillSubject.next(this.skillFilters);
+    this.skillFilterSubject.next(this.skillFilters);
   }
 }
 

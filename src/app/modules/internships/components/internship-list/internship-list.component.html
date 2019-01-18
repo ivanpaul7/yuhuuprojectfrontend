@@ -1,3 +1,4 @@
 <h2>Internship List!</h2>
 <app-filters></app-filters>
 <app-internship-list-item *ngFor="let internshipEl of internships" [internship]="internshipEl"></app-internship-list-item>
+<button type="button" class="btn btn-primary addInternship" (click)="openAddPanel()">Adaugă internship.</button>
