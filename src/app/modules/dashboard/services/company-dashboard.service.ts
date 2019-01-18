@@ -4,6 +4,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 import {Company} from '../../../shared/model/Company';
+import {ApplicantDashboardComponent} from '../components/applicantDashboard/applicant-dashboard.component';
+import {Applicant} from '../../../shared/model/applicant';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,8 @@ import {Company} from '../../../shared/model/Company';
 export class CompanyDashboardService {
 
   private url = 'https://enigmatic-sierra-91538.herokuapp.com/api/company/';
+  private url2 = 'https://enigmatic-sierra-91538.herokuapp.com/api/applicant/lastregistered/3';
+  private url3 = 'https://enigmatic-sierra-91538.herokuapp.com/api/applicant/';
 
   constructor(private http: HttpClient, private sessionManagementService: SessionManagementService) {
 
@@ -33,6 +37,15 @@ export class CompanyDashboardService {
   public getCompanyDetails(): Observable<Company> {
     const fullUrl = this.url + 'details/' + this.sessionManagementService.getSpecificId();
 
+    return this.http.get(fullUrl, this.httpOptions);
+  }
+
+  public getApplicants(): Observable<Applicant[]> {
+    return this.http.get<Applicant[]>(this.url2, this.httpOptions);
+  }
+
+  public getApplicantPhoto(id: number) {
+    const fullUrl = this.url3 + id + '/photo';
     return this.http.get(fullUrl, this.httpOptions);
   }
 }
