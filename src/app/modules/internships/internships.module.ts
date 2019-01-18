@@ -33,6 +33,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AbstractChatService} from './services/chat.service';
 import {SessionManagementService} from '../../shared/utils/session-management.service';
 import {AddInternshipComponent} from './components/add-internship/add-internship.component';
+import {ApplicantsManagementComponent} from './components/applicants-management/applicants-management.component';
 
 @NgModule({
   imports: [
@@ -61,7 +62,7 @@ import {AddInternshipComponent} from './components/add-internship/add-internship
   entryComponents: [InternshipEditComponent, AddInternshipComponent],
   declarations: [InternshipListComponent,
     InternshipListItemComponent, FiltersComponent,
-    InternshipDetailsComponent, InternshipEditComponent, ChatComponent, AddInternshipComponent],
+    InternshipDetailsComponent, InternshipEditComponent, ChatComponent, AddInternshipComponent, ApplicantsManagementComponent],
   exports: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, ChatComponent],
   providers: [
     {

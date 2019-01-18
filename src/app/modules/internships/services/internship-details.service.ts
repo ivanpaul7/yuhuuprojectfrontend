@@ -8,6 +8,9 @@ import {Tag} from 'src/app/shared/model/Tag';
 import {Skill} from 'src/app/shared/model/Skill';
 import {SessionManagementService} from '../../../shared/utils/session-management.service';
 import {Role} from '../../../shared/model/Role';
+import {Applicant} from '../../../shared/model/applicant';
+import {InternshipRequest} from '../../../shared/model/InternshipRequest';
+import {IntershipStatusRequestStringEnum} from '../../../shared/model/IntershipStatusRequest';
 
 
 @Injectable()
@@ -25,19 +28,26 @@ export abstract class AbstractInternshipDetailsService {
   public abstract applyToInternship(int: number): Observable<Internship>;
 
   public abstract addInternship(internship: Internship): Observable<Internship>;
+
+  public abstract getApplicantsForInternship(internshipId: number): Observable<Applicant[]>;
+
+  public abstract getRequestsForInternship(internshipId: number): Observable<InternshipRequest[]>;
+
+  public abstract changeRequestStatus(requestId: number, subject: string, content: string, newStatus: IntershipStatusRequestStringEnum);
 }
+
 
 export class ServerInternshipDetailsService implements AbstractInternshipDetailsService {
   specificID: number;
   isApplicant: boolean;
-  isUsersProfile: boolean = true;
+  isUsersProfile: true;
 
 
   httpOptions = {
     headers: new HttpHeaders(
       {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer x'
+        'Authorization': this.sessionManager.getToken()
       })
   };
   private url = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
@@ -57,7 +67,7 @@ export class ServerInternshipDetailsService implements AbstractInternshipDetails
       this.specificID = this.sessionManager.getSpecificId();
       this.isApplicant = this.sessionManager.getLoggedUserRole() == Role.RoleStringEnum.APPLICANT;
     } else {
-      //todo redirect to login :)
+      // todo redirect to login :)
     }
 
   }
@@ -134,6 +144,23 @@ export class ServerInternshipDetailsService implements AbstractInternshipDetails
     );
   }
 
+  getApplicantsForInternship(internshipId: number): Observable<Applicant[]> {
+    return this.http.get<Applicant[]>(this.url + '/internship/' + internshipId + '/applicants', this.httpOptions);
+  }
+
+  getRequestsForInternship(internshipId: number): Observable<InternshipRequest[]> {
+    return this.http.get<InternshipRequest[]>(this.url + '/internship/' + internshipId + '/internshipRequests', this.httpOptions);
+  }
+
+  changeRequestStatus(requestId: number, subject: string, content: string, newStatus: IntershipStatusRequestStringEnum) {
+    return this.http.put<void>(this.url + '/company/' + requestId + '/status',
+      {
+        subject: subject,
+        content: content,
+        internshipRequestStatus: newStatus
+      },
+      this.httpOptions);
+  }
 
 }
 
@@ -177,5 +204,16 @@ export class MockInternshipDetailsService implements AbstractInternshipDetailsSe
 
   addInternship(internship: Internship): Observable<Internship> {
     return of({});
+  }
+
+  getApplicantsForInternship(internshipId: number): Observable<Applicant[]> {
+    return undefined;
+  }
+
+  getRequestsForInternship(internshipId: number): Observable<InternshipRequest[]> {
+    return undefined;
+  }
+
+  changeRequestStatus(requestId: number, subject: string, content: string, newStatus: IntershipStatusRequestStringEnum) {
   }
 }

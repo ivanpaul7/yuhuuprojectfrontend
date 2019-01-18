@@ -6,6 +6,8 @@ import {Tag} from 'src/app/shared/model/Tag';
 import {MatDialog} from '@angular/material';
 import {InternshipEditComponent} from '../internship-edit/internship-edit.component';
 import {AbstractInternshipDetailsService} from '../../services/internship-details.service';
+import {SessionManagementService} from '../../../../shared/utils/session-management.service';
+import {Role} from '../../../../shared/model/Role';
 
 
 @Component({
@@ -21,7 +23,9 @@ export class InternshipDetailsComponent implements OnInit {
   @Input() internshipSkills: Skill[];
 
 
-  constructor(public dialog: MatDialog, private internshipDetailsService: AbstractInternshipDetailsService) {
+  constructor(public dialog: MatDialog,
+              private internshipDetailsService: AbstractInternshipDetailsService,
+              private sessionManagementService: SessionManagementService) {
   }
 
   ngOnInit() {
@@ -46,5 +50,10 @@ export class InternshipDetailsComponent implements OnInit {
 
   private intialize() {
     this.internshipDetailsService.initialize();
+  }
+
+  public isLoggedUserCompany(): boolean {
+    return this.sessionManagementService.getLoggedUserRole() ===
+      Role.RoleStringEnum.COMPANY;
   }
 }
