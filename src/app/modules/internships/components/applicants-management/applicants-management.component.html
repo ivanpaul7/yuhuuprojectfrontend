@@ -1,19 +1,22 @@
 <mat-card class="mat-card">
   <mat-card-header>
-    <p>Applicants wishing to participate in this internship</p>
+    <mat-card-title>
+      <h2>Applicants wishing to participate in this internship</h2>
+    </mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <div *ngFor="let request of requestsList">
-        <div style="display: flex">
-        <a (click)="goToCandidateProfile(request.applicant.id)">{{request.applicant.firstName}} {{request.applicant.lastName}}</a>
-          <mat-select value="{{request.internshipRequestStatus}}"
-                      (valueChange)="valueChanged(request,$event)" placeholder="Status"
-                      [disabled]="isDisabled(request.internshipRequestStatus)">
-            <mat-option [value]="internshipStatus.ACCEPTED">{{internshipStatus.ACCEPTED}}</mat-option>
-            <mat-option [value]="internshipStatus.REJECTED">{{internshipStatus.REJECTED}}</mat-option>
-            <mat-option [value]="internshipStatus.PENDING">{{internshipStatus.PENDING}}</mat-option>
-          </mat-select>
-        </div>
+      <div style="display: flex">
+        <div><p>{{request.applicant.firstName + " " + request.applicant.lastName}}</p></div>
+        <button type="button" class="mat-raised-button" (click)="goToCandidateProfile(request.applicant.id)">Candidate profile</button>
+        <mat-select value="{{request.internshipRequestStatus}}"
+                    (valueChange)="valueChanged(request,$event)" placeholder="Status"
+                    [disabled]="isDisabled(request.internshipRequestStatus)">
+          <mat-option [value]="internshipStatus.ACCEPTED">{{internshipStatus.ACCEPTED}}</mat-option>
+          <mat-option [value]="internshipStatus.REJECTED">{{internshipStatus.REJECTED}}</mat-option>
+          <mat-option [value]="internshipStatus.PENDING">{{internshipStatus.PENDING}}</mat-option>
+        </mat-select>
+      </div>
     </div>
   </mat-card-content>
 </mat-card>
