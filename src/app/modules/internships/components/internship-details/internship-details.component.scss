@@ -49,9 +49,9 @@
 .grid-container {
   display: grid;
   grid-template-areas:
-    'i_title i_title i_title i_title i_title i_status'
-    'i_logo i_logo i_desc i_desc i_desc i_date'
-    '. . i_desc i_desc i_desc i_date'
+    'i_title i_title i_title i_status i_status i_status'
+    'i_logo i_logo i_desc i_desc i_desc i_desc'
+    'i_date i_date i_desc i_desc i_desc i_desc'
     'i_tags i_tags i_tags . i_modify i_apply';
   grid-template-rows: 28px 120px 120px 28px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
