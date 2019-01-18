@@ -5,6 +5,8 @@ import {Contact} from '../../../shared/model/Contact';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {tap} from 'rxjs/operators';
+import {SessionManagementService} from '../../../shared/utils/session-management.service';
+import {Role} from '../../../shared/model/Role';
 
 
 @Injectable()
@@ -19,6 +21,10 @@ export abstract class AbstractCompaniesService {
   public abstract setNameFilters(filters: string[]): void;
 
   public abstract getDistances(id: number): Observable<number>;
+
+  public abstract initialize();
+
+  public abstract selectCompany(id: number);
 }
 
 export class MockCompaniesService implements AbstractCompaniesService {
@@ -83,22 +89,17 @@ export class MockCompaniesService implements AbstractCompaniesService {
   public getNameFilters(): string[] {
     return this.nameFilters;
   }
+
   public getDistances(id: number): Observable<number> {
     return of(this.companies.length);
   }
-}
 
-// todo change bearer from logged user
-const httpOptions = {
-  headers: new HttpHeaders(
-    {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291' +
-        'cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1Nzcz' +
-        'MDA1NTksImF1dGhvcml0aWVzIjpbIkNPTVBBTlkiXSwianRpIjoiZWYwNTMyMTItNTBjMy00NjBlLTljMGMtZjQ1M' +
-        'jhhMzIyODljIiwiY2xpZW50X2lkIjoidGVzdGp3dGNsaWVudGlkIn0.AKPOfkqYQ5bvDkbVGBMYXDJzvJIaOukYWLhsnZckmTo'
-    })
-};
+  public initialize() {
+  }
+
+  selectCompany(id: number) {
+  }
+}
 
 @Injectable({
   providedIn: 'root'
@@ -106,17 +107,41 @@ const httpOptions = {
 export class ServerCompaniesService implements AbstractCompaniesService {
   companies: Company[];
   distance: number;
+  companyID: number;
+  isCompany: boolean;
+
+  httpOptions = {
+    headers: new HttpHeaders(
+      {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer x'
+      })
+  };
 
   private companiesName: string[] = [];
   nameFilters: string[] = [];
 
   private url = 'https://enigmatic-sierra-91538.herokuapp.com/api';  // URL to web api
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private sessionManager: SessionManagementService) {
+  }
+
+  initialize() {
+    if (this.sessionManager.isUserLoggedIn()) {
+      this.httpOptions = {
+        headers: new HttpHeaders(
+          {
+            'Content-Type': 'application/json',
+            'Authorization': '' + this.sessionManager.getToken()
+          })
+      };
+      this.companyID = this.sessionManager.getLoggedUserId();
+      this.isCompany = this.sessionManager.getLoggedUserRole() == Role.RoleStringEnum.COMPANY;
+    }
   }
 
   public getCompanies(): Observable<Company[]> {
-    return this.http.get<Company[]>(this.url + '/company/all', httpOptions).pipe(
+    return this.http.get<Company[]>(this.url + '/company/all', this.httpOptions).pipe(
       tap(
         data => {
           this.companies = data;
@@ -129,13 +154,22 @@ export class ServerCompaniesService implements AbstractCompaniesService {
   }
 
   public getDistances(id: number): Observable<number> {
-    console.log(id);
-    console.log('id distanta');
-    return this.http.get<number>(this.url + '/company/distance/' + id, httpOptions).pipe(
+    return this.http.get<number>(this.url + '/company/distance/' + id, this.httpOptions).pipe(
       tap(
         data => {
           this.distance = data;
-          console.log(this.distance);
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
+  }
+
+  public selectCompany(id: number) {
+    return this.http.put<void>(this.url + '/company/viewscounter/' + id, {}, this.httpOptions).pipe(
+      tap(
+        data => {
         },
         error => {
           console.log(error);
