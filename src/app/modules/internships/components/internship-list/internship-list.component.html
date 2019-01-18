@@ -1,3 +1,8 @@
+<div class="float-right">
+  <button mat-fab color="primary" color="primary" *ngIf="isHisProfile" (click)="openAddInternshipDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
 <h2>Internship List!</h2>
 <app-filters></app-filters>
 <app-internship-list-item *ngFor="let internshipEl of internships" [internship]="internshipEl"></app-internship-list-item>

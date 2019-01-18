@@ -23,10 +23,12 @@ export abstract class AbstractInternshipDetailsService {
   public abstract getInternshipSkills(internshipID: string): Observable<Skill[]>;
 
   public abstract applyToInternship(int: number): Observable<Internship>;
+
+  public abstract addInternship(internship: Internship): Observable<Internship>;
 }
 
 export class ServerInternshipDetailsService implements AbstractInternshipDetailsService {
-  applicantID: number;
+  specificID: number;
   isApplicant: boolean;
   isUsersProfile: boolean = true;
 
@@ -52,7 +54,7 @@ export class ServerInternshipDetailsService implements AbstractInternshipDetails
             'Authorization': '' + this.sessionManager.getToken()
           })
       };
-      this.applicantID = this.sessionManager.getLoggedUserId();
+      this.specificID = this.sessionManager.getSpecificId();
       this.isApplicant = this.sessionManager.getLoggedUserRole() == Role.RoleStringEnum.APPLICANT;
     } else {
       //todo redirect to login :)
@@ -100,11 +102,30 @@ export class ServerInternshipDetailsService implements AbstractInternshipDetails
   }
 
   applyToInternship(id: number): Observable<Internship> {
-    console.log("yyyyy");
     return this.http.post<Internship>(this.url + '/internship/' + id + '/apply', {}, this.httpOptions).pipe(
       tap(
         () => {
-        
+
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
+  }
+
+  addInternship(internship: Internship): Observable<Internship> {
+    return this.http.post<Internship>(this.url + '/internship/create',
+      {
+        'company': {
+          'id': this.specificID
+        },
+        'internship': internship
+      },
+      this.httpOptions).pipe(
+      tap(
+        (data) => {
+          console.log(data);
         },
         error => {
           console.log(error);
@@ -152,5 +173,9 @@ export class MockInternshipDetailsService implements AbstractInternshipDetailsSe
   }
 
   initialize() {
+  }
+
+  addInternship(internship: Internship): Observable<Internship> {
+    return of({});
   }
 }
