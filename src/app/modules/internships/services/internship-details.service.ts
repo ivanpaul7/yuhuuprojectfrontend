@@ -103,13 +103,11 @@ export class ServerInternshipDetailsService implements AbstractInternshipDetails
     console.log("yyyyy");
     return this.http.post<Internship>(this.url + '/internship/' + id + '/apply', {}, this.httpOptions).pipe(
       tap(
-        data => {
-          console.log(data);
-          console.log("Successssssssss apply");
+        () => {
+        
         },
         error => {
           console.log(error);
-          console.log("erorrrrrrr  apply");
         }
       )
     );
