@@ -34,9 +34,9 @@
               <!--Photo upload-->
               <input class="input-file"
                      type="file" (change)="onPhotoFileChanged($event)"
-                     #fileInput>
+                     #fileInput2>
               <button mat-raised-button *ngIf="isHisProfile" class="edit-button upload-button"
-                      (click)="fileInput.click()">
+                      (click)="fileInput2.click()">
                 <mat-icon>add_a_photo</mat-icon>
                 Upload Photo
               </button>
