@@ -15,8 +15,6 @@ import {logger} from 'codelyzer/util/logger';
 })
 export class InternshipListComponent implements OnInit {
   internships: Internship[] = [];
-  // companiesJoin: JoinCompany[] = [];
-  // skillsJoin: JoinSkill[] = [];
   isHisProfile = true;
   skillFilters: string[] = [];
   companyFilters: Company[] = [];
@@ -26,29 +24,6 @@ export class InternshipListComponent implements OnInit {
     this.internshipsService.getAllInternshipDTOs().subscribe(data => {
       this.internshipDTOs=data;
     });
-
-    // this.internshipsService.getInternships().subscribe(
-    //   (data: Internship[]) => {
-    //     this.internships = data;
-    //     for (const internship of data) {
-    //       this.internshipsService.getInternshipCompany(internship.id).subscribe(
-    //         (company: Company) => this.companiesJoin.push({
-    //           idInternship: internship.id,
-    //           idCompany: company.id
-    //         }),
-    //         error => console.log(error)
-    //       );
-    //       this.internshipsService.getInternshipSkills(internship.id).subscribe(
-    //         (skill: Skill[]) => this.skillsJoin.push({
-    //           idInternship: internship.id,
-    //           skills: skill
-    //         }),
-    //         error => console.log(error)
-    //       );
-    //     }
-    //   },
-    //   error => console.log(error)
-    // );
   }
 
   ngOnInit() {
@@ -85,17 +60,6 @@ export class InternshipListComponent implements OnInit {
     return this.internshipDTOs;
   }
 
-
-  // filterBySkills(skillFilters: Skill[]) {
-  //   if (skillFilters.length !== 0) {
-  //     this.internships = this.internships.filter((internship) => {
-  //       const skillsFiltered = this.skillsJoin.find((join) => join.idInternship === internship.id);
-  //       return skillsFiltered.skills.filter(
-  //         (skill) => skillFilters.map((sk) => sk.id).indexOf(skill.id) > -1)
-  //         .length === this.internshipsService.skillFilters.length;
-  //     });
-  //   }
-  // }
 
   openAddInternshipDialog() {
     const dialogRef = this.dialog.open(AddInternshipComponent, {
