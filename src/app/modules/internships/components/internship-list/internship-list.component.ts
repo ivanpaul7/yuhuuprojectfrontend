@@ -6,6 +6,7 @@ import {StudentProfileEditBasicComponent} from '../../../profile/components/stud
 import {AddInternshipComponent} from '../add-internship/add-internship.component';
 import {MatDialog} from '@angular/material';
 import {InternshipDTO} from '../../../../shared/model/InternshipDTO';
+import {logger} from 'codelyzer/util/logger';
 
 @Component({
   selector: 'app-internship-list',
@@ -15,10 +16,10 @@ import {InternshipDTO} from '../../../../shared/model/InternshipDTO';
 export class InternshipListComponent implements OnInit {
   internships: Internship[] = [];
   // companiesJoin: JoinCompany[] = [];
-  skillsJoin: JoinSkill[] = [];
+  // skillsJoin: JoinSkill[] = [];
   isHisProfile = true;
-  skillFilters: string[];
-  companyFilters: Company[];
+  skillFilters: string[] = [];
+  companyFilters: Company[] = [];
   internshipDTOs : InternshipDTO[];
 
   constructor(private internshipsService: AbstractInternshipsService, public dialog: MatDialog) {
@@ -62,6 +63,7 @@ export class InternshipListComponent implements OnInit {
   }
 
    public get filteredInternships() {
+
     this.internshipsService.getAllInternshipDTOs().subscribe(
       (data: InternshipDTO[]) => {
         this.internshipDTOs = data;
@@ -84,16 +86,16 @@ export class InternshipListComponent implements OnInit {
   }
 
 
-  filterBySkills(skillFilters: Skill[]) {
-    if (skillFilters.length !== 0) {
-      this.internships = this.internships.filter((internship) => {
-        const skillsFiltered = this.skillsJoin.find((join) => join.idInternship === internship.id);
-        return skillsFiltered.skills.filter(
-          (skill) => skillFilters.map((sk) => sk.id).indexOf(skill.id) > -1)
-          .length === this.internshipsService.skillFilters.length;
-      });
-    }
-  }
+  // filterBySkills(skillFilters: Skill[]) {
+  //   if (skillFilters.length !== 0) {
+  //     this.internships = this.internships.filter((internship) => {
+  //       const skillsFiltered = this.skillsJoin.find((join) => join.idInternship === internship.id);
+  //       return skillsFiltered.skills.filter(
+  //         (skill) => skillFilters.map((sk) => sk.id).indexOf(skill.id) > -1)
+  //         .length === this.internshipsService.skillFilters.length;
+  //     });
+  //   }
+  // }
 
   openAddInternshipDialog() {
     const dialogRef = this.dialog.open(AddInternshipComponent, {
