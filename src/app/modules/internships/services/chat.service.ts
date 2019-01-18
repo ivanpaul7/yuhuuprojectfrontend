@@ -3,6 +3,10 @@ import {ChatComment} from '../../../shared/model/chatComment';
 import {Observable, of} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 
+import {AbstractInternshipDetailsService} from './internship-details.service';
+
+import {Applicant} from '../../../shared/model/applicant';
+
 @Injectable()
 export abstract class AbstractChatService {
   public abstract getComments(internshipId: number): Observable<ChatComment[]>;
