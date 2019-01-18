@@ -17,6 +17,8 @@ export abstract class AbstractCompaniesService {
   public abstract getCompanyName(): string[];
 
   public abstract setNameFilters(filters: string[]): void;
+
+  public abstract getDistances(id: number): Observable<number>;
 }
 
 export class MockCompaniesService implements AbstractCompaniesService {
@@ -81,6 +83,9 @@ export class MockCompaniesService implements AbstractCompaniesService {
   public getNameFilters(): string[] {
     return this.nameFilters;
   }
+  public getDistances(id: number): Observable<number> {
+    return of(this.companies.length);
+  }
 }
 
 // todo change bearer from logged user
@@ -100,6 +105,7 @@ const httpOptions = {
 })
 export class ServerCompaniesService implements AbstractCompaniesService {
   companies: Company[];
+  distance: number;
 
   private companiesName: string[] = [];
   nameFilters: string[] = [];
@@ -114,6 +120,22 @@ export class ServerCompaniesService implements AbstractCompaniesService {
       tap(
         data => {
           this.companies = data;
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
+  }
+
+  public getDistances(id: number): Observable<number> {
+    console.log(id);
+    console.log('id distanta');
+    return this.http.get<number>(this.url + '/company/distance/' + id, httpOptions).pipe(
+      tap(
+        data => {
+          this.distance = data;
+          console.log(this.distance);
         },
         error => {
           console.log(error);
