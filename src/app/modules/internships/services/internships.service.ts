@@ -2,11 +2,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import * as moment from 'moment';
 import {of, ReplaySubject, Subject} from 'rxjs';
-import {Company} from 'src/app/shared/model/models';
+import {Company, Internship} from 'src/app/shared/model/models';
 import {Skill} from 'src/app/shared/model/Skill';
 import {Tag} from 'src/app/shared/model/Tag';
-import {Internship} from '../../../shared/model/Internship';
-
 
 export abstract class AbstractInternshipsService {
   companyFilters: Company[] = [];
@@ -478,6 +476,7 @@ export class ServerInternshipsService implements AbstractInternshipsService {
   }
 
   getInternshipCompany(idInternship: number) {
+    console.log(idInternship);
     const url = 'http://enigmatic-sierra-91538.herokuapp.com/api/internship/';
     const httpOptions = {
       headers: new HttpHeaders({

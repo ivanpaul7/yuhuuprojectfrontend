@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-import * as models from './models';
 import { Skill } from './Skill';
 
 export interface Internship {
@@ -20,7 +19,7 @@ export interface Internship {
 
     description?: string;
 
-    employmentType?: Internship.EmploymentTypeEnum;
+    employmentType?: InternshipEnums.EmploymentTypeEnum;
 
     endDate?: Date;
 
@@ -30,12 +29,12 @@ export interface Internship {
 
     startDate?: Date;
 
-    status?: Internship.StatusEnum;
+    status?: InternshipEnums.StatusEnum;
 
     title?: string;
 
 }
-export namespace Internship {
+export namespace InternshipEnums {
     export enum EmploymentTypeEnum {
         FULLTIME = <any> 'FULL_TIME',
         PARTTIME = <any> 'PART_TIME'

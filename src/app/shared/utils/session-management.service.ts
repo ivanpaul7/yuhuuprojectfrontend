@@ -1,5 +1,5 @@
 import {EventEmitter, Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {User} from '../model/user';
 import {Company} from '../model/Company';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -25,7 +25,6 @@ export class SessionManagementService {
   public setToken(token: string) {
     token = 'Bearer ' + token;
     this.token = token;
-    localStorage.setItem('token', token);
     this.getLoggedUser().subscribe((user) => {
       this.currentLoggedUser = user;
       if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.APPLICANT) {
@@ -33,6 +32,7 @@ export class SessionManagementService {
           this.specificId = applicant.id;
           applicantNavBarItems.push({title: 'My profile', path: 'profile/student/' + this.specificId});
           this.everythingLoaded = true;
+          this.persistInLocalStorage();
           this.isLoginDataLoadingFinished.emit(true);
         }, (error) => {
           console.log(error);
@@ -43,6 +43,7 @@ export class SessionManagementService {
           this.specificId = company.id;
           companyNavBarItems.push({title: 'My profile', path: 'profile/company/' + this.specificId});
           this.everythingLoaded = true;
+          this.persistInLocalStorage();
           this.isLoginDataLoadingFinished.emit(true);
         }, (error) => {
           console.log(error);
@@ -55,6 +56,42 @@ export class SessionManagementService {
       console.log(error);
       this.isLoginDataLoadingFinished.emit(false);
     });
+  }
+
+  private persistInLocalStorage() {
+    localStorage.setItem('token', this.token);
+    localStorage.setItem('currentLoggedUser', JSON.stringify(this.currentLoggedUser));
+    localStorage.setItem('everythingLoaded', JSON.stringify(this.everythingLoaded));
+    localStorage.setItem('specificId', JSON.stringify(this.specificId));
+  }
+
+  public retrieveFromLocalStorage() {
+    this.token = localStorage.getItem('token');
+    this.currentLoggedUser = JSON.parse(localStorage.getItem('currentLoggedUser'));
+    this.everythingLoaded = JSON.parse(localStorage.getItem('everythingLoaded'));
+    this.specificId = JSON.parse(localStorage.getItem('specificId'));
+    if (this.currentLoggedUser != null) {
+      if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.APPLICANT) {
+        applicantNavBarItems.push({title: 'My profile', path: 'profile/student/' + this.currentLoggedUser.id});
+        this.isLoginDataLoadingFinished.emit(true);
+      } else if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.COMPANY) {
+        companyNavBarItems.push({title: 'My profile', path: 'profile/company/' + this.currentLoggedUser.id});
+        this.isLoginDataLoadingFinished.emit(true);
+      }
+    } else {
+      this.isLoginDataLoadingFinished.emit(false);
+    }
+  }
+
+  public clearLocalStorage() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('currentLoggedUser');
+    localStorage.removeItem('everythingLoaded');
+    localStorage.removeItem('specificId');
+    this.token = null;
+    this.currentLoggedUser = null;
+    this.specificId = null;
+    this.everythingLoaded = false;
   }
 
   public isUserLoggedIn(): boolean {

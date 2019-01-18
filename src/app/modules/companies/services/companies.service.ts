@@ -88,7 +88,10 @@ const httpOptions = {
   headers: new HttpHeaders(
     {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1NzczMDA1NTksImF1dGhvcml0aWVzIjpbIkNPTVBBTlkiXSwianRpIjoiZWYwNTMyMTItNTBjMy00NjBlLTljMGMtZjQ1MjhhMzIyODljIiwiY2xpZW50X2lkIjoidGVzdGp3dGNsaWVudGlkIn0.AKPOfkqYQ5bvDkbVGBMYXDJzvJIaOukYWLhsnZckmTo'
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291' +
+        'cmNlaWQiXSwidXNlcl9uYW1lIjoiY29tcGFueSIsInNjb3BlIjpbInJlYWQiLCJ3cml0ZSJdLCJleHAiOjE1Nzcz' +
+        'MDA1NTksImF1dGhvcml0aWVzIjpbIkNPTVBBTlkiXSwianRpIjoiZWYwNTMyMTItNTBjMy00NjBlLTljMGMtZjQ1M' +
+        'jhhMzIyODljIiwiY2xpZW50X2lkIjoidGVzdGp3dGNsaWVudGlkIn0.AKPOfkqYQ5bvDkbVGBMYXDJzvJIaOukYWLhsnZckmTo'
     })
 };
 
@@ -107,7 +110,6 @@ export class ServerCompaniesService implements AbstractCompaniesService {
   }
 
   public getCompanies(): Observable<Company[]> {
-    console.log('Da-i Tatii');
     return this.http.get<Company[]>(this.url + '/company/all', httpOptions).pipe(
       tap(
         data => {
@@ -121,12 +123,8 @@ export class ServerCompaniesService implements AbstractCompaniesService {
   }
 
   getCompanyName() {
-    console.log('111111');
-    console.log(this.companies.length);
     for (let i = 0; i < this.companies.length; i++) {
-      console.log(this.companies[i]);
       this.companiesName.push(this.companies[i].name);
-      console.log(this.companies[i].name);
     }
     return this.companiesName.slice();
   }

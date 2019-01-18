@@ -8,7 +8,6 @@ import { MiniProfile } from './utils/mini-profile/mini-profile.component';
 import { BusinessList } from './utils/business-list/business-list.component';
 import { XYLineChartComponent } from './utils/xyline-chart/xyline-chart.component';
 import { PieChartComponent } from './utils/pie-chart/pie-chart.component';
-import {appRoutes} from '../../app.module';
 
 @NgModule({
   imports: [

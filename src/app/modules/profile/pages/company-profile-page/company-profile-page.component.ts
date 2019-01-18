@@ -3,8 +3,8 @@ import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {Company} from '../../../../shared/model/Company';
 import {AbstractCompanyProfileService} from '../../services/company-profile.service';
-import {MatDialog, MatListModule} from '@angular/material';
-import { Router } from '@angular/router';
+import {MatDialog} from '@angular/material';
+import {Router} from '@angular/router';
 import {CompanyProfileEditBasicComponent} from '../../components/company-profile-edit-basic/company-profile-edit-basic.component';
 import {CompanyProfileEditContactComponent} from '../../components/company-profile-edit-contact/company-profile-edit-contact.component';
 
@@ -43,7 +43,7 @@ export class CompanyProfilePageComponent implements OnInit {
       data: {companyProfile: this.company}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
     });
 
     dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
@@ -57,7 +57,7 @@ export class CompanyProfilePageComponent implements OnInit {
       data: {companyProfile: this.company}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
     });
 
     dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
@@ -73,10 +73,10 @@ export class CompanyProfilePageComponent implements OnInit {
     const uploadData = new FormData();
     uploadData.append('file', event.target.files[0], event.name);
     this.companyService.uploadPhoto(uploadData).then((data) => {
-      this.company.contact.photo=data;
-    }).catch(err => {
-      //todo
-      console.log("error fronted photo");
+      this.company.contact.photo = data;
+    }).catch(() => {
+      // todo
+      console.log('error fronted photo');
     });
   }
 }

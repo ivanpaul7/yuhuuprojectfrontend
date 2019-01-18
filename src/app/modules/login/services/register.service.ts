@@ -21,7 +21,7 @@ export class MockRegisterService implements AbstractRegisterService {
   authToken = ' ';
 
   register(username: String, password: String, email: String, firstName: String, lastNameString: String): Observable<Applicant> {
-    //todo
+    // todo
     if (username !== '') {
       return of(null);
     } else {
@@ -48,22 +48,19 @@ export class ServerRegisterService implements AbstractRegisterService {
         'username': username
       },
       'applicant': {
-        //todo delete
+        // todo delete
         'birthday': '1950-12-27',
         'firstName': firstName,
         'lastName': lastName
       }
     }).pipe(
       tap(
-        data => {
-          console.log("Succes");
-          console.log(data);
+        () => {
         },
         error => {
-          console.log("Error");
           console.log(error);
         }
       )
-    );;
+    );
   }
 }
