@@ -1,0 +1,33 @@
+.internship {
+  width: 100%;
+}
+
+.ACCEPTED {
+  background-color: #53a93f;
+}
+
+.PENDING {
+  background-color: steelblue;
+}
+
+.REJECTED {
+  background-color: #e74c3c;
+}
+
+.status {
+  position: relative;
+
+  display: block;
+  text-align: center;
+  padding: 0;
+
+  overflow: hidden;
+
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+
+  //background-color: steelblue;
+  color: #ecf0f1;
+}
