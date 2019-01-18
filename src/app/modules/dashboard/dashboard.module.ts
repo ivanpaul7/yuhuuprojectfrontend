@@ -13,7 +13,6 @@ import {AbstractInternshipsService} from '../internships/services/internships.se
 import {environment} from '../../../environments/environment';
 import {InternshipsListForApplicantComponent} from './components/internships-list-for-applicant/internships-list-for-applicant.component';
 import {AbstractIntershipsForDashboardServicesService} from './services/interships-services.service';
-import {environment} from '../../../environments/environment';
 import {
   MatButtonModule,
   MatCardModule,
