@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Internship, JoinCompany, JoinSkill } from '../../../../shared/model/Internship';
-import { AbstractInternshipsService } from '../../services/internships.service';
-import { Company, Skill } from 'src/app/shared/model/models';
+import {Component, OnInit} from '@angular/core';
+import {Internship, JoinCompany, JoinSkill} from '../../../../shared/model/InternshipEnums';
+import {AbstractInternshipsService} from '../../services/internships.service';
+import {Company, Skill} from 'src/app/shared/model/models';
 
 @Component({
   selector: 'app-internship-list',
@@ -57,8 +57,6 @@ export class InternshipListComponent implements OnInit {
     if (companyFilters.length !== 0) {
       this.internships = this.internships.filter((internship) => {
         const company = this.companiesJoin.find((join) => join.idInternship === internship.id);
-        console.log(company);
-        console.log(companyFilters.map((comp) => comp.id).indexOf(company.idCompany) > -1);
         return companyFilters.map((comp) => comp.id).indexOf(company.idCompany) > -1;
       });
     }

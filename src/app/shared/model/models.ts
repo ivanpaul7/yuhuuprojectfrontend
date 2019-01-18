@@ -5,7 +5,7 @@ export * from './Company';
 export * from './Contact';
 export * from './CreateInternshipRequest';
 export * from './Education';
-export * from './Internship';
+export * from './InternshipEnums';
 export * from './Photo';
 export * from './RegisterApplicantRequest';
 export * from './RegisterCompanyRequest';

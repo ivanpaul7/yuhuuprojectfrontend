@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Internship } from 'src/app/shared/model/Internship';
-import { Photo } from 'src/app/shared/model/Photo';
-import { Skill } from 'src/app/shared/model/Skill';
-import { Tag } from 'src/app/shared/model/Tag';
-import { AbstractInternshipDetailsService } from '../../services/internship-details.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Internship} from 'src/app/shared/model/InternshipEnums';
+import {Photo} from 'src/app/shared/model/Photo';
+import {Skill} from 'src/app/shared/model/Skill';
+import {Tag} from 'src/app/shared/model/Tag';
+import {AbstractInternshipDetailsService} from '../../services/internship-details.service';
 
 @Component({
   selector: 'app-internship-details-page',
@@ -17,7 +17,7 @@ export class InternshipDetailsPageComponent implements OnInit {
   public internshipDetails: Internship;
   public internshipLogo: Photo;
   public internshipTags: Tag[];
-  public internshipSkills: Skill[]
+  public internshipSkills: Skill[];
 
   constructor(private details: AbstractInternshipDetailsService, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {

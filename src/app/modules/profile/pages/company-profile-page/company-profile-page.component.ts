@@ -45,7 +45,7 @@ export class CompanyProfilePageComponent implements OnInit {
       data: {companyProfile: this.company}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
     });
 
     dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
@@ -59,7 +59,7 @@ export class CompanyProfilePageComponent implements OnInit {
       data: {companyProfile: this.company}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
     });
 
     dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
@@ -76,8 +76,8 @@ export class CompanyProfilePageComponent implements OnInit {
     uploadData.append('file', event.target.files[0], event.name);
     this.companyService.uploadPhoto(uploadData).then((data) => {
       this.company.contact.photo = data;
-    }).catch(err => {
-      //todo
+    }).catch(() => {
+      // todo
       console.log('error fronted photo');
     });
   }

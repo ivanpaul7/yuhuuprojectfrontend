@@ -9,7 +9,6 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 export class ApplicantDashboardComponent implements OnInit {
 
   constructor() {
-    console.log('ApplicantDashboardComponent Works');
   }
 
   ngOnInit() {

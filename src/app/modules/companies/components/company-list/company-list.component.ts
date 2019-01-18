@@ -36,7 +36,6 @@ export class CompanyListComponent implements OnInit {
   }
 
   goToDetailedCompany(companyId: number) {
-    console.log(companyId);
     this.router.navigate(['./profile/company/' + companyId]);
   }
 }
