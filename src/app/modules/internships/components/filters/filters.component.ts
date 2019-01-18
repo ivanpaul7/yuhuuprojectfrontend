@@ -52,23 +52,6 @@ export class FiltersComponent implements OnInit {
       error => console.log(error)
     );
 
-
-
-    // this.route.queryParams
-    //   .subscribe(
-    //     (params: Params) => {
-    //       if (params['skill'] !== undefined) {
-    //         this.selectedSkills = this.selectedSkills.concat(decodeURI(params['skill'])
-    //           .split(',').map((name: string) => this.skills.find((skill) => skill === name)));
-    //       }
-    //       if (params['company'] !== undefined) {
-    //         this.selectedCompanies = this.selectedCompanies.concat(decodeURI(params['company'])
-    //           .split(',').map((name: string) => this.companies.find((company) => company.name === name)));
-    //       }
-    //       this.setFilters();
-    //       this.router.navigate(['internships']);
-    //     }
-    //   );
     this.filterForm = new FormGroup({
       'companyFilter': new FormControl(''),
       'skillFilter': new FormControl('')

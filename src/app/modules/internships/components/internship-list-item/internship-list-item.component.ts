@@ -17,25 +17,5 @@ export class InternshipListItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    // if (this.internship) {
-    //   // this.intershipsService.getInternshipLogo(this.internship.id).subscribe(
-    //   //   (data) =>
-    //   //   error => console.log(error)
-    //   // );
-    //   this.intershipsService.getInternshipCompany(this.internship.id).subscribe(
-    //     (data: Company) => {
-    //       console.log(data);
-    //       //console.log(data.contact.photo.url);
-    //       this.company = data;
-    //       this.logo = data.contact.photo.url;
-    //     },
-    //
-    //     error => console.log(error)
-    //   );
-    //   this.intershipsService.getInternshipTags(this.internship.id).subscribe(
-    //     (data: Tag[]) => this.tags = data,
-    //     error => console.log(error)
-    //   );
-    // }
   }
 }
