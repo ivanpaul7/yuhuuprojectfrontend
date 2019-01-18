@@ -27,6 +27,9 @@ import {
   MatIconModule,
   MatAutocompleteModule,
 } from '@angular/material';
+import {ChartsModule} from 'ng2-charts';
+import { CompanyChartComponent } from './components/company-chart/company-chart.component';
+import {CompanyChartService} from './services/company-chart.service';
 
 @NgModule({
   imports: [
@@ -44,6 +47,7 @@ import {
     MatListModule,
     MatIconModule,
     MatAutocompleteModule,
+    ChartsModule
   ],
   declarations: [
     CompanyDashboardComponent,
@@ -53,7 +57,8 @@ import {
     BusinessList,
     XYLineChartComponent,
     PieChartComponent,
-    InternshipsListForApplicantComponent
+    InternshipsListForApplicantComponent,
+    CompanyChartComponent
   ],
   exports: [
     CompanyDashboardComponent,
@@ -67,7 +72,8 @@ import {
     {
       provide: AbstractIntershipsForDashboardServicesService,
       useClass: environment.internshipServiceForDashboardService
-    }
+    },
+    CompanyChartService
   ]
 })
 export class DashboardModule {
