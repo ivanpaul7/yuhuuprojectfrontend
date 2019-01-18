@@ -21,14 +21,11 @@
   grid-area: i_logo; 
 }
 
-.internship-apply { 
-  grid-area: i_apply; 
+.internship-button { 
+  grid-area: i_button; 
   text-transform: uppercase;
 }
-.internship-modify { 
-  grid-area: i_modify; 
-  text-transform: uppercase;
-}
+
 .internship-logo > img {
   object-fit: cover;
   max-width: 100%;
@@ -52,7 +49,7 @@
     'i_title i_title i_title i_status i_status i_status'
     'i_logo i_logo i_desc i_desc i_desc i_desc'
     'i_date i_date i_desc i_desc i_desc i_desc'
-    'i_tags i_tags i_tags . i_modify i_apply';
+    'i_tags i_tags i_tags . . i_button';
   grid-template-rows: 28px 120px 120px 28px;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-gap: 8px;

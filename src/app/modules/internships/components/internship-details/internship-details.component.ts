@@ -23,7 +23,8 @@ export class InternshipDetailsComponent implements OnInit {
   @Input() internshipTags: Tag[];
   @Input() internshipSkills: Skill[];
   @Input() internshipRequirements: Requirement[];
-
+  @Input() isCompany: boolean;
+  @Input() isProprietary: boolean;
 
 
   constructor(public dialog: MatDialog, private internshipDetailsService: AbstractInternshipDetailsService) {

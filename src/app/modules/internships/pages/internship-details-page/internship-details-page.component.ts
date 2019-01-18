@@ -20,6 +20,8 @@ export class InternshipDetailsPageComponent implements OnInit {
   public internshipTags: Tag[];
   public internshipSkills: Skill[];
   public internshipRequirements: Requirement[]
+  public isCompany: boolean
+  public isProprietary: boolean
 
   constructor(private details: AbstractInternshipDetailsService, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
@@ -29,7 +31,9 @@ export class InternshipDetailsPageComponent implements OnInit {
 
   ngOnInit() {
     this.initialize();
-    this.details.getInternship(this.internshipID).subscribe(internship => this.internshipDetails = internship);
+    this.details.getInternship(this.internshipID).subscribe(internship => {this.internshipDetails = internship;
+    this.isCompany = !this.details.isApplicant;
+    this.isProprietary = this.details.isCompanysInternship});
     this.details.getInternshipLogo(this.internshipID).subscribe(internshipLogo => this.internshipLogo = internshipLogo);
     this.details.getInternshipTags(this.internshipID).subscribe(internshipTags => this.internshipTags = internshipTags);
     this.details.getInternshipSkills(this.internshipID).subscribe(internshipSkils => this.internshipSkills = internshipSkils);

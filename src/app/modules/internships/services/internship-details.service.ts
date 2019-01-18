@@ -9,10 +9,15 @@ import {Skill} from 'src/app/shared/model/Skill';
 import {SessionManagementService} from '../../../shared/utils/session-management.service';
 import {Role} from '../../../shared/model/Role';
 import {Requirement} from "../../../shared/model/Requirement"
+import { Company } from 'src/app/shared/model/models';
+import { companyNavBarItems } from 'src/app/app.module';
 
 
 @Injectable()
 export abstract class AbstractInternshipDetailsService {
+  public isApplicant: boolean;
+  public isCompanysInternship: boolean = true;
+
   public abstract initialize();
 
   public abstract getInternship(internshipID: string): Observable<Internship>;
@@ -25,6 +30,7 @@ export abstract class AbstractInternshipDetailsService {
 
   public abstract getInternshipRequirements(internshipID: string): Observable<Requirement[]>;
 
+  public abstract getInternshipCompany(internshipID: string): Observable<Company>;
 
   public abstract applyToInternship(int: number): Observable<Internship>;
 
@@ -45,8 +51,8 @@ export abstract class AbstractInternshipDetailsService {
 export class ServerInternshipDetailsService implements AbstractInternshipDetailsService {
 
   applicantID: number;
-  isApplicant: boolean;
-  isUsersProfile: boolean = true;
+  public isApplicant: boolean;
+  public isCompanysInternship: boolean = true;
   allSkills: Skill[];
 
   httpOptions = {
@@ -79,7 +85,20 @@ export class ServerInternshipDetailsService implements AbstractInternshipDetails
 
   }
 
-  public getInternship(internshipID: string): Observable<Internship> {
+  public getInternshipCompany(internshipID: string): Observable<Company> {
+    this.getInternshipCompany(internshipID).subscribe((company) => 
+    {
+      if ((this.isApplicant) || company.id === this.applicantID) {
+        this.isCompanysInternship = false;
+      }
+    })
+    
+
+    return this.http.get<Company>(this.url + '/internship/details/' + internshipID, this.httpOptions).pipe(
+      tap(() => {}),
+      catchError(this.handleError<Internship>(`getInternshipCompany failed ${internshipID}`)));
+  }
+  public getInternship(internshipID: string): Observable<Internship> {    
     return this.http.get<Internship>(this.url + '/internship/details/' + internshipID, this.httpOptions).pipe(
       tap(() => console.log(`fetched Internship id#${internshipID}`)),
       catchError(this.handleError<Internship>(`getInternship failed ${internshipID}`)));
@@ -138,65 +157,37 @@ export class ServerInternshipDetailsService implements AbstractInternshipDetails
 
   public getListAllSkills(): Observable<Skill[]> {
     return this.http.get<Skill[]>(this.url + '/skill/all', this.httpOptions).pipe(
-      tap(
-        data => {
-          this.allSkills = data;
-        },
-        error => {
-          console.log(error);
-        }
-      )
-    );
+      tap(data => {this.allSkills = data;}, error => {console.log(error); }));
   }
 
   addSkill(internship: Internship, skill: Skill): Observable<Internship> {
     return this.http.put<Internship>(this.url + '/internship/' + internship.id + '/skill', skill, this.httpOptions).pipe(
-      tap(
-        data => {
-        },
-        error => {
-        }
-      )
-    );
+      tap(data => {},error => {}));
   }
 
   deleteSkill(internship: Internship,id: number): Observable<Internship> {
     return this.http.delete<Internship>(this.url + '/internship/' + internship.id + '/skills/' + id, this.httpOptions).pipe(
-      tap(
-        data => {
-        },
-        error => {
-        }
-      )
-    );
+      tap(data => {},error => {}));
   }
 
   public addRequirement(internship: Internship, requirement: Requirement): Observable<Requirement> {
-    console.log(requirement);
     return this.http.put<Requirement>(this.url + '/internship/' + internship.id + '/requirement', requirement, this.httpOptions).pipe(
-      tap(
-        data => {
-        },
-        error => {
-        }
-      )
-    );
+      tap(data => {},error => {}));
   }
   public deleteRequirement(internship: Internship, id: number): Observable<Requirement> {
-    console.log(id);
-    return this.http.delete<Requirement>(this.url + '/internship/' + internship.id + '/requirement/' + id, this.httpOptions).pipe(
-      tap(
-        data => {
-        },
-        error => {
-        }
-      )
-    );
+    return this.http.delete<Requirement>(this.url + '/internship/' + internship.id + '/requirements/' + id, this.httpOptions).pipe(
+      tap(data => {},error => {}));
   }
 
 }
 
 export class MockInternshipDetailsService implements AbstractInternshipDetailsService {
+  public isApplicant: boolean;
+  public isCompanysInternship: boolean;
+  public getInternshipCompany(internshipID: string): Observable<Company> {
+    throw new Error("Method not implemented.");
+  }
+  '': any;
   public getInternshipRequirements(internshipID: string): Observable<Requirement[]> {
     throw new Error("Method not implemented.");
   }

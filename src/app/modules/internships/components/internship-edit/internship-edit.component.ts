@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AbstractInternshipDetailsService} from '../../services/internship-details.service';
 import {DatePipe} from '@angular/common';
 import {FormControl, Validators} from '@angular/forms';
-import {Internship} from 'src/app/shared/model/InternshipEnums';
+import {Internship, InternshipEnums} from 'src/app/shared/model/InternshipEnums';
 
 @Component({
   selector: 'app-internship-edit',
@@ -18,13 +18,13 @@ export class InternshipEditComponent implements OnInit {
   selectFormControl = new FormControl('', Validators.required);
   selectFormControlStatus = new FormControl('', Validators.required);
   optionsEmploymentType: Object[] = [
-    {name: 'Full Time', value: Internship.EmploymentTypeEnum.FULLTIME },
-    {name: 'Part Time', value: Internship.EmploymentTypeEnum.PARTTIME },
+    {name: 'Full Time', value: InternshipEnums.EmploymentTypeEnum.FULLTIME },
+    {name: 'Part Time', value: InternshipEnums.EmploymentTypeEnum.PARTTIME },
   ];
   optionsStatus: Object[] = [
-    {name: 'Active', value: Internship.StatusEnum.ACTIVE },
-    {name: 'Ended', value: Internship.StatusEnum.ENDED },
-    {name: 'Coming', value: Internship.StatusEnum.COMING }
+    {name: 'Active', value: InternshipEnums.StatusEnum.ACTIVE },
+    {name: 'Ended', value: InternshipEnums.StatusEnum.ENDED },
+    {name: 'Coming', value: InternshipEnums.StatusEnum.COMING }
   ];
 
   constructor(
