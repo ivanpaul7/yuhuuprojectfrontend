@@ -30,10 +30,6 @@ export class PieChartComponent implements OnInit, OnChanges {
       title:{
         text:'Tags consistency'
       },
-      size: {
-        height: 220,
-        width: 220
-      },
       data: {
         columns: data,
         type: 'pie',

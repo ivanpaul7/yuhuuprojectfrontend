@@ -3,8 +3,8 @@ import {Company} from '../../../../shared/model/Company';
 import {DashboardService} from '../../utils/service/dashboard.service';
 import {Applicant} from '../../../../shared/model/applicant';
 import {Skill} from '../../../../shared/model/Skill';
-import {Internship} from '../../../../shared/model/Internship';
 import {InternshipDTO} from '../../../../shared/model/InternshipDTO';
+import {Internship} from '../../../../shared/model/InternshipEnums';
 
 @Component({
   selector: 'app-applicant-dashboard',

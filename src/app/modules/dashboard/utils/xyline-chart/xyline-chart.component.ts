@@ -22,6 +22,9 @@ export class XYLineChartComponent implements OnInit, OnChanges {
   initChart(data) {
     var chart = c3.generate({
       bindto: '#chart',
+      title:{
+        text:'Number of internships of companies'
+      },
       data: {
         x: 'x',
         columns: data,

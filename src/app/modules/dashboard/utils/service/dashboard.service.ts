@@ -5,8 +5,8 @@ import {Company} from '../../../../shared/model/Company';
 import {Observable} from 'rxjs';
 import {Applicant} from '../../../../shared/model/applicant';
 import {Skill} from '../../../../shared/model/Skill';
-import {Internship} from '../../../../shared/model/Internship';
 import {InternshipDTO} from '../../../../shared/model/InternshipDTO';
+import {Internship} from '../../../../shared/model/InternshipEnums';
 
 @Injectable({
   providedIn: 'root'

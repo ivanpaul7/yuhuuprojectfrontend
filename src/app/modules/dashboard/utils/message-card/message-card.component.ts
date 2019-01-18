@@ -1,7 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Skill} from '../../../../shared/model/Skill';
-import {MessageCardService} from './service/message-card.service';
-import {Internship} from '../../../../shared/model/Internship';
+import {Internship} from '../../../../shared/model/InternshipEnums';
 
 @Component({
   selector: 'app-message-card',

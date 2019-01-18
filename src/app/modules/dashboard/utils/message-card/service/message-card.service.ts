@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Internship} from '../../../../../shared/model/Internship';
-import {Skill} from '../../../../../shared/model/Skill';
 
 @Injectable({
   providedIn: 'root'
