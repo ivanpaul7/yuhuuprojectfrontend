@@ -31,12 +31,14 @@ export class InternshipEditComponent implements OnInit {
   }
 
   onSaveClick() {
-    // this.internship.birthday = new Date(this.datepipe.transform(this.internship.birthday, 'yyyy-MM-dd'));
-    // this.studentProfileService.updateStudentProfileBasic(this.internship)
-    //   .subscribe(() => {
-    //     this.editSubmitEventEmitter.emit();
-    //     this.dialogRef.close();
-    //   });
+    this.internship.startDate = new Date(this.datepipe.transform(this.internship.startDate, 'yyyy-MM-dd'));
+    this.internship.endDate = new Date(this.datepipe.transform(this.internship.endDate, 'yyyy-MM-dd'));
+    this.internship.deadline = new Date(this.datepipe.transform(this.internship.deadline, 'yyyy-MM-dd'));
+    this.internshipService.updateInternship(this.internship)
+      .subscribe(() => {
+        this.editSubmitEventEmitter.emit();
+        this.dialogRef.close();
+      });
   }
 
   private initialize() {

@@ -37,6 +37,9 @@ export class InternshipDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       console.log('closed');
     });
+    dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
+      this.internshipDetailsService.getInternship(this.internshipDetails.id.toString());
+    });
   }
 
   applyForInternship(id: number) {

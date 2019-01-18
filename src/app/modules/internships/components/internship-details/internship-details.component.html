@@ -7,7 +7,12 @@
         <li>{{internshipDetails.freeSpots}} SPOTS LEFT</li>
         <li>{{internshipDetails.status}}</li>
       </ul></div>
-      <div class="internship_date">{{internshipDetails.deadline | date: 'yyyy/MM/dd'}}</div>
+      <div class="internship_date"> <ul>
+        <li>Start Date: {{internshipDetails.startDate | date: 'yyyy/MM/dd'}}</li>
+        <li>End Date: {{internshipDetails.endDate | date: 'yyyy/MM/dd'}}</li>
+        <li>Deadline: {{internshipDetails.deadline | date: 'yyyy/MM/dd'}}</li>
+      </ul>
+      </div>
       <div class= "internship-logo"> <img src="{{internshipLogo.url}}"></div>
       <div class="internship-tags">
       <ul>
@@ -105,6 +110,4 @@
       </mat-list>
     </mat-card-content>
   </mat-card>
-
-
-
+   

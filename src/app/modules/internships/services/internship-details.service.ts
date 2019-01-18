@@ -23,6 +23,8 @@ export abstract class AbstractInternshipDetailsService {
   public abstract getInternshipSkills(internshipID: string): Observable<Skill[]>;
 
   public abstract applyToInternship(int: number): Observable<Internship>;
+
+  public abstract updateInternship(internship: Internship): Observable<Internship>;
 }
 
 export class ServerInternshipDetailsService implements AbstractInternshipDetailsService {
@@ -99,24 +101,24 @@ export class ServerInternshipDetailsService implements AbstractInternshipDetails
     };
   }
 
-  applyToInternship(id: number): Observable<Internship> {
-    console.log("yyyyy");
+  public applyToInternship(id: number): Observable<Internship> {
     return this.http.post<Internship>(this.url + '/internship/' + id + '/apply', {}, this.httpOptions).pipe(
-      tap(
-        () => {
-        
-        },
-        error => {
-          console.log(error);
-        }
-      )
-    );
+      tap(() => console.log(`apply successful internship id#${id}`)),
+      catchError(this.handleError<Internship>(`apply failed ${id}`)));
   }
-
+  public updateInternship(internship: Internship): Observable<Internship> {
+    console.log(internship);
+    return this.http.put<Internship>(this.url + '/internship/' + internship.id, internship, this.httpOptions).pipe(
+      tap(() => console.log(`internship Updated id#${internship.id}`)),
+      catchError(this.handleError<Internship>(`internship Updated failed ${internship.id}`)));
+  }
 
 }
 
 export class MockInternshipDetailsService implements AbstractInternshipDetailsService {
+  public updateInternship(internship: Internship): Observable<Internship> {
+    throw new Error("Method not implemented.");
+  }
 
   internship: Internship = {
     'id': 1,
