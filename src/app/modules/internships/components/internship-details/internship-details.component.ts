@@ -1,10 +1,11 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
-import {Internship} from 'src/app/shared/model/internships.model';
-import { Photo } from 'src/app/shared/model/Photo';
-import { Skill } from 'src/app/shared/model/Skill';
-import { Tag } from 'src/app/shared/model/Tag';
-import {MatDialog, MatListModule} from '@angular/material';
-import { InternshipEditComponent } from '../internship-edit/internship-edit.component';
+import {Component, Input, OnInit} from '@angular/core';
+import {Internship} from 'src/app/shared/model/InternshipEnums';
+import {Photo} from 'src/app/shared/model/Photo';
+import {Skill} from 'src/app/shared/model/Skill';
+import {Tag} from 'src/app/shared/model/Tag';
+import {MatDialog} from '@angular/material';
+import {InternshipEditComponent} from '../internship-edit/internship-edit.component';
+import {AbstractInternshipDetailsService} from '../../services/internship-details.service';
 
 
 @Component({
@@ -18,12 +19,13 @@ export class InternshipDetailsComponent implements OnInit {
   @Input() internshipLogo: Photo;
   @Input() internshipTags: Tag[];
   @Input() internshipSkills: Skill[];
-  
 
-  constructor(public dialog: MatDialog) {
+
+  constructor(public dialog: MatDialog, private internshipDetailsService: AbstractInternshipDetailsService) {
   }
 
   ngOnInit() {
+    this.intialize();
   }
 
   public openEditDialog() {
@@ -32,8 +34,17 @@ export class InternshipDetailsComponent implements OnInit {
       data: {internship: this.internshipDetails}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("closed");
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('closed');
     });
+  }
+
+  applyForInternship(id: number) {
+    this.internshipDetailsService.applyToInternship(id).subscribe(() => {
+    });
+  }
+
+  private intialize() {
+    this.internshipDetailsService.initialize();
   }
 }

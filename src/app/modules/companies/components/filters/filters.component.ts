@@ -39,27 +39,20 @@ export class FiltersComponent implements OnInit {
       'nameFilter': new FormControl(''),
     });
 
-    this.companies = this.companiesService.getCompanies();
+    this.companiesService.getCompanies()
+      .subscribe(company => {
+        this.companies = company;
+        this.name = this.companiesService.getCompanyName();
+      });
     this.name = this.companiesService.getCompanyName();
   }
 
   public get filteredNames() {
     const value = this.filterForm.get('nameFilter').value;
-    /*console.log('Valoare');
-    console.log(value);*/
-    /*console.log('FilteredNames');
-    console.log(this.filteredNames);*/
-    console.log('FilteredForm');
-    console.log(this.filterForm);
-    console.log('name');
-    console.log(this.name);
     if (value !== null && value !== undefined && value !== '') {
       const x = this.name.filter(name => this.selectedNames.indexOf(name) < 0);
-      console.log('X');
-      console.log(x);
       this.filterForm.controls['nameFilter'].setValue('');
       return x;
-      // return this.name.filter(name => this.selectedNames.indexOf(name) < 0);
     }
     return this.name.filter(company => this.selectedNames.indexOf(company) < 0);
   }

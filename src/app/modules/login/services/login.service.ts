@@ -1,13 +1,16 @@
-import {Injectable, OnInit} from '@angular/core';
+import {EventEmitter, Injectable, OnInit} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import * as $ from "node_modules/jquery/dist/jquery.js";
-import { FormsModule } from '@angular/forms';
+import * as $ from 'node_modules/jquery/dist/jquery.js';
+import {FormsModule} from '@angular/forms';
+import {SessionManagementService} from '../../../shared/utils/session-management.service';
+import {Applicant} from '../../../shared/model/applicant';
+import {tap} from 'rxjs/operators';
 
 @Injectable()
 export abstract class AbstractLoginService {
 
-  authToken: String;
+  public loginProcessFinished: EventEmitter<boolean> = new EventEmitter();
 
   public abstract login(username: String, password: String);
 
@@ -18,10 +21,11 @@ export abstract class AbstractLoginService {
 
 
 export class MockLoginService implements AbstractLoginService {
-  authToken = ' ';
+
+  public loginProcessFinished: EventEmitter<boolean> = new EventEmitter();
 
   login(username: String, password: String) {
-    return new Promise((resolve, reject)=>{
+    return new Promise((resolve, reject) => {
       if (username === 'test' && password === 'test') {
         resolve(true);
       } else {
@@ -35,92 +39,52 @@ export class MockLoginService implements AbstractLoginService {
 
 }
 
-export class ServerLoginService implements AbstractLoginService, OnInit {
-  authToken = ' ';
+export class ServerLoginService implements AbstractLoginService {
+
+  public loginProcessFinished: EventEmitter<boolean> = new EventEmitter();
+
   url = 'https://enigmatic-sierra-91538.herokuapp.com/oauth/token';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private sessionManagementService: SessionManagementService) {
+    sessionManagementService.isLoginDataLoadingFinished.subscribe((booleanResponse) => {
+      this.loginProcessFinished.emit(booleanResponse);
+    }, (error) => {
+      console.log(error);
+      this.loginProcessFinished.emit(false);
+    });
   }
 
-  login(username: String, password: String){
-    return new Promise((resolve, reject)=>{
-      var data = new FormData();
-      data.append("username",""+username);
-      data.append("password",""+password);
-      data.append("grant_type","password");
-
+  login(username: String, password: String) {
+    return new Promise((resolve, reject) => {
+      const data = new FormData();
+      data.append('username', '' + username);
+      data.append('password', '' + password);
+      data.append('grant_type', 'password');
+      const sessionManagementServiceUnnecessaryCopy = this.sessionManagementService;
+      const loginProcessFinishedUnnecessaryCopy = this.loginProcessFinished;
       $.ajax({
         url: 'https://cors-anywhere.herokuapp.com/https://enigmatic-sierra-91538.herokuapp.com/oauth/token',
         headers: {
-          "Authorization":"Basic dGVzdGp3dGNsaWVudGlkOlhZN2ttem9OemwxMDA",
+          'Authorization': 'Basic dGVzdGp3dGNsaWVudGlkOlhZN2ttem9OemwxMDA',
         },
         data: data,
         contentType: false,
         processData: false,
         type: 'POST',
-        success: function(data){
-          console.log(data.access_token);
+        success: function (response: any) {
+          sessionManagementServiceUnnecessaryCopy.setToken(response.access_token);
           resolve(true);
         },
         error: function (request, status, error) {
+          loginProcessFinishedUnnecessaryCopy.emit(false);
           reject(false);
         }
       });
-
     });
 
-    // TODO :)
-    // .pipe(map(user => {
-    //   // login successful if there's a jwt token in the response
-    //   if (user && user.access_token) {
-    //     // store user details and jwt token in local storage to keep user logged in between page refreshes
-    //     localStorage.setItem('currentUser', JSON.stringify(user));
-    //   }
-    //
-    //   return user;
-    // }));
-    //return of(true);
   }
 
   logout() {
-  }
-  ngOnInit(): void {
-    $(document).ready(function(){
-
-
-      $( "#formTest" ).submit(function( event ) {
-        console.log("1111111111111");
-        event.preventDefault();
-
-        var data = new FormData(); // <-- 'this' is your form element
-        data.append("username","applicant");
-        data.append("password","password");
-        data.append("grant_type","password");
-
-        $.ajax({
-          // url: 'http://localhost:8080/api/applicant/16/cv',
-          url: 'https://cors-anywhere.herokuapp.com/https://enigmatic-sierra-91538.herokuapp.com/oauth/token',
-          // url:'https://cors-anywhere.herokuapp.com/http://localhost:8080/oauth/token',
-          // url: 'http://localhost:8080',
-          headers: {
-            // "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsidGVzdGp3dHJlc291cmNlaWQiXSwidXNlcl9uYW1lIjoiYXBwbGljYW50Iiwic2NvcGUiOlsicmVhZCIsIndyaXRlIl0sImV4cCI6MTU3Njk2ODI5MywiYXV0aG9yaXRpZXMiOlsiQVBQTElDQU5UIl0sImp0aSI6IjM1MTdkZDFjLWQwZTEtNDMwYy04MmI4LTQxYjlmMzA0YzEyYSIsImNsaWVudF9pZCI6InRlc3Rqd3RjbGllbnRpZCJ9.UTXR57P-XQQjgDdHeIjAajADLWCPkov4JjwjO5JkwhE",
-            "Authorization":"Basic dGVzdGp3dGNsaWVudGlkOlhZN2ttem9OemwxMDA",
-          },
-          data: data,
-          contentType: false,
-          processData: false,
-          type: 'POST',
-          success: function(data){
-            console.log("SUCCES")
-            console.log(data)
-          },
-          error: function (request, status, error) {
-            console.log("ERROR")
-          }
-
-        });
-      });
-
-    })
   }
 }
