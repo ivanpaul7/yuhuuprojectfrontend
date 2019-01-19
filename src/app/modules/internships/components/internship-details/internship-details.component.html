@@ -4,18 +4,23 @@
       <div class="internship-desc">{{internshipDetails.description}}</div>
       <div class="internship-status"><ul>
         <li>{{internshipDetails.employmentType}}</li>
-        <li>{{internshipDetails.freeSpots}}</li>
+        <li>{{internshipDetails.freeSpots}} SPOTS LEFT</li>
         <li>{{internshipDetails.status}}</li>
       </ul></div>
-      <div class="internship_date">{{internshipDetails.deadline | date: 'yyyy/MM/dd'}}</div>
+      <div class="internship_date"> <ul>
+        <li>Start Date: {{internshipDetails.startDate | date: 'yyyy/MM/dd'}}</li>
+        <li>End Date: {{internshipDetails.endDate | date: 'yyyy/MM/dd'}}</li>
+        <li>Deadline: {{internshipDetails.deadline | date: 'yyyy/MM/dd'}}</li>
+      </ul>
+      </div>
       <div class= "internship-logo"> <img src="{{internshipLogo.url}}"></div>
       <div class="internship-tags">
       <ul>
         <li *ngFor = "let tag of internshipTags">#{{tag.name}}</li>
       </ul>
       </div>
-    <button mat-raised-button class="internship-modify" (click)="openEditDialog()">Edit</button>
-    <a mat-raised-button class="internship-apply" (click)="applyForInternship(internshipDetails.id)">Apply</a>
+    <button *ngIf="isCompany===true && isProprietary ===true" mat-raised-button class="internship-button" (click)="openEditDialog()">Edit</button>
+    <button *ngIf="isCompany===false" mat-raised-button class="internship-button" (click)="applyForInternship(internshipDetails.id)">Apply</button>
     </div>
   </mat-card>
   <mat-card class="mat-card">
@@ -26,7 +31,7 @@
         </mat-card-title>
       </div>
       <div class="float-right">
-        <button mat-icon-button color="primary">
+        <button *ngIf="isCompany===true && isProprietary ===true" mat-icon-button color="primary" (click)="openAddSkill()">
           <mat-icon>add_circle</mat-icon>
         </button>
       </div>
@@ -38,7 +43,7 @@
             <p>{{skill.name}}</p>
           </div>
           <div class="float-right skill-button">
-            <button mat-icon-button color="warn" >
+            <button *ngIf="isCompany===true && isProprietary ===true" mat-icon-button color="warn" (click) ="deleteSkill(skill.id)" >
               <mat-icon>delete_outline</mat-icon>
             </button>
           </div>
@@ -55,19 +60,19 @@
         </mat-card-title>
       </div>
       <div class="float-right">
-        <button mat-icon-button color="primary">
+        <button *ngIf="isCompany===true && isProprietary ===true" mat-icon-button color="primary" (click)="openAddRequirement()">
           <mat-icon>add_circle</mat-icon>
         </button>
       </div>
     </mat-card-header>
     <mat-card-content>
       <mat-list>
-        <mat-list-item *ngFor="let skill of internshipSkills; let lastItem = last;">
+        <mat-list-item *ngFor="let requirement of internshipRequirements; let lastItem = last;">
           <div class="card-title-wrapper skill-item">
-            <p>{{skill.name}}</p>
+            <p>{{requirement.name}}</p>
           </div>
           <div class="float-right skill-button">
-            <button mat-icon-button color="warn">
+            <button *ngIf="isCompany===true && isProprietary ===true" mat-icon-button color="warn" (click)="deleteRequirement(requirement.id)">
               <mat-icon>delete_outline</mat-icon>
             </button>
           </div>
@@ -76,35 +81,3 @@
       </mat-list>
     </mat-card-content>
   </mat-card>
-  <mat-card class="mat-card">
-    <mat-card-header>
-      <div class="card-title-wrapper">
-        <mat-card-title>
-          <h2>Attributes</h2>
-        </mat-card-title>
-      </div>
-      <div class="float-right">
-        <button mat-icon-button color="primary">
-          <mat-icon>add_circle</mat-icon>
-        </button>
-      </div>
-    </mat-card-header>
-    <mat-card-content>
-      <mat-list>
-        <mat-list-item *ngFor="let skill of internshipSkills; let lastItem = last;">
-          <div class="card-title-wrapper skill-item">
-            <p>{{skill.name}}</p>
-          </div>
-          <div class="float-right skill-button">
-            <button mat-icon-button color="warn">
-              <mat-icon>delete_outline</mat-icon>
-            </button>
-          </div>
-          <mat-divider *ngIf="!lastItem"></mat-divider>
-        </mat-list-item>
-      </mat-list>
-    </mat-card-content>
-  </mat-card>
-
-
-
