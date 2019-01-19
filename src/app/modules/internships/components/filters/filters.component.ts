@@ -38,8 +38,6 @@ export class FiltersComponent implements OnInit, OnDestroy {
             (params: Params) => {
               if (params['company'] !== undefined) {
                 this.selectedCompanies.push(this.companies.find((company) => company.name === decodeURI(params['company'])));
-                // this.selectedCompanies = this.selectedCompanies.concat(decodeURI(params['company'])
-                //   .split(',').map((name: string) => this.companies.find((company) => company.name === name)));
               }
               this.setFilters();
               this.router.navigate(['internships']);
