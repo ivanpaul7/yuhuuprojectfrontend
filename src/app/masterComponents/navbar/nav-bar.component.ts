@@ -1,10 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {environment} from '../../../environments/environment';
-import {applicantNavBarItems, companyNavBarItems, NavBarItem} from '../../app.module';
-import {SessionManagementService} from '../../shared/utils/session-management.service';
-import {Role} from '../../shared/model/Role';
-import {Router} from '@angular/router';
-import {Subscription} from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { applicantNavBarItems, companyNavBarItems, NavBarItem } from '../../app.module';
+import { SessionManagementService } from '../../shared/utils/session-management.service';
+import { Role } from '../../shared/model/Role';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',

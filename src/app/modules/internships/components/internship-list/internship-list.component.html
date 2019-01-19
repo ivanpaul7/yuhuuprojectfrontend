@@ -1,4 +1,4 @@
-<div *ngIf="sessionManagementService.getLoggedUserRole()=='COMPANY'" class="float-right">
+<div *ngIf="sessionManagementService.getLoggedUserRole()===companyRole" class="float-right">
   <button mat-fab color="primary" color="primary" *ngIf="isHisProfile" (click)="openAddInternshipDialog()">
     <mat-icon>add</mat-icon>
   </button>

@@ -400,8 +400,6 @@ export class ServerInternshipsService implements AbstractInternshipsService {
   }
 
   getAllInternshipDTOs(): Observable<InternshipDTO[]> {
-
-
     if (this.internshipDTOSubject) {
       return this.internshipDTOSubject.asObservable();
     } else {
@@ -410,6 +408,7 @@ export class ServerInternshipsService implements AbstractInternshipsService {
         tap(
           data => {
             this.internshipDTOSubject.next(data);
+            this.companyList.next(data.map((internshipDTO) => internshipDTO.company));
             let skills: Skill[] = [];
             data.forEach((internshipDTO) => {
               skills = skills.concat(internshipDTO.skills);
@@ -417,7 +416,6 @@ export class ServerInternshipsService implements AbstractInternshipsService {
             const mySet = new Set(skills.map((skill) => skill.name));
             const array = Array.from(mySet);
             this.skillList.next(array);
-            this.companyList.next(data.map((internshipDTO) => internshipDTO.company));
           },
           error => {
             console.log(error);

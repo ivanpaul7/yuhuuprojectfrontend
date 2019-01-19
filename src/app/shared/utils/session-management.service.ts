@@ -1,11 +1,11 @@
-import {EventEmitter, Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {User} from '../model/user';
-import {Company} from '../model/Company';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Role} from '../model/Role';
-import {Applicant} from '../model/applicant';
-import {applicantNavBarItems, companyNavBarItems} from '../../app.module';
+import { EventEmitter, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from '../model/user';
+import { Company } from '../model/Company';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Role } from '../model/Role';
+import { Applicant } from '../model/applicant';
+import { applicantNavBarItems, companyNavBarItems } from '../../app.module';
 
 @Injectable()
 export class SessionManagementService {
@@ -42,6 +42,7 @@ export class SessionManagementService {
         this.getLoggedCompanyInfo().subscribe((company) => {
           this.specificId = company.id;
           this.addMyProfileButtonToNavBar();
+          this.addMyInternshipsButtonToNavBar(company.name);
           this.everythingLoaded = true;
           this.persistInLocalStorage();
           this.isLoginDataLoadingFinished.emit(true);
@@ -83,13 +84,22 @@ export class SessionManagementService {
       if (applicantNavBarItems.length === 4) {
         applicantNavBarItems.splice(applicantNavBarItems.length - 1, 1);
       }
-      applicantNavBarItems.push({title: 'My profile', path: 'profile/student/' + this.specificId});
+      applicantNavBarItems.push({ title: 'My profile', path: 'profile/student/' + this.specificId });
 
     } else if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.COMPANY) {
       if (companyNavBarItems.length === 2) {
-        companyNavBarItems.splice(applicantNavBarItems.length - 1, 1);
-      }
-      companyNavBarItems.push({title: 'My profile', path: 'profile/company/' + this.specificId});
+        companyNavBarItems.splice(companyNavBarItems.length - 1, 1);
+      } else
+        if (companyNavBarItems.length === 3) {
+          companyNavBarItems.splice(companyNavBarItems.length - 2, 2);
+        }
+      companyNavBarItems.push({ title: 'My profile', path: 'profile/company/' + this.specificId });
+    }
+  }
+
+  private addMyInternshipsButtonToNavBar(name: string) {
+    if (this.currentLoggedUser.roles[0].roleString === Role.RoleStringEnum.COMPANY) {
+      companyNavBarItems.push({ title: 'Internship list', path: 'internships', params: name });
     }
   }
 

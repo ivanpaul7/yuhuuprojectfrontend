@@ -146,6 +146,7 @@ export class AppModule {
 export interface NavBarItem {
   title: string;
   path: string;
+  params?: string;
 }
 
 export let applicantNavBarItems: NavBarItem[] = [

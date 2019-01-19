@@ -18,6 +18,7 @@ export class InternshipListComponent implements OnInit {
   skillFilters: string[] = [];
   companyFilters: Company[] = [];
   internshipDTOs: InternshipDTO[];
+  companyRole = Role.RoleStringEnum.COMPANY;
   constructor(private internshipsService: AbstractInternshipsService, public dialog: MatDialog,
     public sessionManagementService: SessionManagementService) {
     this.internshipsService.getAllInternshipDTOs().subscribe(data => {

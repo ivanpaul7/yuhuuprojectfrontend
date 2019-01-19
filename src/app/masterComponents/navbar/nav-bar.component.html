@@ -4,7 +4,8 @@
       <div class="navbar-nav">
         <a class="nav-item nav-link" routerLinkActive="active" *ngFor="let item of menuNavBar;let i = index"
            [ngClass]="{'active':i == 0}"
-           [routerLink]="['./' + item.path]">{{item.title}}</a>
+           [routerLink]="['./' + item.path]"
+           [queryParams]="item.params ? {company: item.params} : {}">{{item.title}}</a>
         <a class="nav-item nav-link" (click)="logout()">Logout</a>
       </div>
     </div>

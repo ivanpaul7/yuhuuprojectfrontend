@@ -16,7 +16,7 @@ import {Applicant} from '../../../../shared/model/applicant';
 })
 export class CompanyDashboardComponent implements OnInit {
   logo: string;
-  company: Company;
+  company: Company = {};
   id1: number;
   id2: number;
   id3: number;
@@ -46,11 +46,11 @@ export class CompanyDashboardComponent implements OnInit {
       error => console.log(error)
     );
 
-    this.companyDashboardService.getApplicants().subscribe(((applicants: Applicant[]) => {
+    this.companyDashboardService.getApplicants().subscribe(((applicants: Applicant[]) => {      
       for (let i = 0; i < 3; i++) {
         if (i === 0) {
           this.id1 = applicants[i].id;
-          const parts = applicants[i].birthday.toString().split('-');
+          const parts = applicants[i].birthday ? applicants[i].birthday.toString().split('-') : [''];
           this.age1 = 2019 - Number(parts[0]);
           this.name1 = applicants[i].firstName + ' ' + applicants[i].lastName;
           this.companyDashboardService.getApplicantPhoto(applicants[i].id).subscribe(
@@ -60,7 +60,7 @@ export class CompanyDashboardComponent implements OnInit {
         }
         if (i === 1) {
           this.id2 = applicants[i].id;
-          const parts = applicants[i].birthday.toString().split('-');
+          const parts = applicants[i].birthday ? applicants[i].birthday.toString().split('-') : [''];
           this.age2 = 2019 - Number(parts[0]);
           this.name2 = applicants[i].firstName + ' ' + applicants[i].lastName;
           this.companyDashboardService.getApplicantPhoto(applicants[i].id).subscribe(
@@ -70,7 +70,7 @@ export class CompanyDashboardComponent implements OnInit {
         }
         if (i === 2) {
           this.id3 = applicants[i].id;
-          const parts = applicants[i].birthday.toString().split('-');
+          const parts = applicants[i].birthday ? applicants[i].birthday.toString().split('-') : [''];
           this.age3 = 2019 - Number(parts[0]);
           this.name3 = applicants[i].firstName + ' ' + applicants[i].lastName;
           this.companyDashboardService.getApplicantPhoto(applicants[i].id).subscribe(
