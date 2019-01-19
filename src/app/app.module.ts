@@ -149,12 +149,12 @@ export interface NavBarItem {
 }
 
 export let applicantNavBarItems: NavBarItem[] = [
-  {title: 'ApplicantDashboardComponent', path: 'dashboard/applicantHome'},
+  {title: 'Dashboard', path: 'dashboard/applicantHome'},
   {title: 'Internship List', path: 'internships'},
   {title: 'Companies', path: 'companies'},
 ];
 
 export let companyNavBarItems: NavBarItem[] = [
-  {title: 'CompanyDashboardComponent', path: 'dashboard/companyHome'},
+  {title: 'Dashboard', path: 'dashboard/companyHome'},
 ];
 

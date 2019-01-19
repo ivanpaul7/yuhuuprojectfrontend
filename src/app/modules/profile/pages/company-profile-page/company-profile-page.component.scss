@@ -63,14 +63,30 @@
 .top-gradient-div {
   height: 170px;
   background: #000046;
-  background: -webkit-linear-gradient(to right, #1CB5E0, #000046);
-  background: linear-gradient(to right, #1CB5E0, #000046);
+  background: -webkit-linear-gradient(to right, #477ed0, #000046);
+  background: linear-gradient(to right, #477ed0, #000046);
+}
+
+.button{
+  width: 100%;
 }
 
 .image-wrapper {
   position: absolute;
   z-index: 2;
   padding: 46px;
+}
+.profile-pic {
+  display: inline-block;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+
+  object-fit: cover;
+  border: 7px solid rgb(255, 255, 255);
+  -webkit-box-shadow: 0px 0px 13px 3px rgba(71,126,208,1);
+  -moz-box-shadow: 0px 0px 13px 3px rgba(71,126,208,1);
+  box-shadow: 0px 0px 13px 3px rgba(71,126,208,1);
 }
 
 .name-wrapper {
@@ -84,6 +100,9 @@
 }
 
 .upload-button {
-  width: 140px;
+  width: 100%;
+}
+.mat-button-wrapper,.mat-raised-button{
+  width: 100%;
 }
 

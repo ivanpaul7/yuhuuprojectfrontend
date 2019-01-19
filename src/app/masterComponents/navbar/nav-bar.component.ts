@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {environment} from '../../../environments/environment';
 import {applicantNavBarItems, companyNavBarItems, NavBarItem} from '../../app.module';
 import {SessionManagementService} from '../../shared/utils/session-management.service';
@@ -12,10 +12,6 @@ import {Subscription} from 'rxjs';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit, OnDestroy {
-
-  public environment: any;
-  public menuNavBar: NavBarItem[];
-  isLoginDataLoadingFinishedSubscription: Subscription;
 
   constructor(private sessionManagementService: SessionManagementService, private router: Router) {
     this.environment = environment;
@@ -33,6 +29,12 @@ export class NavBarComponent implements OnInit, OnDestroy {
     }
   }
 
+  public environment: any;
+  public menuNavBar: NavBarItem[];
+  isLoginDataLoadingFinishedSubscription: Subscription;
+
+  @ViewChild('myTopnav') myTopnav: ElementRef;
+
   ngOnInit() {
 
   }
@@ -44,6 +46,15 @@ export class NavBarComponent implements OnInit, OnDestroy {
   public logout() {
     this.sessionManagementService.clearLocalStorage();
     this.router.navigate(['/login']);
+  }
+
+  public myFunction() {
+    const x = document.getElementById('myTopnav');
+    if (x.className === 'topnav') {
+      x.className += ' responsive';
+    } else {
+      x.className = 'topnav';
+    }
   }
 
 }

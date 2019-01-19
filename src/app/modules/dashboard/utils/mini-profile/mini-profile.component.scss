@@ -31,8 +31,8 @@
 
 .card .card-heading.image img {
   display: inline-block;
-  width: 46px;
-  height: 46px;
+  width: 50px;
+  height: 90px;
   margin-right: 15px;
   vertical-align: top;
   border: 0;
@@ -70,7 +70,7 @@
 
 .card .card-media img {
   max-width: 100%;
-  max-height: 100%;
+  max-height: 110%;
 }
 
 .card .card-actions {
@@ -135,7 +135,7 @@
 }
 
 .card.people .card-top.blue {
-  background-color: #427fed;
+  background-color: #477ed0;
 }
 
 .card.people .card-info {
@@ -190,34 +190,43 @@
   padding-top: 0;
   overflow: hidden;
   text-align: center;
-  background-color: rgba(214, 224, 226, 0.2);
+  background-color: white;
 }
 
 .card.hovercard .cardheader {
-  background: url("http://lorempixel.com/850/280/nature/4/");
+  background-color:#477ed0;
   background-size: cover;
-  height: 135px;
+  height: 100px;
 }
 
 .card.hovercard .avatar {
   position: relative;
-  top: -50px;
+  top: -45px;
   margin-bottom: -50px;
 }
 
 .card.hovercard .avatar img {
-  width: 100px;
-  height: 100px;
-  max-width: 100px;
-  max-height: 100px;
+  width: 250px;
+  height: 250px;
+  max-width: 250px;
+  max-height: 250px;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
-  border: 5px solid rgba(255,255,255,0.5);
+  object-fit: cover;
+  border: 7px solid rgb(255, 255, 255);
+  -webkit-box-shadow: 0px 0px 13px 3px rgba(71,126,208,1);
+  -moz-box-shadow: 0px 0px 13px 3px rgba(71,126,208,1);
+  box-shadow: 0px 0px 13px 3px rgba(71,126,208,1);
+
 }
 
 .card.hovercard .info {
   padding: 4px 8px 10px;
+
+}
+.title{
+  margin-top: 10px;
 }
 
 .card.hovercard .info .title {
@@ -226,6 +235,9 @@
   line-height: 1;
   color: #262626;
   vertical-align: middle;
+}
+.title > a {
+  color:#477ed0;
 }
 
 .card.hovercard .info .desc {

@@ -1,10 +1,13 @@
 <div class="w-100 h-100">
   <div class="card" *ngFor="let item of companies">
-    <div class="row">
-      <div class="col-md-4">
+    <div class="row parent-row">
+      <div class="col-md-2 block-inline">
+
+      </div>
+      <div class="col-md-4 block-inline">
         <img src={{item.contact.photo.url}} class="img-business-list">
       </div>
-      <div class="col-md-8">{{item.name}}</div>
+      <div class="col-md-4 block-inline">{{item.name}}</div>
     </div>
   </div>
 </div>
