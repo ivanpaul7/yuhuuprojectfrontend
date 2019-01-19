@@ -29,7 +29,7 @@
     <mat-form-field>
       <mat-chip-list #chipListSkill>
         <mat-chip *ngFor="let skill of selectedSkills" [selectable]="false" [removable]="removable" (removed)="removeSkill(skill)">
-          {{skill.name}}
+          {{skill}}
           <mat-icon matChipRemove *ngIf="removable">&times;</mat-icon>
         </mat-chip>
         <input #triggerSkill type="text" matInput placeholder="Filtrati dupa skill-uri" formControlName="skillFilter" [matChipInputFor]="chipListSkill"
@@ -37,7 +37,7 @@
       </mat-chip-list>
       <mat-autocomplete #autoSkill="matAutocomplete" (optionSelected)="selectedSkill($event)">
         <mat-option *ngFor="let skill of filteredSkills" [value]="skill">
-          {{skill.name}}
+          {{skill}}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>

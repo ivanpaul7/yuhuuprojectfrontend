@@ -27,7 +27,6 @@ export class InternshipEditRequirementComponent implements OnInit {
   }
 
   onNoClick() {
-    console.log(this.requirement);
     this.dialogRef.close();
   }
 

@@ -68,7 +68,7 @@ export class CompanyProfilePageComponent implements OnInit {
   }
 
   navigateToCompanyInternships() {
-    this.router.navigateByUrl('/internships?company=facebook');
+    this.router.navigateByUrl('/internships?company='+this.company.name);
   }
 
   onPhotoFileChanged(event) {

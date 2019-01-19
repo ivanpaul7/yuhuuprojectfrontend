@@ -45,7 +45,8 @@ import {NotificationManagerComponent} from './shared/utils/component/notificatio
 import {ProgressSpinnerComponent} from './shared/utils/component/progress-spinner/progress-spinner.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {AuthGuard} from './modules/guard/auth-guard.service';
-
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { MatSnackBarModule} from '@angular/material/typings/esm5/snack-bar';
 
 
 export const appRoutes: Routes = [
@@ -118,8 +119,10 @@ export const appRoutes: Routes = [
     MatIconModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
+    MatSnackBarModule ,
     ReactiveFormsModule,
     NgbModule,
+    ChartsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyC920soN4PRUEoaIeornkVABcYuWkokcYM'
     })

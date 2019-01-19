@@ -46,11 +46,11 @@ export abstract class AbstractInternshipDetailsService {
 
   public abstract deleteRequirement(internship: Internship,id: number): Observable<Requirement>;
 
+  public abstract addInternship(internship: Internship): Observable<Internship>;
 }
 
 export class ServerInternshipDetailsService implements AbstractInternshipDetailsService {
-
-  applicantID: number;
+  specificID: number;
   public isApplicant: boolean;
   public isCompanysInternship: boolean = true;
   allSkills: Skill[];
@@ -77,7 +77,7 @@ export class ServerInternshipDetailsService implements AbstractInternshipDetails
             'Authorization': '' + this.sessionManager.getToken()
           })
       };
-      this.applicantID = this.sessionManager.getLoggedUserId();
+      this.specificID = this.sessionManager.getSpecificId();
       this.isApplicant = this.sessionManager.getLoggedUserRole() == Role.RoleStringEnum.APPLICANT;
     } else {
       //todo redirect to login :)
@@ -88,7 +88,7 @@ export class ServerInternshipDetailsService implements AbstractInternshipDetails
   public getInternshipCompany(internshipID: string): Observable<Company> {
     this.getInternshipCompany(internshipID).subscribe((company) => 
     {
-      if ((this.isApplicant) || company.id === this.applicantID) {
+      if ((this.isApplicant) || company.id === this.specificID) {
         this.isCompanysInternship = false;
       }
     })
@@ -153,6 +153,25 @@ export class ServerInternshipDetailsService implements AbstractInternshipDetails
     return this.http.put<Internship>(this.url + '/internship/' + internship.id, internship, this.httpOptions).pipe(
       tap(() => console.log(`internship Updated id#${internship.id}`)),
       catchError(this.handleError<Internship>(`internship Updated failed ${internship.id}`)));
+    }
+  addInternship(internship: Internship): Observable<Internship> {
+    return this.http.post<Internship>(this.url + '/internship/create',
+      {
+        'company': {
+          'id': this.specificID
+        },
+        'internship': internship
+      },
+      this.httpOptions).pipe(
+      tap(
+        (data) => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    );
   }
 
   public getListAllSkills(): Observable<Skill[]> {
@@ -244,5 +263,9 @@ export class MockInternshipDetailsService implements AbstractInternshipDetailsSe
   }
 
   initialize() {
+  }
+
+  addInternship(internship: Internship): Observable<Internship> {
+    return of({});
   }
 }

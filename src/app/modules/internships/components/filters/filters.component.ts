@@ -16,9 +16,9 @@ export class FiltersComponent implements OnInit {
   filterForm: FormGroup;
   removable = true;
   companies: Company[] = [];
-  skills: Skill[] = [];
+  skills: string[] = [];
   selectedCompanies: Company[] = [];
-  selectedSkills: Skill[] = [];
+  selectedSkills: string[] = [];
   @ViewChild('triggerCompany', { read: MatAutocompleteTrigger }) triggerCompany: MatAutocompleteTrigger;
   @ViewChild('triggerSkill', { read: MatAutocompleteTrigger }) triggerSkill: MatAutocompleteTrigger;
   timeout;
@@ -28,28 +28,26 @@ export class FiltersComponent implements OnInit {
 
   ngOnInit() {
     this.internshipsService.getCompanies().subscribe(
-      (data: Company[]) => this.companies = data,
+      (data: Company[]) => {
+        this.companies = data;
+        this.route.queryParams
+          .subscribe(
+            (params: Params) => {
+              if (params['company'] !== undefined) {
+                this.selectedCompanies = this.selectedCompanies.concat(decodeURI(params['company'])
+                  .split(',').map((name: string) => this.companies.find((company) => company.name === name)));
+              }
+              this.setFilters();
+              this.router.navigate(['internships']);
+            });
+        },
       error => console.log(error)
     );
     this.internshipsService.getSkills().subscribe(
-      (data: Skill[]) => this.skills = data,
+      (data: string[]) => this.skills = data,
       error => console.log(error)
     );
-    this.route.queryParams
-      .subscribe(
-        (params: Params) => {
-          if (params['skill'] !== undefined) {
-            this.selectedSkills = this.selectedSkills.concat(decodeURI(params['skill'])
-              .split(',').map((name: string) => this.skills.find((skill) => skill.name === name)));
-          }
-          if (params['company'] !== undefined) {
-            this.selectedCompanies = this.selectedCompanies.concat(decodeURI(params['company'])
-              .split(',').map((name: string) => this.companies.find((company) => company.name === name)));
-          }
-          this.setFilters();
-          this.router.navigate(['internships']);
-        }
-      );
+
     this.filterForm = new FormGroup({
       'companyFilter': new FormControl(''),
       'skillFilter': new FormControl('')
@@ -69,7 +67,7 @@ export class FiltersComponent implements OnInit {
     const value = this.filterForm.get('skillFilter').value;
     if (value !== null && value !== undefined && value !== '') {
       return this.skills.filter(skill => this.selectedSkills.indexOf(skill) < 0)
-        .filter((skill) => skill.name.toLowerCase().includes(value.toLowerCase()));
+        .filter((skill) => skill.toLowerCase().includes(value.toLowerCase()));
     }
     return this.skills.filter(skill => this.selectedSkills.indexOf(skill) < 0);
   }
@@ -82,7 +80,7 @@ export class FiltersComponent implements OnInit {
     this.setFilters();
   }
 
-  removeSkill(value: Skill): void {
+  removeSkill(value: string): void {
     const index = this.selectedSkills.indexOf(value);
     if (index >= 0) {
       this.selectedSkills.splice(index, 1);

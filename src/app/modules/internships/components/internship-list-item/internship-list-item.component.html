@@ -1,7 +1,7 @@
 <mat-card routerLinkActive="active" [routerLink]="[internship.id]">
   <mat-card-header>
     <div mat-card-avatar>
-      <img mat-card-sm-image src="{{logo}}" alt="{{internship.title}}">
+      <img mat-card-sm-image src="{{company.contact.photo.url}}" alt="{{internship.title}}">
     </div>
     <mat-card-title>{{internship.title}}</mat-card-title>
     <mat-card-subtitle>{{company !== undefined ? company.name : ''}}</mat-card-subtitle>

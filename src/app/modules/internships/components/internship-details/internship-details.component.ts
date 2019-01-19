@@ -10,6 +10,8 @@ import { InternshipEditSkillComponent } from '../internship-edit-skill/internshi
 import { Requirement } from 'src/app/shared/model/models';
 import { InternshipEditRequirementComponent } from '../internship-edit-requirement/internship-edit-requirement.component';
 
+import {MatSnackBar} from '@angular/material';
+import {Action} from 'rxjs/internal/scheduler/Action';
 
 @Component({
   selector: 'app-internship-details',
@@ -27,7 +29,7 @@ export class InternshipDetailsComponent implements OnInit {
   @Input() isProprietary: boolean;
 
 
-  constructor(public dialog: MatDialog, private internshipDetailsService: AbstractInternshipDetailsService) {
+  constructor(public dialog: MatDialog, private internshipDetailsService: AbstractInternshipDetailsService, public snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -50,6 +52,13 @@ export class InternshipDetailsComponent implements OnInit {
 
   applyForInternship(id: number) {
     this.internshipDetailsService.applyToInternship(id).subscribe(() => {
+      this.snackBar.open("Success. You applied to the internship", 'CLOSE', {
+        duration: 2000,
+      });
+    }, () => {
+      this.snackBar.open("Error. Please try again later", 'CLOSE', {
+        duration: 2000,
+      });
     });
   }
 
