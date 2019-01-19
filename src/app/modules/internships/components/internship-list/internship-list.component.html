@@ -3,6 +3,6 @@
     <mat-icon>add</mat-icon>
   </button>
 </div>
-<h2>Internship List!</h2>
+<mat-card class="title">Internship List</mat-card>
 <app-filters></app-filters>
 <app-internship-list-item *ngFor="let internshipEl of filteredInternships" [tags]="internshipEl.skills" [internship]="internshipEl.internship" [company]="internshipEl.company"></app-internship-list-item>

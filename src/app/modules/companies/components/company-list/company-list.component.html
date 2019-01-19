@@ -1,4 +1,4 @@
-<h2>Company List !</h2>
+<mat-card class="title">Company List</mat-card>
 <app-filters></app-filters>
 <app-company-list-item *ngFor="let companyE1 of filteredCompanies ; let i = index" [company]="companyE1"
                        [index]="i" (click)="goToDetailedCompany(companyE1.id)"
