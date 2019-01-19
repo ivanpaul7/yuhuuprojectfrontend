@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Send a mail to the applicant</h1>
+<div mat-dialog-content>
+  <div class="container">
+    <mat-form-field class="titleField">
+      <input matInput placeholder="Mail title"
+             [value]="title" onchange="">
+    </mat-form-field>
+    <mat-form-field class="mailContent">
+      <textarea matInput placeholder="Mail content"
+                matTextareaAutosize matAutosizeMinRows=7
+                [value]="message"></textarea>
+    </mat-form-field>
+  </div>
+</div>
+<div class="float-right" mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="onNoClick()">Cancel</button>
+  <button mat-raised-button (click)="sendMail()">Send</button>
+</div>

@@ -2,7 +2,8 @@ import {Component, OnInit, EventEmitter, Inject, Output} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AbstractInternshipDetailsService} from '../../services/internship-details.service';
 import {DatePipe} from '@angular/common';
-import {Internship} from 'src/app/shared/model/InternshipEnums';
+import {FormControl, Validators} from '@angular/forms';
+import {Internship, InternshipEnums} from 'src/app/shared/model/InternshipEnums';
 
 @Component({
   selector: 'app-internship-edit',
@@ -13,6 +14,18 @@ export class InternshipEditComponent implements OnInit {
 
   @Output() editSubmitEventEmitter = new EventEmitter();
   internship: Internship;
+
+  selectFormControl = new FormControl('', Validators.required);
+  selectFormControlStatus = new FormControl('', Validators.required);
+  optionsEmploymentType: Object[] = [
+    {name: 'Full Time', value: InternshipEnums.EmploymentTypeEnum.FULLTIME },
+    {name: 'Part Time', value: InternshipEnums.EmploymentTypeEnum.PARTTIME },
+  ];
+  optionsStatus: Object[] = [
+    {name: 'Active', value: InternshipEnums.StatusEnum.ACTIVE },
+    {name: 'Ended', value: InternshipEnums.StatusEnum.ENDED },
+    {name: 'Coming', value: InternshipEnums.StatusEnum.COMING }
+  ];
 
   constructor(
     public datepipe: DatePipe,
@@ -31,12 +44,14 @@ export class InternshipEditComponent implements OnInit {
   }
 
   onSaveClick() {
-    // this.internship.birthday = new Date(this.datepipe.transform(this.internship.birthday, 'yyyy-MM-dd'));
-    // this.studentProfileService.updateStudentProfileBasic(this.internship)
-    //   .subscribe(() => {
-    //     this.editSubmitEventEmitter.emit();
-    //     this.dialogRef.close();
-    //   });
+    this.internship.startDate = new Date(this.datepipe.transform(this.internship.startDate, 'yyyy-MM-dd'));
+    this.internship.endDate = new Date(this.datepipe.transform(this.internship.endDate, 'yyyy-MM-dd'));
+    this.internship.deadline = new Date(this.datepipe.transform(this.internship.deadline, 'yyyy-MM-dd'));
+    this.internshipService.updateInternship(this.internship)
+      .subscribe(() => {
+        this.editSubmitEventEmitter.emit();
+        this.dialogRef.close();
+      });
   }
 
   private initialize() {

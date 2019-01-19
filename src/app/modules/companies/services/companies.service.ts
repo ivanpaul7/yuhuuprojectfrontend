@@ -179,10 +179,13 @@ export class ServerCompaniesService implements AbstractCompaniesService {
   }
 
   getCompanyName() {
-    for (let i = 0; i < this.companies.length; i++) {
-      this.companiesName.push(this.companies[i].name);
+    if (this.companies != null) {
+      for (let i = 0; i < this.companies.length; i++) {
+        this.companiesName.push(this.companies[i].name);
+      }
+      return this.companiesName.slice();
     }
-    return this.companiesName.slice();
+    return [];
   }
 
   setNameFilters(filters: string[]) {

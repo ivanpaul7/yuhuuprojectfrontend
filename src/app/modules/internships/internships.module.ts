@@ -31,8 +31,12 @@ import {InternshipEditComponent} from './components/internship-edit/internship-e
 import {ChatComponent} from './components/chat/chat.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {AbstractChatService} from './services/chat.service';
+import {InternshipEditSkillComponent} from './components/internship-edit-skill/internship-edit-skill.component';
+import {InternshipEditRequirementComponent} from './components/internship-edit-requirement/internship-edit-requirement.component';
 import {SessionManagementService} from '../../shared/utils/session-management.service';
 import {AddInternshipComponent} from './components/add-internship/add-internship.component';
+import {ApplicantsManagementComponent} from './components/applicants-management/applicants-management.component';
+import {RequestMessageSenderComponent} from './components/request-message-sender/request-message-sender.component';
 import {MatSnackBarModule} from '@angular/material/typings/esm5/snack-bar';
 
 @NgModule({
@@ -60,10 +64,12 @@ import {MatSnackBarModule} from '@angular/material/typings/esm5/snack-bar';
     MatSnackBarModule,
     NgbModule
   ],
-  entryComponents: [InternshipEditComponent, AddInternshipComponent],
+  entryComponents: [InternshipEditComponent, AddInternshipComponent, RequestMessageSenderComponent, InternshipEditSkillComponent, InternshipEditRequirementComponent],
   declarations: [InternshipListComponent,
     InternshipListItemComponent, FiltersComponent,
-    InternshipDetailsComponent, InternshipEditComponent, ChatComponent, AddInternshipComponent],
+    InternshipDetailsComponent, InternshipEditComponent, ChatComponent,
+    AddInternshipComponent, ApplicantsManagementComponent, RequestMessageSenderComponent,
+    InternshipEditSkillComponent, InternshipEditRequirementComponent],
   exports: [InternshipListComponent, InternshipListItemComponent, FiltersComponent, InternshipDetailsComponent, ChatComponent],
   providers: [
     {

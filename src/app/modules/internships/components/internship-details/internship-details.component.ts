@@ -6,8 +6,15 @@ import {Tag} from 'src/app/shared/model/Tag';
 import {MatDialog} from '@angular/material';
 import {InternshipEditComponent} from '../internship-edit/internship-edit.component';
 import {AbstractInternshipDetailsService} from '../../services/internship-details.service';
+import { InternshipEditSkillComponent } from '../internship-edit-skill/internship-edit-skill.component';
+import { Requirement } from 'src/app/shared/model/models';
+import { InternshipEditRequirementComponent } from '../internship-edit-requirement/internship-edit-requirement.component';
+
 import {MatSnackBar} from '@angular/material';
 import {Action} from 'rxjs/internal/scheduler/Action';
+import {SessionManagementService} from '../../../../shared/utils/session-management.service';
+import {Role} from '../../../../shared/model/Role';
+
 
 @Component({
   selector: 'app-internship-details',
@@ -20,9 +27,13 @@ export class InternshipDetailsComponent implements OnInit {
   @Input() internshipLogo: Photo;
   @Input() internshipTags: Tag[];
   @Input() internshipSkills: Skill[];
+  @Input() internshipRequirements: Requirement[];
+  @Input() isCompany: boolean;
+  @Input() isProprietary: boolean;
 
 
-  constructor(public dialog: MatDialog, private internshipDetailsService: AbstractInternshipDetailsService, public snackBar: MatSnackBar) {
+  constructor(public dialog: MatDialog, private internshipDetailsService: AbstractInternshipDetailsService, public snackBar: MatSnackBar, private sessionManagementService: SessionManagementService) {
+
   }
 
   ngOnInit() {
@@ -37,6 +48,9 @@ export class InternshipDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(() => {
       console.log('closed');
+    });
+    dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
+      this.internshipDetailsService.getInternship(this.internshipDetails.id.toString());
     });
   }
 
@@ -55,4 +69,58 @@ export class InternshipDetailsComponent implements OnInit {
   private intialize() {
     this.internshipDetailsService.initialize();
   }
+
+  public isLoggedUserCompany(): boolean {
+    return this.sessionManagementService.getLoggedUserRole() ===
+      Role.RoleStringEnum.COMPANY;
+  }
+
+  openAddSkill() {
+    const dialogRef = this.dialog.open(InternshipEditSkillComponent, {
+      width: '90%',
+      data: {internship: this.internshipDetails}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+
+    dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
+      this.internshipDetailsService.getInternshipSkills(this.internshipDetails.id.toString()).subscribe((skills) => {
+        this.internshipSkills = skills;
+      });
+    });
+  }
+
+  deleteSkill(id: number) {
+    this.internshipDetailsService.deleteSkill(this.internshipDetails, id).subscribe(() => {""
+      this.internshipDetailsService.getInternshipSkills(this.internshipDetails.id.toString()).subscribe((skills) => {
+        this.internshipSkills = skills;
+      });
+    });
+  }
+
+  openAddRequirement() {
+    const dialogRef = this.dialog.open(InternshipEditRequirementComponent, {
+      width: '90%',
+      data: {internship: this.internshipDetails}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+    });
+
+    dialogRef.componentInstance.editSubmitEventEmitter.subscribe(() => {
+      this.internshipDetailsService.getInternshipRequirements(this.internshipDetails.id.toString()).subscribe((requirements) => {
+        this.internshipRequirements = requirements;
+      });
+    });
+  }
+
+  deleteRequirement(id: number) {
+    this.internshipDetailsService.deleteRequirement(this.internshipDetails, id).subscribe(() => {""
+      this.internshipDetailsService.getInternshipRequirements(this.internshipDetails.id.toString()).subscribe((requirements) => {
+        this.internshipRequirements = requirements;
+      });
+    });
+  }
+
 }
