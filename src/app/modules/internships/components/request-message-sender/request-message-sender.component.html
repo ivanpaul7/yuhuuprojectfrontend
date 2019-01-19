@@ -3,12 +3,12 @@
   <div class="container">
     <mat-form-field class="titleField">
       <input matInput placeholder="Mail title"
-             [value]="title" onchange="">
+             [(ngModel)]="title" onchange="">
     </mat-form-field>
     <mat-form-field class="mailContent">
       <textarea matInput placeholder="Mail content"
                 matTextareaAutosize matAutosizeMinRows=7
-                [value]="message"></textarea>
+                [(ngModel)]="message"></textarea>
     </mat-form-field>
   </div>
 </div>
