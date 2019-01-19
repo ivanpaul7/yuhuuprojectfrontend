@@ -81,3 +81,5 @@
       </mat-list>
     </mat-card-content>
   </mat-card>
+
+<app-applicants-management [internshipId]="internshipDetails.id" *ngIf="isLoggedUserCompany()"></app-applicants-management>

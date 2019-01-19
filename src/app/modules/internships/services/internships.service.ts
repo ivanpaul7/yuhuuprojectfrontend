@@ -390,7 +390,7 @@ export class ServerInternshipsService implements AbstractInternshipsService {
   }
 
   initialize() {
-    //todo
+    // todo
   }
 
   fetchAllInternshipDTOs(): Observable<InternshipDTO[]> {
@@ -400,6 +400,8 @@ export class ServerInternshipsService implements AbstractInternshipsService {
   }
 
   getAllInternshipDTOs(): Observable<InternshipDTO[]> {
+
+
     if (this.internshipDTOSubject) {
       return this.internshipDTOSubject.asObservable();
     } else {

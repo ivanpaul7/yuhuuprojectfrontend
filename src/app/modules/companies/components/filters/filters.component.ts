@@ -67,11 +67,6 @@ export class FiltersComponent implements OnInit {
 
   selectedCompany(event: MatAutocompleteSelectedEvent): void {
     this.selectedNames.push(event.option.viewValue);
-    const self = this;
-    clearInterval(this.timeout);
-    this.timeout = setTimeout(function () {
-      self.triggerCompany.openPanel();
-    }, 0);
     this.filterForm.get('nameFilter').setValue(null);
     this.setFilters();
   }

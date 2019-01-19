@@ -12,6 +12,9 @@ import { InternshipEditRequirementComponent } from '../internship-edit-requireme
 
 import {MatSnackBar} from '@angular/material';
 import {Action} from 'rxjs/internal/scheduler/Action';
+import {SessionManagementService} from '../../../../shared/utils/session-management.service';
+import {Role} from '../../../../shared/model/Role';
+
 
 @Component({
   selector: 'app-internship-details',
@@ -29,7 +32,8 @@ export class InternshipDetailsComponent implements OnInit {
   @Input() isProprietary: boolean;
 
 
-  constructor(public dialog: MatDialog, private internshipDetailsService: AbstractInternshipDetailsService, public snackBar: MatSnackBar) {
+  constructor(public dialog: MatDialog, private internshipDetailsService: AbstractInternshipDetailsService, public snackBar: MatSnackBar, private sessionManagementService: SessionManagementService) {
+
   }
 
   ngOnInit() {
@@ -64,6 +68,11 @@ export class InternshipDetailsComponent implements OnInit {
 
   private intialize() {
     this.internshipDetailsService.initialize();
+  }
+
+  public isLoggedUserCompany(): boolean {
+    return this.sessionManagementService.getLoggedUserRole() ===
+      Role.RoleStringEnum.COMPANY;
   }
 
   openAddSkill() {

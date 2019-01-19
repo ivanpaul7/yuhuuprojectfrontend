@@ -16,7 +16,7 @@
           {{filter}}
           <mat-icon matChipRemove *ngIf="removable">&times;</mat-icon>
         </mat-chip>
-        <input #triggerCompany type="text" matInput placeholder="Filtrati dupa numele companiei" formControlName="companyFilter"
+        <input #triggerCompany type="text" matInput placeholder="Filtrati dupa numele companiei"
                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputFor]="chipListCompany" [matAutocomplete]="autoCompany">
       </mat-chip-list>
       <mat-autocomplete #autoCompany="matAutocomplete" (optionSelected)="selectedCompany($event)">
