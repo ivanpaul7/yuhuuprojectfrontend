@@ -1,9 +1,9 @@
-<h1 mat-dialog-title>Edit profile</h1>
+<h1 mat-dialog-title>Edit internship</h1>
 <div mat-dialog-content>
   <div class="main-container">
     <mat-form-field>
       <input matInput [(ngModel)]="internship.title" placeholder="First name"
-             value="{{internship.title}}" onchange="">
+             value="{{internship.title}}">
     </mat-form-field>
     <mat-form-field>
       <input matInput [matDatepicker]="picker1" placeholder="Start Date" [(ngModel)]="internship.startDate">
@@ -25,6 +25,30 @@
                 matTextareaAutosize matAutosizeMinRows=7
                 value={{internship.description}}></textarea>
     </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="internship.freeSpots" placeholder="Free Spots"
+             value="{{internship.freeSpots}}">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Employment Type" [formControl]="selectFormControl" [(ngModel)]="internship.employmentType" required>
+        <mat-option>-</mat-option>
+        <mat-option *ngFor="let optionObject of optionsEmploymentType" [value]="optionObject.value">
+          {{optionObject.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="selectFormControl.hasError('required')">Please choose an Employment Type</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="Status" [formControl]="selectFormControlStatus" [(ngModel)]="internship.status" required>
+        <mat-option>-</mat-option>
+        <mat-option *ngFor="let optionObject of optionsStatus" [value]="optionObject.value">
+          {{optionObject.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="selectFormControl.hasError('required')">Please choose a Status</mat-error>
+    </mat-form-field>
+
   </div>
 </div>
 <div class="float-right" mat-dialog-actions>
