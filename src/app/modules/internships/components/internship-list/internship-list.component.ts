@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Company } from 'src/app/shared/model/models';
+import { Company, Role } from 'src/app/shared/model/models';
 import { InternshipDTO } from '../../../../shared/model/InternshipDTO';
 import { Internship } from '../../../../shared/model/InternshipEnums';
 import { AbstractInternshipsService } from '../../services/internships.service';
 import { AddInternshipComponent } from '../add-internship/add-internship.component';
+import { SessionManagementService } from 'src/app/shared/utils/session-management.service';
 
 @Component({
   selector: 'app-internship-list',
@@ -17,8 +18,8 @@ export class InternshipListComponent implements OnInit {
   skillFilters: string[] = [];
   companyFilters: Company[] = [];
   internshipDTOs: InternshipDTO[];
-
-  constructor(private internshipsService: AbstractInternshipsService, public dialog: MatDialog) {
+  constructor(private internshipsService: AbstractInternshipsService, public dialog: MatDialog,
+    public sessionManagementService: SessionManagementService) {
     this.internshipsService.getAllInternshipDTOs().subscribe(data => {
       this.internshipDTOs = data;
     });
