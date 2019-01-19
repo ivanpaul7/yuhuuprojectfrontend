@@ -9,60 +9,60 @@
   </div>
   <mat-card class="example-card">
     <mat-card-content>
-      <div class="row">
+      <div class="row" style="padding-bottom: 20px">
         <div class="col-md-6">
           <div class="col-sm-12 name-wrapper">
             <h1>{{applicant.firstName}} {{applicant.lastName}}</h1>
           </div>
-          <div class="col-sm-12">
-            <h4>{{applicant.birthday| date : "yyyy-MM-dd" }}</h4>
-          </div>
-          <div class="col-sm-12 cv-button-wrapper">
-            <!--CV view-->
-            <button mat-raised-button (click)="openCV()">
-              <mat-icon>attach_file</mat-icon>
-              View CV
-            </button>
+          <div class="col-sm-12" style="text-align: left">
+            <h5>{{applicant.birthday| date : "yyyy-MM-dd" }}</h5>
           </div>
         </div>
         <div class="col-md-6">
-          <div class="row">
-            <div class="col-sm-12">
-              <button mat-raised-button *ngIf="isHisProfile" class="edit-button" (click)="openBasicEditDialog()">Edit
-              </button>
-            </div>
-            <div class="col-sm-12">
-              <!--Photo upload-->
-              <input class="input-file"
-                     type="file" (change)="onPhotoFileChanged($event)"
-                     #fileInput2>
-              <button mat-raised-button *ngIf="isHisProfile" class="edit-button upload-button"
-                      (click)="fileInput2.click()">
-                <mat-icon>add_a_photo</mat-icon>
-                Upload Photo
-              </button>
-            </div>
-            <div class="col-sm-12">
-              <!--CV upload-->
-              <input class="input-file"
-                     type="file" (change)="onCVFileChanged($event)"
-                     #fileInput>
-              <button mat-raised-button *ngIf="isHisProfile" class="edit-button upload-button"
-                      (click)="fileInput.click()">
-                <mat-icon>attach_file</mat-icon>
-                Upload CV
-              </button>
-            </div>
-          </div>
         </div>
       </div>
-
+      <div class="row" style="margin-bottom: 5px">
+        <div class="col-sm-3">
+          <button class="edit-button" mat-raised-button (click)="openCV()">
+            <mat-icon>attach_file</mat-icon>
+            View CV
+          </button>
+        </div>
+        <div class="col-sm-3">
+          <button mat-raised-button *ngIf="isHisProfile" class="edit-button" (click)="openBasicEditDialog()">
+            <i class='fa fa-2x fa-edit'></i>
+            Edit
+          </button>
+        </div>
+        <div class="col-sm-3">
+          <!--Photo upload-->
+          <input class="input-file"
+                 type="file" (change)="onPhotoFileChanged($event)"
+                 #fileInput2>
+          <button mat-raised-button *ngIf="isHisProfile" class="edit-button upload-button"
+                  (click)="fileInput2.click()">
+            <mat-icon>add_a_photo</mat-icon>
+            Upload Photo
+          </button>
+        </div>
+        <div class="col-sm-3">
+          <!--CV upload-->
+          <input class="input-file"
+                 type="file" (change)="onCVFileChanged($event)"
+                 #fileInput>
+          <button mat-raised-button *ngIf="isHisProfile" class="edit-button upload-button"
+                  (click)="fileInput.click()">
+            <mat-icon>attach_file</mat-icon>
+            Upload CV
+          </button>
+        </div>
+      </div>
       <div class="divider">
         <mat-divider></mat-divider>
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <h6>{{applicant.description}}</h6>
+          <p class="p-lg-4">{{applicant.description}}</p>
         </div>
       </div>
     </mat-card-content>
@@ -79,13 +79,13 @@
         <button mat-raised-button *ngIf="isHisProfile" (click)="openContactEditDialog()">Edit</button>
       </div>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content class="fixed-font">
       <div class="row">
         <div class="col-sm-12 col-md-2 ">
           <h5>Phone:</h5>
         </div>
         <div class="col-sm-12 col-md-10">
-          <h5>{{applicant.contact.phoneNumber}}</h5>
+          <p>{{applicant.contact.phoneNumber}}</p>
         </div>
       </div>
       <div class="row">
@@ -93,7 +93,7 @@
           <h5>Email:</h5>
         </div>
         <div class="col-sm-12 col-md-10">
-          <h5>{{applicant.user.email}}</h5>
+          <p>{{applicant.user.email}}</p>
         </div>
       </div>
       <div class="row">
@@ -101,7 +101,7 @@
           <h5>Linkedin:</h5>
         </div>
         <div class="col-sm-12 col-md-10">
-          <h5><a href="{{applicant.contact.linkedinLink}}"> {{applicant.contact.linkedinLink}}</a></h5>
+          <p><a href="{{applicant.contact.linkedinLink}}"> {{applicant.contact.linkedinLink}}</a></p>
         </div>
       </div>
       <div class="row">
@@ -109,7 +109,7 @@
           <h5>Facebook:</h5>
         </div>
         <div class="col-sm-12 col-md-10">
-          <h5><a href={{applicant.contact.facebookLink}}> {{applicant.contact.facebookLink}}</a></h5>
+          <p><a href={{applicant.contact.facebookLink}}> {{applicant.contact.facebookLink}}</a></p>
         </div>
       </div>
       <div class="row">
@@ -117,7 +117,7 @@
           <h5>Website:</h5>
         </div>
         <div class="col-sm-12 col-md-10">
-          <h5><a href={{applicant.contact.website}}> {{applicant.contact.website}}</a></h5>
+          <p><a href={{applicant.contact.website}}> {{applicant.contact.website}}</a></p>
         </div>
       </div>
       <div class="divider">
@@ -133,7 +133,7 @@
           <h5>Country:</h5>
         </div>
         <div class="col-sm-12 col-md-10">
-          <h5>{{applicant.contact.address.country}}</h5>
+          <p>{{applicant.contact.address.country}}</p>
         </div>
       </div>
       <div class="row">
@@ -141,13 +141,13 @@
           <h5>City:</h5>
         </div>
         <div class="col-md-6 col-lg-4">
-          <h5>{{applicant.contact.address.town}}</h5>
+          <p>{{applicant.contact.address.town}}</p>
         </div>
         <div class="col-md-6 col-lg-2 ">
           <h5>County:</h5>
         </div>
         <div class="col-md-6 col-lg-4">
-          <h5>{{applicant.contact.address.county}}</h5>
+          <p>{{applicant.contact.address.county}}</p>
         </div>
       </div>
       <div class="row">
@@ -155,13 +155,13 @@
           <h5>Street:</h5>
         </div>
         <div class="col-md-6 col-lg-4">
-          <h5>{{applicant.contact.address.street}}</h5>
+          <p>{{applicant.contact.address.street}}</p>
         </div>
         <div class="col-md-6 col-lg-2 ">
           <h5>Number:</h5>
         </div>
         <div class="col-md-6 col-lg-4">
-          <h5>{{applicant.contact.address.number}}</h5>
+          <p>{{applicant.contact.address.number}}</p>
         </div>
       </div>
     </mat-card-content>

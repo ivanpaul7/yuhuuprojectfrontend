@@ -1,27 +1,58 @@
-<div class="container">
-  <div class="row ">
-    <div class="row1 col-12  col-sm-8  box">
-      <app-message-card [internships]="this.internshipList" [skillList]="this.skillsAsString"></app-message-card>
-    </div>
-    <div class="row1 img1 col-12 col-sm-4 box ">
+
+<div class="container-fluid container-background">
+  <div class="row first-row">
+    <div class="col-sm-4">
       <app-mini-profile [applicant]="this.applicant"></app-mini-profile>
     </div>
-  </div>
-  <div class="row ">
-    <div class="row2 col-sm-5 col-12 box">
-      <app-business-list [companies]="this.companies"></app-business-list>
-    </div>
-    <div class="row2 col-sm-7 col-12 box">
-      <app-xyline-chart [data]="this.chartData"></app-xyline-chart>
+    <div class="col-sm-8">
+      <div class="card h-75" style="margin-top: 30px; padding-bottom: 30px">
+        <div class="card-header">
+          News
+        </div>
+        <div class="card-body ">
+          <app-message-card [internships]="this.internshipList" [skillList]="this.skillsAsString"></app-message-card>
+        </div>
+      </div>
     </div>
   </div>
   <div class="row">
-    <div class="row1 col-12 col-sm-8 box">
-      <app-internships-list-for-applicant></app-internships-list-for-applicant>
+    <div class="col">
+      <div class="card">
+        <div class="card-header">
+          <h3>My internships requests</h3>
+        </div>
+        <div class="card-body">
+          <app-internships-list-for-applicant></app-internships-list-for-applicant>
+        </div>
+      </div>
     </div>
-    <div class="row1 img1 col-12 col-sm-4 box">
-      <app-pie-chart [data]="this.pieChartData"></app-pie-chart>
+  </div>
+  <div class="row">
+    <div class="col-sm-3 card-body">
+      <div class="card h-100">
+        <div class="card-header">
+          Top companies
+        </div>
+        <app-business-list [companies]="this.companies"></app-business-list>
+      </div>
+    </div>
+    <div class="col-sm-6 card-body d-none d-sm-block">
+      <div class="card h-100">
+        <div class="card-header">
+          Number of internships
+        </div>
+        <div class="h-75">
+          <app-xyline-chart [data]="this.chartData"></app-xyline-chart>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3 card-body d-none d-sm-block">
+      <div class="card h-100">
+        <div class="card-header">
+          Tags Consistency
+        </div>
+        <app-pie-chart [data]="this.pieChartData"></app-pie-chart>
+      </div>
     </div>
   </div>
 </div>
-
